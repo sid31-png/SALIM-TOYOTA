@@ -18,12 +18,14 @@
       wholesale_banner: 'Mode Vente en gros (B2B) actif — remises appliquées automatiquement.',
       hero_badge: 'Spécialiste Toyota · Nissan · Lexus · Infiniti', hero_title_1: "Pièces d'origine,", hero_title_span: 'trouvées en secondes.',
       hero_lede: 'Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.',
-      tab_oem: 'Numéro OEM', tab_vin: 'Numéro de châssis (VIN)',
+      tab_oem: 'Numéro OEM', tab_vin: 'Numéro de châssis (VIN)', tab_model: 'Par modèle',
       oem_placeholder: 'Ex. 90915-YZZD4', oem_hint: 'Essayez :',
       vin_placeholder: 'Ex. JTMBK3FV000000001 (17 caractères)', vin_hint: 'Essayez :',
       vin_detected: 'Véhicule détecté :', vin_not_found: "VIN non reconnu. Essayez l'un des exemples ci-dessus.",
+      model_select_brand_ph: 'Choisir la marque', model_select_model_ph: 'Choisir le modèle',
       search_btn: 'Rechercher',
       brands_eyebrow: 'Nos marques', brands_title: 'Achetez par marque',
+      models_eyebrow: 'Véhicules populaires', models_title: 'Modèles les plus demandés',
       categories_eyebrow: 'Catégories', categories_title: 'Trouvez plus vite', view_all: 'Voir toutes les catégories',
       cat_engine: 'Moteur', cat_brake: 'Freinage', cat_suspension: 'Suspension', cat_filter: 'Filtres', cat_electrical: 'Électrique', cat_body: 'Carrosserie',
       shop_eyebrow: 'Catalogue', shop_title: 'Pièces en vedette', shop_subtitle: 'Pièces d’origine et premium pour Toyota, Nissan, Lexus et Infiniti.',
@@ -68,12 +70,14 @@
       wholesale_banner: 'وضع البيع بالجملة (B2B) مُفعّل — يتم تطبيق خصومات الكمية تلقائيًا.',
       hero_badge: 'متخصصون في تويوتا · نيسان · لكزس · إنفينيتي', hero_title_1: 'قطع غيار أصلية،', hero_title_span: 'تجدها في ثوانٍ.',
       hero_lede: 'ابحث برقم القطعة الأصلي (OEM) أو برقم الهيكل (VIN) للعثور على القطعة المطابقة تمامًا.',
-      tab_oem: 'رقم القطعة (OEM)', tab_vin: 'رقم الهيكل (VIN)',
+      tab_oem: 'رقم القطعة (OEM)', tab_vin: 'رقم الهيكل (VIN)', tab_model: 'حسب الموديل',
       oem_placeholder: 'مثال: 90915-YZZD4', oem_hint: 'جرّب:',
       vin_placeholder: 'مثال: JTMBK3FV000000001 (17 رمزًا)', vin_hint: 'جرّب:',
       vin_detected: 'تم التعرف على المركبة:', vin_not_found: 'رقم الهيكل غير معروف. جرّب أحد الأمثلة أعلاه.',
+      model_select_brand_ph: 'اختر الماركة', model_select_model_ph: 'اختر الموديل',
       search_btn: 'بحث',
       brands_eyebrow: 'ماركاتنا', brands_title: 'تسوّق حسب الماركة',
+      models_eyebrow: 'المركبات الشائعة', models_title: 'الموديلات الأكثر طلبًا',
       categories_eyebrow: 'الفئات', categories_title: 'ابحث بشكل أسرع', view_all: 'عرض كل الفئات',
       cat_engine: 'قطع المحرك', cat_brake: 'نظام الفرامل', cat_suspension: 'نظام التعليق', cat_filter: 'الفلاتر', cat_electrical: 'الكهرباء', cat_body: 'الهيكل والتشطيب',
       shop_eyebrow: 'الكتالوج', shop_title: 'قطع مميزة', shop_subtitle: 'قطع غيار أصلية وبديلة ممتازة لسيارات تويوتا ونيسان ولكزس وإنفينيتي.',
@@ -110,6 +114,58 @@
       toast_sim_on: 'تجريبي: تم فرض نفاد المخزون على جميع القطع', toast_sim_off: 'تجريبي: تمت استعادة مستويات المخزون',
       toast_wishlist_added: 'تمت الإضافة إلى المفضلة', toast_wishlist_removed: 'تمت الإزالة من المفضلة', account_demo: 'تسجيل الدخول تجريبي فقط',
       toast_vehicle_found: 'عرض القطع الخاصة بـ'
+    },
+    en: {
+      tagline: 'Genuine & OEM Parts Specialist', track_order: 'Track my order', b2b_partner: 'Become a B2B partner', help: 'Help',
+      nav_shop: 'Shop', nav_brands: 'Brands', nav_wholesale: 'Wholesale (B2B)', nav_contact: 'Contact',
+      mode_retail: 'Retail', mode_wholesale: 'Wholesale', sim_label: 'Simulate out of stock',
+      wholesale_banner: 'Wholesale (B2B) mode active — bulk discounts applied automatically.',
+      hero_badge: 'Toyota · Nissan · Lexus · Infiniti specialist', hero_title_1: 'Genuine parts,', hero_title_span: 'found in seconds.',
+      hero_lede: 'Search by OEM reference number or by chassis number (VIN) to find the exact part.',
+      tab_oem: 'OEM Number', tab_vin: 'Chassis Number (VIN)', tab_model: 'By Model',
+      oem_placeholder: 'e.g. 90915-YZZD4', oem_hint: 'Try:',
+      vin_placeholder: 'e.g. JTMBK3FV000000001 (17 characters)', vin_hint: 'Try:',
+      vin_detected: 'Vehicle detected:', vin_not_found: 'VIN not recognized. Try one of the examples above.',
+      model_select_brand_ph: 'Select brand', model_select_model_ph: 'Select model',
+      search_btn: 'Search',
+      brands_eyebrow: 'Our brands', brands_title: 'Shop by brand',
+      models_eyebrow: 'Popular vehicles', models_title: 'Most requested models',
+      categories_eyebrow: 'Categories', categories_title: 'Find it faster', view_all: 'View all categories',
+      cat_engine: 'Engine Parts', cat_brake: 'Brake System', cat_suspension: 'Suspension', cat_filter: 'Filters', cat_electrical: 'Electrical', cat_body: 'Body & Trim',
+      shop_eyebrow: 'Catalog', shop_title: 'Featured Parts', shop_subtitle: 'Genuine and premium-aftermarket parts for Toyota, Nissan, Lexus and Infiniti.',
+      grid_search_placeholder: 'Search parts, SKU, model...',
+      filter_brand: 'Brand', filter_category: 'Category', filter_availability: 'Availability',
+      avail_in_stock: 'In Stock', avail_out_stock: 'Not Available', clear_filters: 'Clear filters', results_found: 'parts found',
+      sort_relevance: 'Sort: Relevance', sort_price_asc: 'Price: Low to High', sort_price_desc: 'Price: High to Low', sort_name: 'Name: A-Z',
+      fits: 'Fits:', sku: 'Reference:', in_stock: 'In Stock', not_available: 'Not Available', currently_unavailable: 'Currently unavailable',
+      add_to_cart: 'Add to Cart', notify_me: 'Notify Me', min_order: 'Min. order:', units: 'unit(s)',
+      no_results: 'No parts match your filters.',
+      cta_eyebrow: 'B2B Program', cta_title: 'Run a garage or resell parts? Get wholesale pricing.',
+      cta_desc: 'Unlock tiered bulk pricing, dedicated support and priority stock allocation.',
+      cta_perk1: 'Up to 30% off', cta_perk2: 'Priority shipping', cta_perk3: 'Dedicated account manager', cta_btn: 'Apply for a B2B account',
+      trust1_t: '100% Genuine Parts', trust1_d: 'Sourced from authorized channels.',
+      trust2_t: 'Fast Shipping', trust2_d: 'Same-day dispatch on in-stock orders.',
+      trust3_t: 'Warranty Included', trust3_d: 'Every part is covered by a fitment guarantee.',
+      trust4_t: 'Wholesale Pricing', trust4_d: 'Automatic discounts in Wholesale mode.',
+      newsletter_title: 'Stay ahead on stock & pricing', newsletter_desc: 'Get notified about new arrivals, restocks and B2B offers.',
+      newsletter_ph: 'you@company.com', subscribe: 'Subscribe',
+      footer_desc: 'Genuine and premium-aftermarket parts specialist for Toyota, Nissan, Lexus and Infiniti — wholesale and retail.',
+      footer_shop: 'Shop', footer_by_brand: 'By brand', footer_by_cat: 'By category', footer_all_parts: 'All parts', footer_wholesale: 'Wholesale (B2B)',
+      footer_support: 'Support', footer_track: 'Track my order', footer_returns: 'Returns & warranty', footer_shipping: 'Shipping info', footer_faq: 'FAQ',
+      footer_company: 'Company', footer_about: 'About us', footer_partner: 'Become a partner', footer_contact: 'Contact', footer_careers: 'Careers',
+      footer_rights: 'All rights reserved.',
+      cart_title: 'Your Cart', cart_empty: 'Your cart is empty.', cart_empty_sub: 'Browse the catalog to add parts.',
+      cart_subtotal: 'Subtotal', cart_shipping: 'Estimated shipping', cart_total: 'Total', cart_checkout: 'Checkout',
+      cart_wholesale_note: 'Wholesale pricing applied to this order.', cart_free: 'Free',
+      notify_title: 'Get notified when back in stock', notify_desc_prefix: "We'll email you the moment", notify_desc_suffix: 'is available again.',
+      notify_ph: 'you@email.com', notify_cancel: 'Cancel', notify_confirm: 'Notify Me',
+      toast_added_cart: 'Added to cart', toast_wholesale_on: 'Wholesale (B2B) mode activated', toast_retail_on: 'Retail mode activated',
+      toast_filters_cleared: 'Filters cleared', toast_notify_confirmed: "You'll be notified when this part is back in stock",
+      toast_invalid_email: 'Please enter a valid email address', toast_checkout: 'Demo checkout — order simulated successfully!',
+      toast_cart_empty: 'Your cart is empty', toast_subscribed: 'Subscribed! Watch your inbox.',
+      toast_sim_on: 'Demo: all parts forced to "Not Available"', toast_sim_off: 'Demo: stock levels restored',
+      toast_wishlist_added: 'Added to wishlist', toast_wishlist_removed: 'Removed from wishlist', account_demo: 'Account login is a demo placeholder',
+      toast_vehicle_found: 'Showing parts for'
     }
   };
 
@@ -119,6 +175,13 @@
 
   const BRAND_LABELS = { toyota: 'Toyota', nissan: 'Nissan', lexus: 'Lexus', infiniti: 'Infiniti' };
   const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
+
+  const VEHICLE_MODELS = {
+    toyota: ['Land Cruiser', 'Hilux', 'Corolla', 'Camry', 'Fortuner'],
+    nissan: ['Patrol', 'GT-R', 'X-Trail', 'Navara'],
+    lexus: ['LX570', 'RX350', 'ES350', 'IS300'],
+    infiniti: ['QX80', 'Q50', 'QX60', 'FX35', 'G37']
+  };
 
   const PRODUCTS = [
     { id: 'p01', brand: 'toyota', fits: ['Land Cruiser', 'Hilux', 'Fortuner'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
@@ -185,7 +248,8 @@
    * ------------------------------------------------------------------ */
 
   function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
-  const currency = () => new Intl.NumberFormat(state.lang === 'ar' ? 'ar-EG' : 'fr-FR', { style: 'currency', currency: 'XOF', maximumFractionDigits: 0 });
+  const LOCALE_MAP = { fr: 'fr-FR', en: 'en-US', ar: 'ar-EG' };
+  const currency = () => new Intl.NumberFormat(LOCALE_MAP[state.lang] || 'fr-FR', { style: 'currency', currency: 'XOF', maximumFractionDigits: 0 });
   const fmt = (n) => currency().format(n).replace('XOF', 'FCFA');
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
   function $all(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
@@ -201,9 +265,12 @@
   function applyTranslations() {
     $all('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
     $all('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
-    document.title = state.lang === 'ar'
-      ? 'سالم لقطع غيار السيارات | قطع تويوتا، نيسان، لكزس وإنفينيتي'
-      : "Salim Auto Parts | Pièces Toyota, Nissan, Lexus & Infiniti";
+    const titles = {
+      ar: 'سالم لقطع غيار السيارات | قطع تويوتا، نيسان، لكزس وإنفينيتي',
+      en: 'Salim Auto Parts | Toyota, Nissan, Lexus & Infiniti Parts',
+      fr: "Salim Auto Parts | Pièces Toyota, Nissan, Lexus & Infiniti"
+    };
+    document.title = titles[state.lang] || titles.fr;
   }
 
   function setLanguage(lang) {
@@ -300,6 +367,36 @@
         input.value = chip.dataset.fill;
         input.focus();
       });
+    });
+  }
+
+  function initModelSearch() {
+    const brandSelect = $('#modelBrandSelect');
+    const modelSelect = $('#modelModelSelect');
+    const findBtn = $('#modelFindBtn');
+
+    brandSelect.addEventListener('change', () => {
+      const brand = brandSelect.value;
+      modelSelect.disabled = !brand;
+      findBtn.disabled = true;
+      modelSelect.innerHTML = '<option value="">' + t('model_select_model_ph') + '</option>' +
+        (brand ? VEHICLE_MODELS[brand].map((m) => '<option value="' + m + '">' + m + '</option>').join('') : '');
+    });
+
+    modelSelect.addEventListener('change', () => { findBtn.disabled = !modelSelect.value; });
+
+    findBtn.addEventListener('click', () => {
+      const brand = brandSelect.value;
+      const model = modelSelect.value;
+      if (!brand || !model) return;
+      state.vehicleBrand = brand;
+      state.vehicleModel = model;
+      state.search = '';
+      state.filters.brands = new Set([brand]);
+      syncFilterCheckboxes();
+      render();
+      $('#shop').scrollIntoView({ behavior: 'smooth' });
+      showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[brand] + ' ' + model, 'info');
     });
   }
 
@@ -625,6 +722,7 @@
     initLangSwitch();
     initSimToggle();
     initSearch();
+    initModelSearch();
     initFilters();
     initProductGridEvents();
     initCartEvents();

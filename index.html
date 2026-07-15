@@ -67,6 +67,7 @@
 
       <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
         <button type="button" class="active" data-lang="fr">FR</button>
+        <button type="button" data-lang="en">EN</button>
         <button type="button" data-lang="ar">AR</button>
       </div>
 
@@ -98,7 +99,12 @@
 </div>
 
 <!-- ============ HERO (PartSouq-style centered search) ============ -->
-<section class="hero">
+<section class="hero has-video">
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="assets/video/hero-bg.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="container hero-inner">
     <span class="hero-badge">
       <span class="dots">
@@ -112,7 +118,8 @@
     <div class="finder-card">
       <div class="finder-tabs">
         <button type="button" class="active" data-panel="oem"><i data-lucide="scan-line"></i> <span data-i18n="tab_oem">Numéro OEM</span></button>
-        <button type="button" data-panel="vin"><i data-lucide="car"></i> <span data-i18n="tab_vin">Numéro de châssis (VIN)</span></button>
+        <button type="button" data-panel="vin"><i data-lucide="hash"></i> <span data-i18n="tab_vin">Numéro de châssis (VIN)</span></button>
+        <button type="button" data-panel="model"><i data-lucide="car"></i> <span data-i18n="tab_model">Par modèle</span></button>
       </div>
 
       <!-- OEM search -->
@@ -139,6 +146,25 @@
         <div class="search-hint"><span data-i18n="vin_hint">Essayez :</span> <code data-fill="JTMBK3FV000000001">JTMBK3FV000000001</code> <code data-fill="JN1AZ0CP0BM000001">JN1AZ0CP0BM000001</code></div>
         <div class="vin-result" id="vinResult"><i data-lucide="check-circle-2"></i><span id="vinResultText"></span></div>
       </div>
+
+      <!-- By vehicle model -->
+      <div class="finder-panel" id="panel-model">
+        <div class="model-select-grid">
+          <select id="modelBrandSelect">
+            <option value="" data-i18n="model_select_brand_ph">Choisir la marque</option>
+            <option value="toyota">Toyota</option>
+            <option value="nissan">Nissan</option>
+            <option value="lexus">Lexus</option>
+            <option value="infiniti">Infiniti</option>
+          </select>
+          <select id="modelModelSelect" disabled>
+            <option value="" data-i18n="model_select_model_ph">Choisir le modèle</option>
+          </select>
+        </div>
+        <button type="button" id="modelFindBtn" class="btn btn-primary btn-block" disabled>
+          <i data-lucide="search"></i> <span data-i18n="search_btn">Rechercher</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -154,20 +180,50 @@
     </div>
     <div class="grid brand-strip-grid">
       <button class="brand-card" data-brand-filter="toyota">
-        <span class="brand-mark toyota">TOY</span>
+        <span class="brand-mark"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_carlogo.svg" alt="Toyota" loading="lazy" /></span>
         <span class="bname">Toyota</span><span class="bcount">3,400+</span>
       </button>
       <button class="brand-card" data-brand-filter="nissan">
-        <span class="brand-mark nissan">NIS</span>
+        <span class="brand-mark"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_2020_logo.svg" alt="Nissan" loading="lazy" /></span>
         <span class="bname">Nissan</span><span class="bcount">2,850+</span>
       </button>
       <button class="brand-card" data-brand-filter="lexus">
-        <span class="brand-mark lexus">LEX</span>
+        <span class="brand-mark"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lexus.svg" alt="Lexus" loading="lazy" /></span>
         <span class="bname">Lexus</span><span class="bcount">1,760+</span>
       </button>
       <button class="brand-card" data-brand-filter="infiniti">
-        <span class="brand-mark infiniti">INF</span>
+        <span class="brand-mark"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Infiniti_logo.svg" alt="Infiniti" loading="lazy" /></span>
         <span class="bname">Infiniti</span><span class="bcount">1,390+</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULAR MODELS (PHOTOS) ============ -->
+<section class="section section-tight">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow" data-i18n="models_eyebrow">Véhicules populaires</span>
+        <h2 class="section-title" data-i18n="models_title">Modèles les plus demandés</h2>
+      </div>
+    </div>
+    <div class="grid models-grid">
+      <button class="model-card" data-brand-filter="toyota">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_Land_Cruiser.JPG?width=700" alt="Toyota Land Cruiser" loading="lazy" />
+        <span class="model-overlay"><span class="model-label"><span class="mbrand">Toyota</span><span class="mname">Land Cruiser</span></span></span>
+      </button>
+      <button class="model-card" data-brand-filter="nissan">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_GT-R_01.JPG?width=700" alt="Nissan GT-R" loading="lazy" />
+        <span class="model-overlay"><span class="model-label"><span class="mbrand">Nissan</span><span class="mname">GT-R</span></span></span>
+      </button>
+      <button class="model-card" data-brand-filter="lexus">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lexus_LX_570.jpg?width=700" alt="Lexus LX 570" loading="lazy" />
+        <span class="model-overlay"><span class="model-label"><span class="mbrand">Lexus</span><span class="mname">LX 570</span></span></span>
+      </button>
+      <button class="model-card" data-brand-filter="infiniti">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Infiniti_QX80.jpg?width=700" alt="Infiniti QX80" loading="lazy" />
+        <span class="model-overlay"><span class="model-label"><span class="mbrand">Infiniti</span><span class="mname">QX80</span></span></span>
       </button>
     </div>
   </div>
