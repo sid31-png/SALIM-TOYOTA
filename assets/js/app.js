@@ -48,6 +48,13 @@
       contact_eyebrow: 'Contact', contact_title: 'Une question ? Contactez-nous',
       contact_phone_label: 'Téléphone', contact_email_label: 'Email',
       contact_location_label: 'Algérie', contact_location_value: 'Livraison dans tout le pays',
+      payment_method_title: 'Méthode de paiement', payment_cod: 'Paiement à la livraison',
+      payment_edahabia: 'Carte EDAHABIA (Dahabia)', payment_cib: 'Carte CIB',
+      wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
+      track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
+      track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
+      track_close: 'Fermer', track_status_paid: 'Payée', track_status_cod: 'Paiement à la livraison',
+      track_no_order: 'Aucune commande récente — ceci est un aperçu de démonstration.',
       newsletter_title: 'Restez informé des stocks et tarifs', newsletter_desc: 'Recevez les nouveautés, réapprovisionnements et offres B2B.',
       newsletter_ph: 'vous@entreprise.com', subscribe: "S'abonner",
       footer_desc: 'Spécialiste en pièces détachées d’origine et premium pour Toyota, Nissan, Lexus et Infiniti — vente en gros et au détail.',
@@ -105,6 +112,13 @@
       contact_eyebrow: 'اتصل بنا', contact_title: 'هل لديك سؤال؟ تواصل معنا',
       contact_phone_label: 'الهاتف', contact_email_label: 'البريد الإلكتروني',
       contact_location_label: 'الجزائر', contact_location_value: 'توصيل إلى جميع أنحاء البلاد',
+      payment_method_title: 'طريقة الدفع', payment_cod: 'الدفع عند الاستلام',
+      payment_edahabia: 'بطاقة الذهبية (EDAHABIA)', payment_cib: 'بطاقة CIB',
+      wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
+      track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
+      track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
+      track_close: 'إغلاق', track_status_paid: 'مدفوعة', track_status_cod: 'الدفع عند الاستلام',
+      track_no_order: 'لا يوجد طلب حديث — هذه معاينة تجريبية.',
       newsletter_title: 'ابقَ على اطّلاع بالمخزون والأسعار', newsletter_desc: 'احصل على إشعارات بالوافدين الجدد وتوفر المخزون وعروض الجملة.',
       newsletter_ph: 'you@company.com', subscribe: 'اشتراك',
       footer_desc: 'متخصصون في قطع الغيار الأصلية والبديلة الممتازة لتويوتا ونيسان ولكزس وإنفينيتي — بالجملة والتجزئة.',
@@ -162,6 +176,13 @@
       contact_eyebrow: 'Contact', contact_title: 'Got a question? Get in touch',
       contact_phone_label: 'Phone', contact_email_label: 'Email',
       contact_location_label: 'Algeria', contact_location_value: 'Nationwide delivery',
+      payment_method_title: 'Payment method', payment_cod: 'Cash on delivery',
+      payment_edahabia: 'EDAHABIA (Dahabia) card', payment_cib: 'CIB card',
+      wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
+      track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
+      track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
+      track_close: 'Close', track_status_paid: 'Paid', track_status_cod: 'Cash on delivery',
+      track_no_order: 'No recent order — this is a demo preview.',
       newsletter_title: 'Stay ahead on stock & pricing', newsletter_desc: 'Get notified about new arrivals, restocks and B2B offers.',
       newsletter_ph: 'you@company.com', subscribe: 'Subscribe',
       footer_desc: 'Genuine and premium-aftermarket parts specialist for Toyota, Nissan, Lexus and Infiniti — wholesale and retail.',
@@ -190,6 +211,14 @@
 
   const BRAND_LABELS = { toyota: 'Toyota', nissan: 'Nissan', lexus: 'Lexus', infiniti: 'Infiniti' };
   const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
+  const CATEGORY_PHOTOS = {
+    engine: 'https://commons.wikimedia.org/wiki/Special:FilePath/Spark_plugs.jpg?width=500',
+    brake: 'https://commons.wikimedia.org/wiki/Special:FilePath/Disc_brake_pads.JPG?width=500',
+    suspension: 'https://commons.wikimedia.org/wiki/Special:FilePath/Shock_Absorbers_Detail.jpg?width=500',
+    filter: 'https://commons.wikimedia.org/wiki/Special:FilePath/Oil_filter.JPG?width=500',
+    electrical: 'https://commons.wikimedia.org/wiki/Special:FilePath/Alternator.jpg?width=500',
+    body: 'https://commons.wikimedia.org/wiki/Special:FilePath/Headlight_Honda_CR-Z.jpg?width=500'
+  };
 
   const VEHICLE_MODELS = {
     toyota: ['Land Cruiser', 'Land Cruiser Prado', 'Hilux', 'Corolla', 'Camry', 'Fortuner', 'Yaris', 'Vitz', 'RAV4', 'Highlander', 'C-HR', 'Prius', 'Avalon', 'Avensis', 'Auris', 'Tacoma', 'Tundra', '4Runner', 'Sequoia', 'Sienna', 'Supra', 'Hiace', 'Innova', 'Alphard', 'Crown'],
@@ -233,7 +262,31 @@
     { id: 'p21', brand: 'infiniti', fits: ['Q50'], name: 'Rear Shock Absorber', category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
     { id: 'p22', brand: 'infiniti', fits: ['QX60'], name: 'Engine Mount', category: 'engine', sku: '11220-JA00B', price: 58000, wholesalePrice: 47000, moq: 2, stock: true, rating: 4.5, reviews: 37 },
     { id: 'p23', brand: 'infiniti', fits: ['FX35'], name: 'Fender Liner', category: 'body', sku: '63840-CG000', price: 19500, wholesalePrice: 15000, moq: 3, stock: false, rating: 4.2, reviews: 15 },
-    { id: 'p24', brand: 'infiniti', fits: ['G37'], name: 'Alternator', category: 'electrical', sku: '23100-JK21A', price: 112000, wholesalePrice: 94000, moq: 1, stock: true, rating: 4.6, reviews: 51 }
+    { id: 'p24', brand: 'infiniti', fits: ['G37'], name: 'Alternator', category: 'electrical', sku: '23100-JK21A', price: 112000, wholesalePrice: 94000, moq: 1, stock: true, rating: 4.6, reviews: 51 },
+
+    // Real inventory — Benmoussa Salim, Tissemsilt (from supplier price list)
+    { id: 'p25', brand: 'toyota', fits: ['Land Cruiser Prado'], name: "Alternateur KUN D4D", category: 'electrical', sku: 'EA1003N', price: 28500, wholesalePrice: 23500, moq: 2, stock: true, rating: 4.6, reviews: 12 },
+    { id: 'p26', brand: 'nissan', fits: ['Navara'], name: 'Alternateur Nissan Navara D40T YD25', category: 'electrical', sku: 'TAL21725', price: 33000, wholesalePrice: 27500, moq: 1, stock: true, rating: 4.7, reviews: 9 },
+    { id: 'p27', brand: 'nissan', fits: ['Micra'], name: 'Alternateur Nissan Micra K13 12V 100A', category: 'electrical', sku: 'EA1006N', price: 22000, wholesalePrice: 18000, moq: 2, stock: true, rating: 4.5, reviews: 15 },
+    { id: 'p28', brand: 'toyota', fits: ['Yaris'], name: 'Alternateur Yaris NSP130 Essence', category: 'electrical', sku: 'WP270600Y120', price: 36000, wholesalePrice: 30000, moq: 1, stock: true, rating: 4.6, reviews: 7 },
+    { id: 'p29', brand: 'nissan', fits: ['Sunny'], name: 'Alternateur Nissan Sunny B10', category: 'electrical', sku: '23100-95F0A', price: 25500, wholesalePrice: 21000, moq: 2, stock: true, rating: 4.5, reviews: 11 },
+    { id: 'p30', brand: 'toyota', fits: ['Land Cruiser'], name: 'Amortisseur AR Land Cruiser/KUN15', category: 'suspension', sku: '48531-09500', price: 9500, wholesalePrice: 7800, moq: 4, stock: true, rating: 4.7, reviews: 22 },
+    { id: 'p31', brand: 'toyota', fits: ['Land Cruiser Prado'], name: 'Amortisseur AV DR Land Cruiser/KUN25', category: 'suspension', sku: '48510-09J80', price: 22800, wholesalePrice: 19000, moq: 1, stock: true, rating: 4.6, reviews: 8 },
+    { id: 'p32', brand: 'nissan', fits: ['Sunny'], name: 'Amortisseur AR Nissan Sunny B10/N16', category: 'suspension', sku: 'DS1103GT', price: 6250, wholesalePrice: 5100, moq: 2, stock: true, rating: 4.4, reviews: 17 },
+    { id: 'p33', brand: 'nissan', fits: ['Qashqai'], name: 'Amortisseur AV DR Nissan Qashqai J11', category: 'suspension', sku: 'TS017240', price: 8350, wholesalePrice: 6900, moq: 2, stock: false, rating: 4.5, reviews: 6 },
+    { id: 'p34', brand: 'toyota', fits: ['Yaris'], name: 'Amortisseur AV DR Yaris NLP/NSP130', category: 'suspension', sku: 'PAM169260962', price: 9500, wholesalePrice: 7900, moq: 1, stock: true, rating: 4.6, reviews: 9 },
+    { id: 'p35', brand: 'toyota', fits: ['Corolla'], name: "Bobine d'allumage Corolla ZRE 1ZRFE", category: 'electrical', sku: '099700-2500', price: 10500, wholesalePrice: 8700, moq: 2, stock: true, rating: 4.7, reviews: 13 },
+    { id: 'p36', brand: 'nissan', fits: ['Sunny'], name: "Bobine d'allumage Nissan Sunny B10", category: 'electrical', sku: '22448-95F0A', price: 4850, wholesalePrice: 3950, moq: 4, stock: true, rating: 4.5, reviews: 19 },
+    { id: 'p37', brand: 'nissan', fits: ['Micra'], name: "Bobine d'allumage Nissan Sunny N17/Micra K13", category: 'electrical', sku: '22448-1HC0A', price: 6200, wholesalePrice: 5100, moq: 3, stock: true, rating: 4.6, reviews: 10 },
+    { id: 'p38', brand: 'nissan', fits: ['Sunny'], name: "Bougie d'allumage Nissan Sunny B10 Iridium", category: 'engine', sku: '22401-1HC1B', price: 2750, wholesalePrice: 2250, moq: 6, stock: true, rating: 4.8, reviews: 28 },
+    { id: 'p39', brand: 'nissan', fits: ['Micra'], name: "Bougie d'allumage Nissan N17/Tiida/K13/NSP130", category: 'engine', sku: '22401-ED815', price: 550, wholesalePrice: 450, moq: 10, stock: true, rating: 4.7, reviews: 34 },
+    { id: 'p40', brand: 'nissan', fits: ['Sunny'], name: 'Arbre à came Nissan Sunny B10/N16 admission', category: 'engine', sku: '13020-AU000', price: 7300, wholesalePrice: 6000, moq: 2, stock: true, rating: 4.5, reviews: 8 },
+    { id: 'p41', brand: 'toyota', fits: ['Land Cruiser'], name: 'Arbre de roue KUN15 ABS', category: 'suspension', sku: '42311-0K020', price: 29500, wholesalePrice: 24500, moq: 1, stock: false, rating: 4.6, reviews: 5 },
+    { id: 'p42', brand: 'toyota', fits: ['Hilux'], name: 'Aile AV Hilux Vigo 11 2WD DR', category: 'body', sku: 'TY210-01AYR', price: 11800, wholesalePrice: 9700, moq: 1, stock: true, rating: 4.4, reviews: 7 },
+    { id: 'p43', brand: 'toyota', fits: ['Land Cruiser Prado'], name: 'Aile AV KUN 12+ DR', category: 'body', sku: 'TYF175RA', price: 13500, wholesalePrice: 11200, moq: 1, stock: true, rating: 4.5, reviews: 6 },
+    { id: 'p44', brand: 'nissan', fits: ['Qashqai'], name: 'Axe étrier AV Nissan Qashqai/X-Trail T31', category: 'brake', sku: 'D7176C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.6, reviews: 11 },
+    { id: 'p45', brand: 'nissan', fits: ['Sunny'], name: 'Axe étrier AV Nissan Sunny N17 Autofren', category: 'brake', sku: 'D7280C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.5, reviews: 9 },
+    { id: 'p46', brand: 'toyota', fits: ['Corolla'], name: 'Balai essuie-glace 700 Toyota', category: 'body', sku: 'T170-28', price: 2000, wholesalePrice: 1600, moq: 6, stock: true, rating: 4.3, reviews: 14 }
   ];
 
   // Mock VIN -> vehicle decoder
@@ -263,7 +316,9 @@
     filters: { brands: new Set(), categories: new Set(), availability: new Set() },
     sort: 'relevance',
     cart: [],
-    wishlist: new Set()
+    wishlist: new Set(),
+    paymentMethod: 'cod',
+    lastOrder: null
   };
 
   /* ------------------------------------------------------------------ *
@@ -305,6 +360,8 @@
     applyTranslations();
     render();
     renderCart();
+    renderWishlist();
+    if ($('#trackModal').classList.contains('visible')) renderTrackModal();
   }
 
   function setTheme(theme) {
@@ -493,9 +550,16 @@
 
     $all('[data-brand-filter]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        state.filters.brands = new Set([btn.dataset.brandFilter]);
-        state.vehicleBrand = null;
-        state.vehicleModel = null;
+        const brand = btn.dataset.brandFilter;
+        const model = btn.dataset.modelFilter;
+        state.filters.brands = new Set([brand]);
+        if (model) {
+          state.vehicleBrand = brand;
+          state.vehicleModel = model;
+        } else {
+          state.vehicleBrand = null;
+          state.vehicleModel = null;
+        }
         syncFilterCheckboxes();
         render();
         $('#shop').scrollIntoView({ behavior: 'smooth' });
@@ -568,10 +632,11 @@
     return (
       '<article class="product-card' + (stock ? '' : ' out-of-stock') + '" data-id="' + p.id + '">' +
         '<div class="product-media cat-' + p.category + '">' +
+          '<img src="' + CATEGORY_PHOTOS[p.category] + '" alt="' + t('cat_' + p.category) + '" loading="lazy" />' +
           '<div class="media-badges">' + stockBadge +
             '<button class="wishlist-btn' + (inWishlist ? ' active' : '') + '" data-action="wishlist" data-id="' + p.id + '" aria-label="Wishlist"><i data-lucide="heart"></i></button>' +
           '</div>' +
-          '<i data-lucide="' + CATEGORY_ICONS[p.category] + '"></i>' +
+          '<span class="media-cat-icon"><i data-lucide="' + CATEGORY_ICONS[p.category] + '"></i></span>' +
         '</div>' +
         '<div class="product-body">' +
           '<span class="product-brand-row"><span class="brand-dot ' + p.brand + '"></span>' + BRAND_LABELS[p.brand] + ' &middot; ' + t('cat_' + p.category) + '</span>' +
@@ -609,7 +674,65 @@
   function toggleWishlist(id, btn) {
     if (state.wishlist.has(id)) { state.wishlist.delete(id); btn.classList.remove('active'); showToast(t('toast_wishlist_removed'), 'info'); }
     else { state.wishlist.add(id); btn.classList.add('active'); showToast(t('toast_wishlist_added')); }
+    updateWishlistCount();
+    renderWishlist();
   }
+
+  function updateWishlistCount() {
+    const badge = $('#wishlistCount');
+    if (badge) badge.textContent = state.wishlist.size;
+  }
+
+  function renderWishlist() {
+    const container = $('#wishlistItems');
+    if (!container) return;
+    const items = Array.from(state.wishlist).map(findProduct).filter(Boolean);
+    if (!items.length) {
+      container.innerHTML = '<div class="cart-empty"><i data-lucide="heart"></i><p>' + t('wishlist_empty') + '<br>' + t('wishlist_empty_sub') + '</p></div>';
+      refreshIcons();
+      return;
+    }
+    container.innerHTML = items.map((p) => {
+      const price = unitPrice(p);
+      const stock = isInStock(p);
+      return (
+        '<div class="cart-item" data-id="' + p.id + '">' +
+          '<div class="cart-item-media"><i data-lucide="' + CATEGORY_ICONS[p.category] + '"></i></div>' +
+          '<div class="cart-item-info">' +
+            '<div class="ciname">' + p.name + '</div>' +
+            '<div class="cisku">' + BRAND_LABELS[p.brand] + ' &middot; ' + p.sku + '</div>' +
+            '<div class="cart-item-row">' +
+              '<span class="cart-item-price">' + fmt(price) + '</span>' +
+              (stock
+                ? '<button class="btn btn-primary btn-sm" data-action="wishlist-add" data-id="' + p.id + '"><i data-lucide="shopping-cart"></i></button>'
+                : '<span class="badge badge-danger">' + t('not_available') + '</span>') +
+            '</div>' +
+          '</div>' +
+          '<button class="cart-item-remove" data-action="wishlist-remove" data-id="' + p.id + '" aria-label="Remove"><i data-lucide="trash-2"></i></button>' +
+        '</div>'
+      );
+    }).join('');
+    refreshIcons();
+  }
+
+  function initWishlistDrawer() {
+    $('#wishlistItems').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]'); if (!btn) return;
+      const id = btn.dataset.id;
+      if (btn.dataset.action === 'wishlist-add') { addToCart(id); }
+      else if (btn.dataset.action === 'wishlist-remove') {
+        state.wishlist.delete(id);
+        updateWishlistCount();
+        renderWishlist();
+        $all('.wishlist-btn[data-id="' + id + '"]').forEach((b) => b.classList.remove('active'));
+      }
+    });
+    $('#wishlistNavBtn').addEventListener('click', openWishlist);
+    $('#wishlistCloseBtn').addEventListener('click', closeWishlist);
+    $('#wishlistOverlay').addEventListener('click', closeWishlist);
+  }
+  function openWishlist() { renderWishlist(); $('#wishlistDrawer').classList.add('open'); $('#wishlistOverlay').classList.add('visible'); }
+  function closeWishlist() { $('#wishlistDrawer').classList.remove('open'); $('#wishlistOverlay').classList.remove('visible'); }
 
   /* ------------------------------------------------------------------ *
    *  10. CART
@@ -681,14 +804,62 @@
     $('#cartBtn').addEventListener('click', openCart);
     $('#cartCloseBtn').addEventListener('click', closeCart);
     $('#overlay').addEventListener('click', closeCart);
+    $('#paymentMethodGroup').addEventListener('change', (e) => {
+      if (e.target.name === 'paymentMethod') state.paymentMethod = e.target.value;
+    });
     $('#checkoutBtn').addEventListener('click', () => {
       if (!state.cart.length) { showToast(t('toast_cart_empty'), 'info'); return; }
+      const subtotal = state.cart.reduce((sum, c) => sum + unitPrice(findProduct(c.id)) * c.qty, 0);
+      const shipping = state.mode === 'wholesale' ? 0 : 3500;
+      state.lastOrder = {
+        paymentMethod: state.paymentMethod,
+        total: subtotal + shipping,
+        step: 2,
+        placedAt: Date.now()
+      };
       showToast(t('toast_checkout'));
       state.cart = []; renderCart(); updateCartCount(); closeCart();
     });
   }
   function openCart() { $('#cartDrawer').classList.add('open'); $('#overlay').classList.add('visible'); }
   function closeCart() { $('#cartDrawer').classList.remove('open'); $('#overlay').classList.remove('visible'); }
+
+  /* ------------------------------------------------------------------ *
+   *  10b. TRACK ORDER
+   * ------------------------------------------------------------------ */
+
+  function renderTrackModal() {
+    const order = state.lastOrder || { paymentMethod: 'cod', step: 2 };
+    const statusBox = $('#trackPaymentStatus');
+    const paid = order.paymentMethod === 'edahabia' || order.paymentMethod === 'cib';
+    statusBox.className = 'track-payment-status ' + (paid ? 'paid' : 'cod');
+    statusBox.innerHTML = '<i data-lucide="' + (paid ? 'check-circle' : 'truck') + '"></i><span>' + (paid ? t('track_status_paid') : t('track_status_cod')) + '</span>';
+
+    $all('#trackSteps .track-step').forEach((el) => {
+      const step = Number(el.dataset.step);
+      el.classList.toggle('done', step < order.step);
+      el.classList.toggle('active', step === order.step);
+    });
+    refreshIcons();
+  }
+
+  function openTrackModal() {
+    renderTrackModal();
+    $('#trackModal').classList.add('visible');
+    $('#trackOverlay').classList.add('visible');
+  }
+  function closeTrackModal() {
+    $('#trackModal').classList.remove('visible');
+    $('#trackOverlay').classList.remove('visible');
+  }
+  function initTrackModal() {
+    $all('.track-order-link').forEach((link) => {
+      link.addEventListener('click', (e) => { e.preventDefault(); openTrackModal(); });
+    });
+    $('#trackCloseBtn').addEventListener('click', closeTrackModal);
+    $('#trackCloseBtn2').addEventListener('click', closeTrackModal);
+    $('#trackOverlay').addEventListener('click', closeTrackModal);
+  }
 
   /* ------------------------------------------------------------------ *
    *  11. NOTIFY ME MODAL
@@ -727,7 +898,7 @@
       state.mode = btn.dataset.mode;
       $all('#modeToggle button').forEach((b) => b.classList.toggle('active', b === btn));
       $('#wholesaleBanner').classList.toggle('visible', state.mode === 'wholesale');
-      render(); renderCart();
+      render(); renderCart(); renderWishlist();
       showToast(state.mode === 'wholesale' ? t('toast_wholesale_on') : t('toast_retail_on'), 'info');
     });
   }
@@ -748,6 +919,7 @@
     $('#simOosToggle').addEventListener('change', (e) => {
       state.simulateOOS = e.target.checked;
       render();
+      renderWishlist();
       showToast(state.simulateOOS ? t('toast_sim_on') : t('toast_sim_off'), 'info');
     });
   }
@@ -760,7 +932,6 @@
     $('#year').textContent = new Date().getFullYear();
     $('#newsletterForm').addEventListener('submit', (e) => { e.preventDefault(); showToast(t('toast_subscribed')); e.target.reset(); });
     $('#mobileMenuBtn').addEventListener('click', () => $('#mainNav').classList.toggle('mobile-open'));
-    $('#wishlistNavBtn').addEventListener('click', () => showToast(state.wishlist.size + ' — ' + t('nav_brands'), 'info'));
   }
 
   /* ------------------------------------------------------------------ *
@@ -782,11 +953,14 @@
     initFilters();
     initProductGridEvents();
     initCartEvents();
+    initWishlistDrawer();
+    initTrackModal();
     initNotifyModal();
     initModeToggle();
     initMisc();
     render();
     renderCart();
     updateCartCount();
+    updateWishlistCount();
   });
 })();

@@ -76,6 +76,17 @@
   .theme-icon-moon { display: none; }
   html.dark .theme-icon-sun { display: none; }
   html.dark .theme-icon-moon { display: block; }
+  .track-step:not(:first-child)::before { content: ""; position: absolute; top: 18px; inset-inline-end: 50%; width: 100%; height: 2px; background: #cbced8; z-index: 0; }
+  html.dark .track-step:not(:first-child)::before { background: #323647; }
+  .track-step.done:not(:first-child)::before, .track-step.active:not(:first-child)::before { background: #16a34a; }
+  .track-step.done .track-dot { background: #16a34a; border-color: #16a34a; color: #fff; }
+  .track-step.done .track-label { color: #14161e; }
+  html.dark .track-step.done .track-label { color: #f4f5f7; }
+  .track-step.active .track-dot { background: #d81f2f; border-color: #d81f2f; color: #fff; box-shadow: 0 0 0 4px rgba(216,31,47,0.15); }
+  .track-step.active .track-label { color: #14161e; font-weight: 700; }
+  html.dark .track-step.active .track-label { color: #f4f5f7; }
+  .track-payment-status.paid { background: rgba(22,163,74,0.1); color: #16a34a; }
+  .track-payment-status.cod { background: rgba(169,118,47,0.1); color: #a9762f; }
 </style>
 </head>
 
@@ -102,7 +113,7 @@
     <div class="flex items-center gap-2 ms-auto flex-wrap justify-end">
       <!-- Simulate out-of-stock -->
       <label class="flex items-center gap-2.5 ps-3 pe-1 h-9 rounded-full bg-gold/10 border border-gold dark:border-gold-dark cursor-pointer select-none">
-        <span class="text-[11px] font-bold text-gold dark:text-gold-dark flex items-center gap-1.5 whitespace-nowrap"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i><span class="hidden md:inline" data-i18n="sim_label">Simuler rupture de stock</span></span>
+        <span class="text-[11px] font-bold text-gold dark:text-gold-dark flex items-center gap-1.5 whitespace-nowrap"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i><span class="hidden 2xl:inline" data-i18n="sim_label">Simuler rupture de stock</span></span>
         <span class="relative inline-block w-9 h-5 shrink-0">
           <input type="checkbox" id="simOosToggle" class="peer sr-only" />
           <span class="absolute inset-0 rounded-full bg-borderstrong dark:bg-borderstrong-dark peer-checked:bg-accent transition"></span>
@@ -128,6 +139,11 @@
       <button id="themeToggleBtn" class="w-[38px] h-[38px] rounded-lg bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark flex items-center justify-center hover:border-accent hover:text-accent transition shrink-0">
         <i data-lucide="sun" class="theme-icon-sun w-4 h-4"></i>
         <i data-lucide="moon" class="theme-icon-moon w-4 h-4"></i>
+      </button>
+
+      <button id="wishlistNavBtn" class="relative w-[38px] h-[38px] rounded-lg bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark flex items-center justify-center hover:border-accent hover:text-accent transition shrink-0">
+        <i data-lucide="heart" class="w-4 h-4"></i>
+        <span id="wishlistCount" class="absolute -top-1.5 -end-1.5 min-w-[17px] h-[17px] px-1 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center border-2 border-bg dark:border-bg-dark">0</span>
       </button>
 
       <button id="cartBtn" class="relative w-[38px] h-[38px] rounded-lg bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark flex items-center justify-center hover:border-accent hover:text-accent transition shrink-0">
@@ -269,28 +285,28 @@
       <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="models_title">Modèles les plus demandés</h2>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-      <button data-brand-filter="toyota" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_Land_Cruiser.JPG?width=700" alt="Toyota Land Cruiser" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+      <button data-brand-filter="toyota" data-model-filter="Yaris" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_Yaris_1.5_XLi_2014_(13941854613).jpg?width=700" alt="Toyota Yaris 2013" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
         <span class="absolute inset-0 flex items-end p-4" style="background: linear-gradient(180deg, transparent 42%, rgba(6,7,11,0.85));">
-          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Toyota</span><span class="block font-display font-bold text-white text-base">Land Cruiser</span></span>
+          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Toyota</span><span class="block font-display font-bold text-white text-base">Yaris 2013</span></span>
         </span>
       </button>
-      <button data-brand-filter="nissan" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_GT-R_01.JPG?width=700" alt="Nissan GT-R" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+      <button data-brand-filter="toyota" data-model-filter="Corolla" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_Corolla_Sedan.jpg?width=700" alt="Toyota Corolla 2012" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
         <span class="absolute inset-0 flex items-end p-4" style="background: linear-gradient(180deg, transparent 42%, rgba(6,7,11,0.85));">
-          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Nissan</span><span class="block font-display font-bold text-white text-base">GT-R</span></span>
+          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Toyota</span><span class="block font-display font-bold text-white text-base">Corolla 2012</span></span>
         </span>
       </button>
-      <button data-brand-filter="lexus" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lexus_LX_570.jpg?width=700" alt="Lexus LX 570" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+      <button data-brand-filter="toyota" data-model-filter="Hilux" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/2015_Toyota_Hilux_Revo_Smart_Cab_Prerunner_2.4_G_Front.jpg?width=700" alt="Toyota Hilux 2015" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
         <span class="absolute inset-0 flex items-end p-4" style="background: linear-gradient(180deg, transparent 42%, rgba(6,7,11,0.85));">
-          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Lexus</span><span class="block font-display font-bold text-white text-base">LX 570</span></span>
+          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Toyota</span><span class="block font-display font-bold text-white text-base">Hilux 2015</span></span>
         </span>
       </button>
-      <button data-brand-filter="infiniti" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
-        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Infiniti_QX80.jpg?width=700" alt="Infiniti QX80" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+      <button data-brand-filter="nissan" data-model-filter="Sunny" class="relative block w-full aspect-[4/3] rounded-2xl overflow-hidden border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark group">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nissan_Almera_Sportech_(N17)_02.jpg?width=700" alt="Nissan Sunny 2014" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
         <span class="absolute inset-0 flex items-end p-4" style="background: linear-gradient(180deg, transparent 42%, rgba(6,7,11,0.85));">
-          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Infiniti</span><span class="block font-display font-bold text-white text-base">QX80</span></span>
+          <span class="text-start"><span class="block text-[11px] font-bold uppercase text-gold dark:text-gold-dark">Nissan</span><span class="block font-display font-bold text-white text-base">Sunny 2014</span></span>
         </span>
       </button>
     </div>
@@ -425,7 +441,7 @@
 <footer class="border-t border-border dark:border-border-dark py-8 mt-6">
   <div class="max-w-[1360px] mx-auto px-5 flex items-center justify-between flex-wrap gap-3 text-xs text-muted dark:text-muted-dark">
     <span>&copy; <span id="year"></span> Salim Auto Parts — <span data-i18n="footer_rights">Tous droits réservés.</span></span>
-    <span>Tailwind CSS + Lucide Icons</span>
+    <a href="#" class="track-order-link inline-flex items-center gap-1.5 hover:text-accent transition"><i data-lucide="truck" class="w-3.5 h-3.5"></i> <span data-i18n="track_order">Suivre ma commande</span></a>
   </div>
 </footer>
 
@@ -441,12 +457,69 @@
   </div>
   <div id="cartItems" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3.5"></div>
   <div class="border-t border-border dark:border-border-dark px-5 pt-4 pb-5">
+    <div id="paymentMethodGroup" class="mb-4 pb-4 border-b border-dashed border-border dark:border-border-dark">
+      <h4 class="text-xs font-bold uppercase tracking-wide text-muted dark:text-muted-dark mb-2.5" data-i18n="payment_method_title">Méthode de paiement</h4>
+      <label class="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+        <input type="radio" name="paymentMethod" value="cod" checked class="accent-accent w-4 h-4 shrink-0" />
+        <i data-lucide="truck" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <span data-i18n="payment_cod">Paiement à la livraison</span>
+      </label>
+      <label class="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+        <input type="radio" name="paymentMethod" value="edahabia" class="accent-accent w-4 h-4 shrink-0" />
+        <i data-lucide="credit-card" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <span data-i18n="payment_edahabia">Carte EDAHABIA (Dahabia)</span>
+      </label>
+      <label class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+        <input type="radio" name="paymentMethod" value="cib" class="accent-accent w-4 h-4 shrink-0" />
+        <i data-lucide="credit-card" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <span data-i18n="payment_cib">Carte CIB</span>
+      </label>
+    </div>
     <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0</span></div>
     <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_shipping">Livraison estimée</span><span id="cartShipping">0</span></div>
     <div class="flex justify-between text-base font-bold mt-2 pt-2 border-t border-dashed border-border dark:border-border-dark"><span data-i18n="cart_total">Total</span><span id="cartTotal">0</span></div>
     <button id="checkoutBtn" class="w-full mt-3.5 flex items-center justify-center gap-2 py-3 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition"><i data-lucide="lock" class="w-4 h-4"></i> <span data-i18n="cart_checkout">Passer la commande</span></button>
   </div>
 </aside>
+
+<!-- ============ WISHLIST DRAWER ============ -->
+<div id="wishlistOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[200] overlay-hidden transition-opacity duration-200"></div>
+<aside id="wishlistDrawer" class="fixed top-0 end-0 h-full w-full sm:w-[420px] bg-elevated dark:bg-elevated-dark border-s border-border dark:border-border-dark z-[201] flex flex-col drawer-closed transition-transform duration-300 ease-out">
+  <div class="flex items-center justify-between px-5 py-5 border-b border-border dark:border-border-dark">
+    <h3 class="text-base font-bold flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4"></i> <span data-i18n="wishlist_title">Mes favoris</span></h3>
+    <button id="wishlistCloseBtn" class="w-8 h-8 rounded-full bg-card dark:bg-card-dark flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-4 h-4"></i></button>
+  </div>
+  <div id="wishlistItems" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3.5"></div>
+</aside>
+
+<!-- ============ TRACK ORDER MODAL ============ -->
+<div id="trackOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[300] overlay-hidden transition-opacity duration-200"></div>
+<div id="trackModal" class="fixed top-1/2 left-1/2 w-[460px] max-w-[92vw] bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-2xl z-[301] p-6 modal-hidden transition-all duration-200 shadow-2xl text-center">
+  <button id="trackCloseBtn" class="absolute top-4 end-4 w-7 h-7 rounded-full bg-card dark:bg-card-dark flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+  <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto"><i data-lucide="truck" class="w-5 h-5"></i></span>
+  <h3 class="text-lg font-bold mb-2" data-i18n="track_title">Suivre ma commande</h3>
+  <p class="text-sm text-sub dark:text-sub-dark mb-4" data-i18n="track_desc">Statut de votre dernière commande de démonstration.</p>
+  <div id="trackPaymentStatus" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-bold mb-6"></div>
+  <div id="trackSteps" class="flex items-start justify-between gap-1">
+    <div class="track-step flex-1 flex flex-col items-center gap-2 relative" data-step="1">
+      <span class="track-dot relative z-10 w-9 h-9 rounded-full bg-bg dark:bg-bg-dark border-2 border-borderstrong dark:border-borderstrong-dark flex items-center justify-center text-muted dark:text-muted-dark"><i data-lucide="check" class="w-4 h-4"></i></span>
+      <span class="track-label text-[11px] font-semibold text-muted dark:text-muted-dark max-w-[80px] leading-tight" data-i18n="track_step1">Commande acceptée</span>
+    </div>
+    <div class="track-step flex-1 flex flex-col items-center gap-2 relative" data-step="2">
+      <span class="track-dot relative z-10 w-9 h-9 rounded-full bg-bg dark:bg-bg-dark border-2 border-borderstrong dark:border-borderstrong-dark flex items-center justify-center text-muted dark:text-muted-dark"><i data-lucide="package" class="w-4 h-4"></i></span>
+      <span class="track-label text-[11px] font-semibold text-muted dark:text-muted-dark max-w-[80px] leading-tight" data-i18n="track_step2">Préparation</span>
+    </div>
+    <div class="track-step flex-1 flex flex-col items-center gap-2 relative" data-step="3">
+      <span class="track-dot relative z-10 w-9 h-9 rounded-full bg-bg dark:bg-bg-dark border-2 border-borderstrong dark:border-borderstrong-dark flex items-center justify-center text-muted dark:text-muted-dark"><i data-lucide="truck" class="w-4 h-4"></i></span>
+      <span class="track-label text-[11px] font-semibold text-muted dark:text-muted-dark max-w-[80px] leading-tight" data-i18n="track_step3">En cours de livraison</span>
+    </div>
+    <div class="track-step flex-1 flex flex-col items-center gap-2 relative" data-step="4">
+      <span class="track-dot relative z-10 w-9 h-9 rounded-full bg-bg dark:bg-bg-dark border-2 border-borderstrong dark:border-borderstrong-dark flex items-center justify-center text-muted dark:text-muted-dark"><i data-lucide="check-check" class="w-4 h-4"></i></span>
+      <span class="track-label text-[11px] font-semibold text-muted dark:text-muted-dark max-w-[80px] leading-tight" data-i18n="track_step4">Livrée</span>
+    </div>
+  </div>
+  <button id="trackCloseBtn2" class="w-full mt-6 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="track_close">Fermer</button>
+</div>
 
 <!-- ============ NOTIFY MODAL ============ -->
 <div id="modalOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[300] overlay-hidden transition-opacity duration-200"></div>
@@ -501,7 +574,13 @@
       no_results: 'Aucune pièce ne correspond à vos filtres.',
       cta_eyebrow: 'Programme B2B', cta_title: 'Garagiste ou revendeur ? Profitez des tarifs de gros.',
       cta_desc: 'Débloquez des remises par palier et une allocation de stock prioritaire.', cta_btn: 'Demander un compte B2B',
-      footer_rights: 'Tous droits réservés.',
+      footer_rights: 'Tous droits réservés.', track_order: 'Suivre ma commande',
+      payment_method_title: 'Méthode de paiement', payment_cod: 'Paiement à la livraison',
+      payment_edahabia: 'Carte EDAHABIA (Dahabia)', payment_cib: 'Carte CIB',
+      wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
+      track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
+      track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
+      track_close: 'Fermer', track_status_paid: 'Payée', track_status_cod: 'Paiement à la livraison',
       cart_title: 'Votre panier', cart_empty: 'Votre panier est vide.', cart_empty_sub: 'Parcourez le catalogue pour ajouter des pièces.',
       cart_subtotal: 'Sous-total', cart_shipping: 'Livraison estimée', cart_total: 'Total', cart_checkout: 'Passer la commande',
       cart_wholesale_note: 'Tarifs de gros appliqués à cette commande.', cart_free: 'Gratuit',
@@ -544,7 +623,13 @@
       no_results: 'لا توجد قطع مطابقة لعوامل التصفية.',
       cta_eyebrow: 'برنامج الجملة', cta_title: 'لديك ورشة أو تعيد بيع القطع؟ احصل على أسعار الجملة.',
       cta_desc: 'افتح خصومات متدرجة وأولوية في توفر المخزون.', cta_btn: 'التقدم لحساب جملة',
-      footer_rights: 'جميع الحقوق محفوظة.',
+      footer_rights: 'جميع الحقوق محفوظة.', track_order: 'تتبع الطلب',
+      payment_method_title: 'طريقة الدفع', payment_cod: 'الدفع عند الاستلام',
+      payment_edahabia: 'بطاقة الذهبية (EDAHABIA)', payment_cib: 'بطاقة CIB',
+      wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
+      track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
+      track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
+      track_close: 'إغلاق', track_status_paid: 'مدفوعة', track_status_cod: 'الدفع عند الاستلام',
       cart_title: 'سلة التسوق', cart_empty: 'سلتك فارغة.', cart_empty_sub: 'تصفح الكتالوج لإضافة قطع غيار.',
       cart_subtotal: 'المجموع الفرعي', cart_shipping: 'الشحن التقديري', cart_total: 'الإجمالي', cart_checkout: 'إتمام الطلب',
       cart_wholesale_note: 'تم تطبيق أسعار الجملة على هذا الطلب.', cart_free: 'مجاني',
@@ -587,7 +672,13 @@
       no_results: 'No parts match your filters.',
       cta_eyebrow: 'B2B Program', cta_title: 'Run a garage or resell parts? Get wholesale pricing.',
       cta_desc: 'Unlock tiered bulk pricing and priority stock allocation.', cta_btn: 'Apply for a B2B account',
-      footer_rights: 'All rights reserved.',
+      footer_rights: 'All rights reserved.', track_order: 'Track my order',
+      payment_method_title: 'Payment method', payment_cod: 'Cash on delivery',
+      payment_edahabia: 'EDAHABIA (Dahabia) card', payment_cib: 'CIB card',
+      wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
+      track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
+      track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
+      track_close: 'Close', track_status_paid: 'Paid', track_status_cod: 'Cash on delivery',
       cart_title: 'Your Cart', cart_empty: 'Your cart is empty.', cart_empty_sub: 'Browse the catalog to add parts.',
       cart_subtotal: 'Subtotal', cart_shipping: 'Estimated shipping', cart_total: 'Total', cart_checkout: 'Checkout',
       cart_wholesale_note: 'Wholesale pricing applied to this order.', cart_free: 'Free',
@@ -604,6 +695,14 @@
   const BRAND_LABELS = { toyota: 'Toyota', nissan: 'Nissan', lexus: 'Lexus', infiniti: 'Infiniti' };
   const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
   const CATEGORY_COLOR = { engine: '#d81f2f', brake: '#dc2626', suspension: '#2563eb', filter: '#a9762f', electrical: '#9333ea', body: '#16a34a' };
+  const CATEGORY_PHOTOS = {
+    engine: 'https://commons.wikimedia.org/wiki/Special:FilePath/Spark_plugs.jpg?width=500',
+    brake: 'https://commons.wikimedia.org/wiki/Special:FilePath/Disc_brake_pads.JPG?width=500',
+    suspension: 'https://commons.wikimedia.org/wiki/Special:FilePath/Shock_Absorbers_Detail.jpg?width=500',
+    filter: 'https://commons.wikimedia.org/wiki/Special:FilePath/Oil_filter.JPG?width=500',
+    electrical: 'https://commons.wikimedia.org/wiki/Special:FilePath/Alternator.jpg?width=500',
+    body: 'https://commons.wikimedia.org/wiki/Special:FilePath/Headlight_Honda_CR-Z.jpg?width=500'
+  };
   const VEHICLE_MODELS = {
     toyota: ['Land Cruiser', 'Land Cruiser Prado', 'Hilux', 'Corolla', 'Camry', 'Fortuner', 'Yaris', 'Vitz', 'RAV4', 'Highlander', 'C-HR', 'Prius', 'Avalon', 'Avensis', 'Auris', 'Tacoma', 'Tundra', '4Runner', 'Sequoia', 'Sienna', 'Supra', 'Hiace', 'Innova', 'Alphard', 'Crown'],
     nissan: ['Patrol', 'GT-R', 'X-Trail', 'Navara', 'Sunny', 'Sentra', 'Altima', 'Maxima', 'Micra', 'Note', 'Juke', 'Qashqai', 'Murano', 'Pathfinder', 'Armada', 'Frontier', 'Titan', '370Z', 'Kicks', 'Rogue', 'Tiida', 'Almera'],
@@ -630,7 +729,25 @@
     { id: 'p13', brand: 'infiniti', fits: ['QX80'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-9E01A', price: 8200, wholesalePrice: 6100, moq: 5, stock: true, rating: 4.7, reviews: 103 },
     { id: 'p14', brand: 'infiniti', fits: ['QX80'], name: 'Front Brake Pad Set', category: 'brake', sku: 'D1060-1LA0A', price: 61000, wholesalePrice: 50000, moq: 2, stock: false, rating: 4.6, reviews: 44 },
     { id: 'p15', brand: 'infiniti', fits: ['Q50'], name: 'Rear Shock Absorber', category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
-    { id: 'p16', brand: 'infiniti', fits: ['Q50'], name: 'Ignition Coil', category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 }
+    { id: 'p16', brand: 'infiniti', fits: ['Q50'], name: 'Ignition Coil', category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 },
+
+    // Real inventory — Benmoussa Salim, Tissemsilt
+    { id: 'p17', brand: 'toyota', fits: ['Land Cruiser Prado'], name: 'Alternateur KUN D4D', category: 'electrical', sku: 'EA1003N', price: 28500, wholesalePrice: 23500, moq: 2, stock: true, rating: 4.6, reviews: 12 },
+    { id: 'p18', brand: 'nissan', fits: ['Navara'], name: 'Alternateur Nissan Navara D40T YD25', category: 'electrical', sku: 'TAL21725', price: 33000, wholesalePrice: 27500, moq: 1, stock: true, rating: 4.7, reviews: 9 },
+    { id: 'p19', brand: 'nissan', fits: ['Micra'], name: 'Alternateur Nissan Micra K13 12V 100A', category: 'electrical', sku: 'EA1006N', price: 22000, wholesalePrice: 18000, moq: 2, stock: true, rating: 4.5, reviews: 15 },
+    { id: 'p20', brand: 'toyota', fits: ['Yaris'], name: 'Alternateur Yaris NSP130 Essence', category: 'electrical', sku: 'WP270600Y120', price: 36000, wholesalePrice: 30000, moq: 1, stock: true, rating: 4.6, reviews: 7 },
+    { id: 'p21', brand: 'nissan', fits: ['Sunny'], name: 'Alternateur Nissan Sunny B10', category: 'electrical', sku: '23100-95F0A', price: 25500, wholesalePrice: 21000, moq: 2, stock: true, rating: 4.5, reviews: 11 },
+    { id: 'p22', brand: 'toyota', fits: ['Land Cruiser'], name: 'Amortisseur AR Land Cruiser/KUN15', category: 'suspension', sku: '48531-09500', price: 9500, wholesalePrice: 7800, moq: 4, stock: true, rating: 4.7, reviews: 22 },
+    { id: 'p23', brand: 'nissan', fits: ['Qashqai'], name: 'Amortisseur AV DR Nissan Qashqai J11', category: 'suspension', sku: 'TS017240', price: 8350, wholesalePrice: 6900, moq: 2, stock: false, rating: 4.5, reviews: 6 },
+    { id: 'p24', brand: 'toyota', fits: ['Yaris'], name: 'Amortisseur AV DR Yaris NLP/NSP130', category: 'suspension', sku: 'PAM169260962', price: 9500, wholesalePrice: 7900, moq: 1, stock: true, rating: 4.6, reviews: 9 },
+    { id: 'p25', brand: 'toyota', fits: ['Corolla'], name: "Bobine d'allumage Corolla ZRE 1ZRFE", category: 'electrical', sku: '099700-2500', price: 10500, wholesalePrice: 8700, moq: 2, stock: true, rating: 4.7, reviews: 13 },
+    { id: 'p26', brand: 'nissan', fits: ['Sunny'], name: "Bobine d'allumage Nissan Sunny B10", category: 'electrical', sku: '22448-95F0A', price: 4850, wholesalePrice: 3950, moq: 4, stock: true, rating: 4.5, reviews: 19 },
+    { id: 'p27', brand: 'nissan', fits: ['Sunny'], name: "Bougie d'allumage Nissan Sunny B10 Iridium", category: 'engine', sku: '22401-1HC1B', price: 2750, wholesalePrice: 2250, moq: 6, stock: true, rating: 4.8, reviews: 28 },
+    { id: 'p28', brand: 'nissan', fits: ['Micra'], name: "Bougie d'allumage Nissan N17/Tiida/K13/NSP130", category: 'engine', sku: '22401-ED815', price: 550, wholesalePrice: 450, moq: 10, stock: true, rating: 4.7, reviews: 34 },
+    { id: 'p29', brand: 'toyota', fits: ['Hilux'], name: 'Aile AV Hilux Vigo 11 2WD DR', category: 'body', sku: 'TY210-01AYR', price: 11800, wholesalePrice: 9700, moq: 1, stock: true, rating: 4.4, reviews: 7 },
+    { id: 'p30', brand: 'nissan', fits: ['Qashqai'], name: 'Axe étrier AV Nissan Qashqai/X-Trail T31', category: 'brake', sku: 'D7176C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.6, reviews: 11 },
+    { id: 'p31', brand: 'nissan', fits: ['Sunny'], name: 'Axe étrier AV Nissan Sunny N17 Autofren', category: 'brake', sku: 'D7280C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.5, reviews: 9 },
+    { id: 'p32', brand: 'toyota', fits: ['Corolla'], name: 'Balai essuie-glace 700 Toyota', category: 'body', sku: 'T170-28', price: 2000, wholesalePrice: 1600, moq: 6, stock: true, rating: 4.3, reviews: 14 }
   ];
 
   const VIN_DATABASE = {
@@ -647,7 +764,8 @@
   const state = {
     lang: 'fr', theme: 'light', mode: 'retail', simulateOOS: false,
     search: '', vehicleBrand: null, vehicleModel: null, brandFilter: null,
-    availability: new Set(), cart: []
+    availability: new Set(), cart: [], wishlist: new Set(),
+    paymentMethod: 'cod', lastOrder: null
   };
 
   function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
@@ -672,7 +790,8 @@
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     $all('.lang-btn').forEach((b) => b.classList.toggle('active', b.dataset.lang === lang));
     applyTranslations();
-    render(); renderCart();
+    render(); renderCart(); renderWishlist();
+    if ($('#trackModal').classList.contains('modal-visible')) renderTrackModal();
   }
   function setTheme(theme) {
     state.theme = theme;
@@ -747,12 +866,17 @@
     $('#simOosToggle').addEventListener('change', (e) => {
       state.simulateOOS = e.target.checked;
       render();
+      renderWishlist();
       showToast(state.simulateOOS ? t('toast_sim_on') : t('toast_sim_off'), 'info');
     });
 
     $all('[data-brand-filter]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        state.brandFilter = btn.dataset.brandFilter; state.vehicleBrand = null; state.vehicleModel = null;
+        const brand = btn.dataset.brandFilter;
+        const model = btn.dataset.modelFilter;
+        state.brandFilter = brand;
+        if (model) { state.vehicleBrand = brand; state.vehicleModel = model; }
+        else { state.vehicleBrand = null; state.vehicleModel = null; }
         render();
         $('#shop').scrollIntoView({ behavior: 'smooth' });
       });
@@ -858,6 +982,10 @@
     const stock = isInStock(p);
     const wholesale = state.mode === 'wholesale';
     const price = unitPrice(p);
+    const inWishlist = state.wishlist.has(p.id);
+    const wishlistBtn = '<button data-action="wishlist" data-id="' + p.id + '" class="w-8 h-8 rounded-full flex items-center justify-center border backdrop-blur transition ' +
+      (inWishlist ? 'bg-accent border-accent text-white' : 'bg-card/70 dark:bg-card-dark/70 border-border dark:border-border-dark text-ink dark:text-ink-dark') +
+      '"><i data-lucide="heart" class="w-3.5 h-3.5"></i></button>';
 
     const stockBadge = stock
       ? '<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-3 h-3"></i>' + t('in_stock') + '</span>'
@@ -880,9 +1008,10 @@
 
     return (
       '<article class="fade-in bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-lg transition ' + (stock ? '' : 'opacity-95') + '">' +
-        '<div class="relative aspect-[4/3] flex items-center justify-center bg-bg dark:bg-bg-dark" style="' + (stock ? '' : 'filter:grayscale(0.5) brightness(0.96);') + '">' +
-          '<div class="absolute top-3 inset-x-3 flex items-start justify-between gap-2">' + stockBadge + '</div>' +
-          '<i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-14 h-14" style="color:' + CATEGORY_COLOR[p.category] + '"></i>' +
+        '<div class="relative aspect-[4/3] bg-bg dark:bg-bg-dark" style="' + (stock ? '' : 'filter:grayscale(0.5) brightness(0.96);') + '">' +
+          '<img src="' + CATEGORY_PHOTOS[p.category] + '" alt="' + t('cat_' + p.category) + '" loading="lazy" class="w-full h-full object-cover" />' +
+          '<div class="absolute top-3 inset-x-3 flex items-start justify-between gap-2">' + stockBadge + wishlistBtn + '</div>' +
+          '<span class="absolute bottom-2.5 start-2.5 w-7 h-7 rounded-full bg-card/80 dark:bg-card-dark/80 backdrop-blur border border-border dark:border-border-dark flex items-center justify-center"><i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-3.5 h-3.5" style="color:' + CATEGORY_COLOR[p.category] + '"></i></span>' +
         '</div>' +
         '<div class="p-4 flex flex-col gap-1.5 flex-1">' +
           '<span class="flex items-center gap-1.5 text-[11px] font-bold text-muted dark:text-muted-dark uppercase"><span class="w-2 h-2 rounded-full bg-' + p.brand + '"></span>' + BRAND_LABELS[p.brand] + ' &middot; ' + t('cat_' + p.category) + '</span>' +
@@ -910,9 +1039,92 @@
     $('#productGrid').addEventListener('click', (e) => {
       const add = e.target.closest('[data-action="add"]');
       const notify = e.target.closest('[data-action="notify"]');
+      const wish = e.target.closest('[data-action="wishlist"]');
       if (add) addToCart(add.dataset.id);
       else if (notify) openNotify(notify.dataset.id);
+      else if (wish) toggleWishlist(wish.dataset.id);
     });
+  }
+
+  /* ---------------- WISHLIST ---------------- */
+  function toggleWishlist(id) {
+    if (state.wishlist.has(id)) { state.wishlist.delete(id); showToast(t('toast_wishlist_removed'), 'info'); }
+    else { state.wishlist.add(id); showToast(t('toast_wishlist_added')); }
+    updateWishlistCount();
+    renderWishlist();
+    render();
+  }
+  function updateWishlistCount() { $('#wishlistCount').textContent = state.wishlist.size; }
+  function renderWishlist() {
+    const box = $('#wishlistItems');
+    const items = Array.from(state.wishlist).map(findProduct).filter(Boolean);
+    if (!items.length) {
+      box.innerHTML = '<div class="flex-1 flex flex-col items-center justify-center text-center text-muted dark:text-muted-dark gap-3 py-16"><i data-lucide="heart" class="w-11 h-11 opacity-50"></i><p>' + t('wishlist_empty') + '<br>' + t('wishlist_empty_sub') + '</p></div>';
+      icons();
+      return;
+    }
+    box.innerHTML = items.map((p) => {
+      const price = unitPrice(p);
+      const stock = isInStock(p);
+      return '<div class="flex gap-3 pb-3.5 border-b border-border dark:border-border-dark">' +
+        '<div class="w-16 h-16 rounded-lg bg-bg dark:bg-bg-dark flex items-center justify-center shrink-0 text-accent"><i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-6 h-6"></i></div>' +
+        '<div class="flex-1 min-w-0">' +
+          '<div class="text-[13.5px] font-semibold mb-0.5 truncate">' + p.name + '</div>' +
+          '<div class="text-[11px] text-muted dark:text-muted-dark mb-2" dir="ltr" style="text-align:start">' + BRAND_LABELS[p.brand] + ' &middot; ' + p.sku + '</div>' +
+          '<div class="flex items-center justify-between">' +
+            '<span class="font-bold text-[13.5px]">' + fmt(price) + '</span>' +
+            (stock
+              ? '<button data-act="wadd" data-id="' + p.id + '" class="px-2.5 py-1.5 rounded-md bg-accent hover:bg-accent-hover text-white"><i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i></button>'
+              : '<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400">' + t('not_available') + '</span>') +
+          '</div>' +
+        '</div>' +
+        '<button data-act="wrm" data-id="' + p.id + '" class="text-muted dark:text-muted-dark hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' +
+      '</div>';
+    }).join('');
+    icons();
+  }
+  function initWishlistDrawer() {
+    $('#wishlistItems').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-act]'); if (!btn) return;
+      const id = btn.dataset.id;
+      if (btn.dataset.act === 'wadd') addToCart(id);
+      else if (btn.dataset.act === 'wrm') { state.wishlist.delete(id); updateWishlistCount(); renderWishlist(); render(); }
+    });
+    $('#wishlistNavBtn').addEventListener('click', openWishlist);
+    $('#wishlistCloseBtn').addEventListener('click', closeWishlist);
+    $('#wishlistOverlay').addEventListener('click', closeWishlist);
+  }
+  function openWishlist() { renderWishlist(); $('#wishlistDrawer').classList.remove('drawer-closed'); $('#wishlistDrawer').style.transform = 'translateX(0)'; $('#wishlistOverlay').classList.remove('overlay-hidden'); $('#wishlistOverlay').classList.add('overlay-visible'); }
+  function closeWishlist() { $('#wishlistDrawer').classList.add('drawer-closed'); $('#wishlistDrawer').style.transform = ''; $('#wishlistOverlay').classList.add('overlay-hidden'); $('#wishlistOverlay').classList.remove('overlay-visible'); }
+
+  /* ---------------- TRACK ORDER ---------------- */
+  function renderTrackModal() {
+    const order = state.lastOrder || { paymentMethod: 'cod', step: 2 };
+    const statusBox = $('#trackPaymentStatus');
+    const paid = order.paymentMethod === 'edahabia' || order.paymentMethod === 'cib';
+    statusBox.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-bold mb-6 track-payment-status ' + (paid ? 'paid' : 'cod');
+    statusBox.innerHTML = '<i data-lucide="' + (paid ? 'check-circle' : 'truck') + '" class="w-3.5 h-3.5"></i><span>' + (paid ? t('track_status_paid') : t('track_status_cod')) + '</span>';
+    $all('#trackSteps .track-step').forEach((el) => {
+      const step = Number(el.dataset.step);
+      el.classList.toggle('done', step < order.step);
+      el.classList.toggle('active', step === order.step);
+    });
+    icons();
+  }
+  function openTrackModal() {
+    renderTrackModal();
+    $('#trackModal').classList.remove('modal-hidden'); $('#trackModal').classList.add('modal-visible');
+    $('#trackOverlay').classList.remove('overlay-hidden'); $('#trackOverlay').classList.add('overlay-visible');
+  }
+  function closeTrackModal() {
+    $('#trackModal').classList.add('modal-hidden'); $('#trackModal').classList.remove('modal-visible');
+    $('#trackOverlay').classList.add('overlay-hidden'); $('#trackOverlay').classList.remove('overlay-visible');
+  }
+  function initTrackModal() {
+    $all('.track-order-link').forEach((link) => link.addEventListener('click', (e) => { e.preventDefault(); openTrackModal(); }));
+    $('#trackCloseBtn').addEventListener('click', closeTrackModal);
+    $('#trackCloseBtn2').addEventListener('click', closeTrackModal);
+    $('#trackOverlay').addEventListener('click', closeTrackModal);
   }
 
   /* ---------------- CART ---------------- */
@@ -978,8 +1190,14 @@
     $('#cartBtn').addEventListener('click', openCart);
     $('#cartCloseBtn').addEventListener('click', closeCart);
     $('#overlay').addEventListener('click', closeCart);
+    $('#paymentMethodGroup').addEventListener('change', (e) => {
+      if (e.target.name === 'paymentMethod') state.paymentMethod = e.target.value;
+    });
     $('#checkoutBtn').addEventListener('click', () => {
       if (!state.cart.length) { showToast(t('toast_cart_empty'), 'info'); return; }
+      const subtotal = state.cart.reduce((s, c) => s + unitPrice(findProduct(c.id)) * c.qty, 0);
+      const shipping = state.mode === 'wholesale' ? 0 : 3500;
+      state.lastOrder = { paymentMethod: state.paymentMethod, total: subtotal + shipping, step: 2, placedAt: Date.now() };
       showToast(t('toast_checkout'));
       state.cart = []; renderCart(); updateCartCount(); closeCart();
     });
@@ -1016,7 +1234,7 @@
     state.mode = mode;
     $all('.mode-btn').forEach((b) => b.classList.toggle('active', b.dataset.mode === mode));
     $('#wholesaleBanner').classList.toggle('hidden', mode !== 'wholesale');
-    render(); renderCart();
+    render(); renderCart(); renderWishlist();
   }
   function initModeToggle() {
     $('#modeToggle').addEventListener('click', (e) => {
@@ -1038,11 +1256,14 @@
     initModelSearch();
     initGridEvents();
     initCartEvents();
+    initWishlistDrawer();
+    initTrackModal();
     initNotify();
     initModeToggle();
     render();
     renderCart();
     updateCartCount();
+    updateWishlistCount();
   });
 })();
 </script>
