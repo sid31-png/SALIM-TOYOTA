@@ -33,7 +33,7 @@
       shop_eyebrow: 'Catalogue', shop_title: 'Pièces en vedette', shop_subtitle: 'Pièces d’origine et premium pour Toyota, Nissan, Lexus et Infiniti.',
       grid_search_placeholder: 'Rechercher une pièce, SKU, modèle...',
       filter_brand: 'Marque', filter_category: 'Catégorie', filter_availability: 'Disponibilité',
-      avail_in_stock: 'En stock', avail_out_stock: 'Indisponible', clear_filters: 'Réinitialiser', results_found: 'pièces trouvées',
+      avail_in_stock: 'En stock', avail_out_stock: 'Indisponible', clear_filters: 'Réinitialiser', results_found: 'pièces trouvées', page_label: 'Page',
       sort_relevance: 'Trier : Pertinence', sort_price_asc: 'Prix croissant', sort_price_desc: 'Prix décroissant', sort_name: 'Nom : A-Z',
       fits: 'Compatible :', sku: 'Référence :', in_stock: 'En stock', not_available: 'Indisponible', currently_unavailable: 'Actuellement indisponible',
       add_to_cart: 'Ajouter au panier', notify_me: 'Demander la pièce', min_order: 'Commande min. :', units: 'unité(s)',
@@ -97,7 +97,7 @@
       shop_eyebrow: 'الكتالوج', shop_title: 'قطع مميزة', shop_subtitle: 'قطع غيار أصلية وبديلة ممتازة لسيارات تويوتا ونيسان ولكزس وإنفينيتي.',
       grid_search_placeholder: 'ابحث عن قطعة، رقم SKU، موديل...',
       filter_brand: 'الماركة', filter_category: 'الفئة', filter_availability: 'التوفر',
-      avail_in_stock: 'متوفر', avail_out_stock: 'غير متوفر', clear_filters: 'إعادة تعيين', results_found: 'قطعة موجودة',
+      avail_in_stock: 'متوفر', avail_out_stock: 'غير متوفر', clear_filters: 'إعادة تعيين', results_found: 'قطعة موجودة', page_label: 'صفحة',
       sort_relevance: 'الترتيب: الأنسب', sort_price_asc: 'السعر: من الأقل', sort_price_desc: 'السعر: من الأعلى', sort_name: 'الاسم: أ-ي',
       fits: 'يناسب:', sku: 'الرقم المرجعي:', in_stock: 'متوفر', not_available: 'غير متوفر', currently_unavailable: 'غير متوفر حاليًا',
       add_to_cart: 'أضف إلى السلة', notify_me: 'أعلمني عند التوفر', min_order: 'الحد الأدنى للطلب:', units: 'وحدة',
@@ -161,7 +161,7 @@
       shop_eyebrow: 'Catalog', shop_title: 'Featured Parts', shop_subtitle: 'Genuine and premium-aftermarket parts for Toyota, Nissan, Lexus and Infiniti.',
       grid_search_placeholder: 'Search parts, SKU, model...',
       filter_brand: 'Brand', filter_category: 'Category', filter_availability: 'Availability',
-      avail_in_stock: 'In Stock', avail_out_stock: 'Not Available', clear_filters: 'Clear filters', results_found: 'parts found',
+      avail_in_stock: 'In Stock', avail_out_stock: 'Not Available', clear_filters: 'Clear filters', results_found: 'parts found', page_label: 'Page',
       sort_relevance: 'Sort: Relevance', sort_price_asc: 'Price: Low to High', sort_price_desc: 'Price: High to Low', sort_name: 'Name: A-Z',
       fits: 'Fits:', sku: 'Reference:', in_stock: 'In Stock', not_available: 'Not Available', currently_unavailable: 'Currently unavailable',
       add_to_cart: 'Add to Cart', notify_me: 'Notify Me', min_order: 'Min. order:', units: 'unit(s)',
@@ -300,6 +300,14 @@
     { id: 'p55', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Bavette avant Hilux Vigo 2WD (jeu de 2)', en: 'Front Mud Flaps Hilux Vigo 2WD (Set of 2)', ar: 'طقم رفارف طين أمامية هيلوكس فيغو (قطعتان)' }, category: 'body', sku: '76621/2-0K010', price: 4400, wholesalePrice: 3600, moq: 2, stock: true, rating: 4.3, reviews: 10, photo: 'assets/images/products/bavette-garde-boue.jpg' }
   ];
 
+  // Merge the customer's real bulk catalog (assets/js/products-bulk.js, loaded before this file)
+  if (typeof BULK_PRODUCTS !== 'undefined') PRODUCTS.push(...BULK_PRODUCTS);
+  if (typeof BULK_VEHICLE_MODELS_EXTRA !== 'undefined') {
+    Object.keys(BULK_VEHICLE_MODELS_EXTRA).forEach((brand) => {
+      VEHICLE_MODELS[brand] = VEHICLE_MODELS[brand].concat(BULK_VEHICLE_MODELS_EXTRA[brand]);
+    });
+  }
+
   // Mock VIN -> vehicle decoder
   const VIN_DATABASE = {
     'JTMBK3FV000000001': { brand: 'toyota', model: 'Land Cruiser' },
@@ -329,8 +337,11 @@
     cart: [],
     wishlist: new Set(),
     paymentMethod: 'cod',
-    lastOrder: null
+    lastOrder: null,
+    page: 1
   };
+
+  const PAGE_SIZE = 24;
 
   /* ------------------------------------------------------------------ *
    *  4. HELPERS
@@ -371,7 +382,7 @@
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     $all('#langSwitch button').forEach((b) => b.classList.toggle('active', b.dataset.lang === lang));
     applyTranslations();
-    render();
+    render(true);
     renderCart();
     renderWishlist();
     if ($('#trackModal').classList.contains('visible')) renderTrackModal();
@@ -668,12 +679,40 @@
     );
   }
 
-  function render() {
+  function render(keepPage) {
+    if (!keepPage) state.page = 1;
     const list = getFilteredSortedProducts();
-    $('#productGrid').innerHTML = list.map(productCardHTML).join('');
+    const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    const start = (state.page - 1) * PAGE_SIZE;
+    const pageItems = list.slice(start, start + PAGE_SIZE);
+    $('#productGrid').innerHTML = pageItems.map(productCardHTML).join('');
     $('#resultCount').textContent = list.length;
     $('#noResults').style.display = list.length ? 'none' : 'block';
+    renderPagination(totalPages);
     refreshIcons();
+  }
+
+  function renderPagination(totalPages) {
+    const el = $('#pagination');
+    if (!el) return;
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+    const cur = state.page;
+    el.innerHTML =
+      '<button class="page-btn" data-page="prev"' + (cur <= 1 ? ' disabled' : '') + ' aria-label="Previous"><i data-lucide="chevron-left"></i></button>' +
+      '<span class="page-label">' + t('page_label') + ' ' + cur + ' / ' + totalPages + '</span>' +
+      '<button class="page-btn" data-page="next"' + (cur >= totalPages ? ' disabled' : '') + ' aria-label="Next"><i data-lucide="chevron-right"></i></button>';
+    refreshIcons();
+  }
+
+  function initPagination() {
+    $('#pagination').addEventListener('click', (e) => {
+      const btn = e.target.closest('.page-btn');
+      if (!btn || btn.disabled) return;
+      state.page = btn.dataset.page === 'prev' ? Math.max(1, state.page - 1) : state.page + 1;
+      render(true);
+      $('#shop').scrollIntoView({ behavior: 'smooth' });
+    });
   }
 
   function initProductGridEvents() {
@@ -914,7 +953,7 @@
       state.mode = btn.dataset.mode;
       $all('#modeToggle button').forEach((b) => b.classList.toggle('active', b === btn));
       $('#wholesaleBanner').classList.toggle('visible', state.mode === 'wholesale');
-      render(); renderCart(); renderWishlist();
+      render(true); renderCart(); renderWishlist();
       showToast(state.mode === 'wholesale' ? t('toast_wholesale_on') : t('toast_retail_on'), 'info');
     });
   }
@@ -934,7 +973,7 @@
   function initSimToggle() {
     $('#simOosToggle').addEventListener('change', (e) => {
       state.simulateOOS = e.target.checked;
-      render();
+      render(true);
       renderWishlist();
       showToast(state.simulateOOS ? t('toast_sim_on') : t('toast_sim_off'), 'info');
     });
@@ -968,6 +1007,7 @@
     initModelSearch();
     initFilters();
     initProductGridEvents();
+    initPagination();
     initCartEvents();
     initWishlistDrawer();
     initTrackModal();

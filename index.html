@@ -297,10 +297,10 @@
       <aside class="filters-panel">
         <h3 data-i18n="filter_brand">Marque</h3>
         <div class="filter-group" id="filterBrand">
-          <label class="filter-option"><input type="checkbox" value="toyota" /> <span class="brand-dot toyota"></span> Toyota <span class="fc">(3.4k)</span></label>
-          <label class="filter-option"><input type="checkbox" value="nissan" /> <span class="brand-dot nissan"></span> Nissan <span class="fc">(2.8k)</span></label>
-          <label class="filter-option"><input type="checkbox" value="lexus" /> <span class="brand-dot lexus"></span> Lexus <span class="fc">(1.7k)</span></label>
-          <label class="filter-option"><input type="checkbox" value="infiniti" /> <span class="brand-dot infiniti"></span> Infiniti <span class="fc">(1.3k)</span></label>
+          <label class="filter-option"><input type="checkbox" value="toyota" /> <span class="brand-dot toyota"></span> Toyota <span class="fc">(3.2k)</span></label>
+          <label class="filter-option"><input type="checkbox" value="nissan" /> <span class="brand-dot nissan"></span> Nissan <span class="fc">(920)</span></label>
+          <label class="filter-option"><input type="checkbox" value="lexus" /> <span class="brand-dot lexus"></span> Lexus <span class="fc">(8)</span></label>
+          <label class="filter-option"><input type="checkbox" value="infiniti" /> <span class="brand-dot infiniti"></span> Infiniti <span class="fc">(8)</span></label>
         </div>
 
         <h3 data-i18n="filter_category">Catégorie</h3>
@@ -335,6 +335,7 @@
 
         <div class="grid product-grid" id="productGrid"></div>
         <p id="noResults" style="display:none;text-align:center;color:var(--text-muted);padding:60px 0;" data-i18n="no_results">Aucune pièce ne correspond à vos filtres.</p>
+        <div class="pagination" id="pagination"></div>
       </div>
     </div>
   </div>
@@ -566,6 +567,7 @@
 <!-- ============ TOASTS ============ -->
 <div class="toast-stack" id="toastStack"></div>
 
+<script src="assets/js/products-bulk.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 </body>
 </html>

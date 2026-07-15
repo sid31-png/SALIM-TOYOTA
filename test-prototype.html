@@ -386,6 +386,7 @@
 
     <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     <p id="noResults" class="hidden text-center text-muted dark:text-muted-dark py-16" data-i18n="no_results">Aucune pièce ne correspond à vos filtres.</p>
+    <div id="pagination" class="flex items-center justify-center gap-4 mt-8"></div>
   </div>
 </section>
 
@@ -537,6 +538,7 @@
 
 <div id="toastStack" class="fixed bottom-6 end-6 z-[400] flex flex-col gap-2.5"></div>
 
+<script src="assets/js/products-bulk.js"></script>
 <script>
 (function () {
   'use strict';
@@ -567,7 +569,7 @@
       cat_engine: 'Moteur', cat_brake: 'Freinage', cat_suspension: 'Suspension', cat_filter: 'Filtres', cat_electrical: 'Électrique', cat_body: 'Carrosserie',
       shop_eyebrow: 'Catalogue', shop_title: 'Pièces en vedette',
       grid_search_placeholder: 'Rechercher une pièce, SKU, modèle...',
-      avail_in_stock: 'En stock', avail_out_stock: 'Indisponible', results_found: 'pièces trouvées',
+      avail_in_stock: 'En stock', avail_out_stock: 'Indisponible', results_found: 'pièces trouvées', page_label: 'Page',
       sort_relevance: 'Trier : Pertinence', sort_price_asc: 'Prix croissant', sort_price_desc: 'Prix décroissant', sort_name: 'Nom : A-Z',
       fits: 'Compatible :', sku: 'Référence :', in_stock: 'En stock', not_available: 'Indisponible', currently_unavailable: 'Actuellement indisponible',
       add_to_cart: 'Ajouter au panier', notify_me: 'Demander la pièce', min_order: 'Commande min. :', units: 'unité(s)',
@@ -616,7 +618,7 @@
       cat_engine: 'قطع المحرك', cat_brake: 'نظام الفرامل', cat_suspension: 'نظام التعليق', cat_filter: 'الفلاتر', cat_electrical: 'الكهرباء', cat_body: 'الهيكل والتشطيب',
       shop_eyebrow: 'الكتالوج', shop_title: 'قطع مميزة',
       grid_search_placeholder: 'ابحث عن قطعة، رقم SKU، موديل...',
-      avail_in_stock: 'متوفر', avail_out_stock: 'غير متوفر', results_found: 'قطعة موجودة',
+      avail_in_stock: 'متوفر', avail_out_stock: 'غير متوفر', results_found: 'قطعة موجودة', page_label: 'صفحة',
       sort_relevance: 'الترتيب: الأنسب', sort_price_asc: 'السعر: من الأقل', sort_price_desc: 'السعر: من الأعلى', sort_name: 'الاسم: أ-ي',
       fits: 'يناسب:', sku: 'الرقم المرجعي:', in_stock: 'متوفر', not_available: 'غير متوفر', currently_unavailable: 'غير متوفر حاليًا',
       add_to_cart: 'أضف إلى السلة', notify_me: 'أعلمني عند التوفر', min_order: 'الحد الأدنى للطلب:', units: 'وحدة',
@@ -665,7 +667,7 @@
       cat_engine: 'Engine Parts', cat_brake: 'Brake System', cat_suspension: 'Suspension', cat_filter: 'Filters', cat_electrical: 'Electrical', cat_body: 'Body & Trim',
       shop_eyebrow: 'Catalog', shop_title: 'Featured Parts',
       grid_search_placeholder: 'Search parts, SKU, model...',
-      avail_in_stock: 'In Stock', avail_out_stock: 'Not Available', results_found: 'parts found',
+      avail_in_stock: 'In Stock', avail_out_stock: 'Not Available', results_found: 'parts found', page_label: 'Page',
       sort_relevance: 'Sort: Relevance', sort_price_asc: 'Price: Low to High', sort_price_desc: 'Price: High to Low', sort_name: 'Name: A-Z',
       fits: 'Fits:', sku: 'Reference:', in_stock: 'In Stock', not_available: 'Not Available', currently_unavailable: 'Currently unavailable',
       add_to_cart: 'Add to Cart', notify_me: 'Notify Me', min_order: 'Min. order:', units: 'unit(s)',
@@ -761,6 +763,13 @@
     { id: 'p41', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Bavette avant Hilux Vigo 2WD (jeu de 2)', en: 'Front Mud Flaps Hilux Vigo 2WD (Set of 2)', ar: 'طقم رفارف طين أمامية هيلوكس فيغو (قطعتان)' }, category: 'body', sku: '76621/2-0K010', price: 4400, wholesalePrice: 3600, moq: 2, stock: true, rating: 4.3, reviews: 10, photo: 'assets/images/products/bavette-garde-boue.jpg' }
   ];
 
+  if (typeof BULK_PRODUCTS !== 'undefined') PRODUCTS.push(...BULK_PRODUCTS);
+  if (typeof BULK_VEHICLE_MODELS_EXTRA !== 'undefined') {
+    Object.keys(BULK_VEHICLE_MODELS_EXTRA).forEach((brand) => {
+      VEHICLE_MODELS[brand] = VEHICLE_MODELS[brand].concat(BULK_VEHICLE_MODELS_EXTRA[brand]);
+    });
+  }
+
   const VIN_DATABASE = {
     'JTMBK3FV000000001': { brand: 'toyota', model: 'Land Cruiser' },
     'MR0FZ29G000000002': { brand: 'toyota', model: 'Hilux' },
@@ -776,8 +785,9 @@
     lang: 'fr', theme: 'light', mode: 'retail', simulateOOS: false,
     search: '', vehicleBrand: null, vehicleModel: null, brandFilter: null,
     availability: new Set(), cart: [], wishlist: new Set(),
-    paymentMethod: 'cod', lastOrder: null
+    paymentMethod: 'cod', lastOrder: null, page: 1
   };
+  const PAGE_SIZE = 24;
 
   function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
   const LOCALE_MAP = { fr: 'fr-DZ', en: 'en-US', ar: 'ar-DZ' };
@@ -803,7 +813,7 @@
     document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     $all('.lang-btn').forEach((b) => b.classList.toggle('active', b.dataset.lang === lang));
     applyTranslations();
-    render(); renderCart(); renderWishlist();
+    render(true); renderCart(); renderWishlist();
     if ($('#trackModal').classList.contains('modal-visible')) renderTrackModal();
   }
   function setTheme(theme) {
@@ -878,7 +888,7 @@
 
     $('#simOosToggle').addEventListener('change', (e) => {
       state.simulateOOS = e.target.checked;
-      render();
+      render(true);
       renderWishlist();
       showToast(state.simulateOOS ? t('toast_sim_on') : t('toast_sim_off'), 'info');
     });
@@ -1043,12 +1053,40 @@
     );
   }
 
-  function render() {
+  function render(keepPage) {
+    if (!keepPage) state.page = 1;
     const list = getFiltered();
-    $('#productGrid').innerHTML = list.map(productCard).join('');
+    const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    const start = (state.page - 1) * PAGE_SIZE;
+    const pageItems = list.slice(start, start + PAGE_SIZE);
+    $('#productGrid').innerHTML = pageItems.map(productCard).join('');
     $('#resultCount').textContent = list.length;
     $('#noResults').classList.toggle('hidden', list.length > 0);
+    renderPagination(totalPages);
     icons();
+  }
+
+  function renderPagination(totalPages) {
+    const el = $('#pagination');
+    if (!el) return;
+    if (totalPages <= 1) { el.innerHTML = ''; return; }
+    const cur = state.page;
+    el.innerHTML =
+      '<button class="page-btn w-10 h-10 rounded-lg border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:border-accent transition" data-page="prev"' + (cur <= 1 ? ' disabled' : '') + '><i data-lucide="chevron-left" class="w-4 h-4"></i></button>' +
+      '<span class="text-sm text-sub dark:text-sub-dark min-w-[110px] text-center">' + t('page_label') + ' ' + cur + ' / ' + totalPages + '</span>' +
+      '<button class="page-btn w-10 h-10 rounded-lg border border-border dark:border-border-dark bg-elevated dark:bg-elevated-dark flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:border-accent transition" data-page="next"' + (cur >= totalPages ? ' disabled' : '') + '><i data-lucide="chevron-right" class="w-4 h-4"></i></button>';
+    icons();
+  }
+
+  function initPagination() {
+    $('#pagination').addEventListener('click', (e) => {
+      const btn = e.target.closest('.page-btn');
+      if (!btn || btn.disabled) return;
+      state.page = btn.dataset.page === 'prev' ? Math.max(1, state.page - 1) : state.page + 1;
+      render(true);
+      $('#shop').scrollIntoView({ behavior: 'smooth' });
+    });
   }
 
   function initGridEvents() {
@@ -1250,7 +1288,7 @@
     state.mode = mode;
     $all('.mode-btn').forEach((b) => b.classList.toggle('active', b.dataset.mode === mode));
     $('#wholesaleBanner').classList.toggle('hidden', mode !== 'wholesale');
-    render(); renderCart(); renderWishlist();
+    render(true); renderCart(); renderWishlist();
   }
   function initModeToggle() {
     $('#modeToggle').addEventListener('click', (e) => {
@@ -1271,6 +1309,7 @@
     initSearch();
     initModelSearch();
     initGridEvents();
+    initPagination();
     initCartEvents();
     initWishlistDrawer();
     initTrackModal();
