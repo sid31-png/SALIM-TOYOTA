@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Salim Auto Parts | Genuine Toyota, Nissan, Lexus &amp; Infiniti Parts</title>
-<meta name="description" content="Wholesale &amp; retail spare parts specialist for Toyota, Nissan, Lexus and Infiniti. Search by OEM reference or find parts by vehicle." />
+<title>Salim Auto Parts | Pièces Toyota, Nissan, Lexus &amp; Infiniti</title>
+<meta name="description" content="Vente en gros et au détail de pièces détachées pour Toyota, Nissan, Lexus et Infiniti. Recherche par référence OEM ou par numéro de châssis (VIN)." />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e0202f'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23d81f2f'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
 
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
 </head>
 <body>
@@ -18,12 +18,11 @@
   <div class="container">
     <div class="topbar-left">
       <span class="topbar-item"><i data-lucide="phone"></i> +234 800 123 4567</span>
-      <span class="topbar-item"><i data-lucide="map-pin"></i> Lagos • Abuja • Port Harcourt</span>
     </div>
     <div class="topbar-left">
-      <a href="#" class="topbar-item"><i data-lucide="truck"></i> Track Order</a>
-      <a href="#wholesale" class="topbar-item"><i data-lucide="briefcase"></i> Become a Wholesale Partner</a>
-      <a href="#" class="topbar-item"><i data-lucide="help-circle"></i> Help</a>
+      <a href="#" class="topbar-item"><i data-lucide="truck"></i> <span data-i18n="track_order">Suivre ma commande</span></a>
+      <a href="#wholesale" class="topbar-item"><i data-lucide="briefcase"></i> <span data-i18n="b2b_partner">Devenir partenaire B2B</span></a>
+      <a href="#" class="topbar-item"><i data-lucide="help-circle"></i> <span data-i18n="help">Aide</span></a>
     </div>
   </div>
 </div>
@@ -35,32 +34,47 @@
       <span class="logo-mark">SA</span>
       <span class="logo-text">
         <span class="name">SALIM AUTO PARTS</span>
-        <span class="tag">Genuine &amp; OEM Specialist</span>
+        <span class="tag" data-i18n="tagline">Spécialiste Pièces d'Origine</span>
       </span>
     </a>
 
     <nav class="main-nav" id="mainNav">
-      <a href="#shop" class="active">Shop</a>
-      <a href="#brands">Brands</a>
-      <a href="#categories">Categories</a>
-      <a href="#wholesale">Wholesale (B2B)</a>
-      <a href="#" >Track Order</a>
-      <a href="#contact">Contact</a>
+      <a href="#shop" class="active" data-i18n="nav_shop">Boutique</a>
+      <a href="#brands" data-i18n="nav_brands">Marques</a>
+      <a href="#wholesale" data-i18n="nav_wholesale">Vente en gros (B2B)</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
     </nav>
 
     <div class="header-actions">
+      <!-- Simulate out-of-stock (demo/QA control) -->
+      <label class="sim-toggle" id="simToggleWrap" title="QA">
+        <span class="sim-label"><i data-lucide="flask-conical"></i><span class="long" data-i18n="sim_label">Simuler rupture de stock</span></span>
+        <span class="switch">
+          <input type="checkbox" id="simOosToggle" />
+          <span class="track"></span>
+          <span class="thumb"></span>
+        </span>
+      </label>
+
       <div class="mode-toggle" id="modeToggle" role="group" aria-label="Pricing mode">
         <button type="button" class="active retail" data-mode="retail">
-          <i data-lucide="user"></i><span class="label">Retail</span>
+          <i data-lucide="user"></i><span class="label" data-i18n="mode_retail">Détail</span>
         </button>
         <button type="button" class="wholesale" data-mode="wholesale">
-          <i data-lucide="building-2"></i><span class="label">Wholesale</span>
+          <i data-lucide="building-2"></i><span class="label" data-i18n="mode_wholesale">Gros</span>
         </button>
       </div>
 
-      <button class="icon-btn" id="accountBtn" title="Account" aria-label="Account">
-        <i data-lucide="user-circle-2"></i>
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+        <button type="button" class="active" data-lang="fr">FR</button>
+        <button type="button" data-lang="ar">AR</button>
+      </div>
+
+      <button class="icon-btn theme-toggle" id="themeToggleBtn" title="Theme" aria-label="Toggle theme">
+        <i data-lucide="sun" class="icon-sun"></i>
+        <i data-lucide="moon" class="icon-moon"></i>
       </button>
+
       <button class="icon-btn" id="wishlistNavBtn" title="Wishlist" aria-label="Wishlist">
         <i data-lucide="heart"></i>
       </button>
@@ -79,123 +93,81 @@
 <div class="wholesale-banner" id="wholesaleBanner">
   <div class="container">
     <i data-lucide="badge-percent"></i>
-    <span>You're viewing <strong>Wholesale (B2B) pricing</strong> — bulk discounts applied automatically. Minimum order quantities may apply.</span>
+    <span data-i18n="wholesale_banner">Mode Vente en gros (B2B) actif — remises appliquées automatiquement.</span>
   </div>
 </div>
 
-<!-- ============ HERO ============ -->
+<!-- ============ HERO (PartSouq-style centered search) ============ -->
 <section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-copy">
-      <span class="hero-badge">
-        <span class="dots">
-          <span class="brand-dot toyota"></span><span class="brand-dot nissan"></span><span class="brand-dot lexus"></span><span class="brand-dot infiniti"></span>
-        </span>
-        Authorized specialist &mdash; Toyota, Nissan, Lexus &amp; Infiniti only
+  <div class="container hero-inner">
+    <span class="hero-badge">
+      <span class="dots">
+        <span class="brand-dot toyota"></span><span class="brand-dot nissan"></span><span class="brand-dot lexus"></span><span class="brand-dot infiniti"></span>
       </span>
-      <h1>Genuine parts, <span>found in seconds.</span></h1>
-      <p class="hero-lede">Search by OEM reference number or select your exact vehicle to get precision-matched parts &mdash; with transparent retail and wholesale pricing.</p>
-
-      <div class="hero-cta-row">
-        <a href="#shop" class="btn btn-primary"><i data-lucide="search"></i> Browse Catalog</a>
-        <a href="#wholesale" class="btn btn-outline"><i data-lucide="briefcase"></i> Apply for B2B Account</a>
-      </div>
-
-      <div class="hero-stats">
-        <div class="stat"><b>12,400+</b><span>Parts in stock</span></div>
-        <div class="stat"><b>4</b><span>Brands specialized</span></div>
-        <div class="stat"><b>98%</b><span>Fitment accuracy</span></div>
-        <div class="stat"><b>24h</b><span>Dispatch time</span></div>
-      </div>
-    </div>
+      <span data-i18n="hero_badge">Spécialiste Toyota · Nissan · Lexus · Infiniti</span>
+    </span>
+    <h1><span data-i18n="hero_title_1">Pièces d'origine,</span> <span data-i18n="hero_title_span">trouvées en secondes.</span></h1>
+    <p class="hero-lede" data-i18n="hero_lede">Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.</p>
 
     <div class="finder-card">
       <div class="finder-tabs">
-        <button type="button" class="active" data-panel="search"><i data-lucide="scan-line"></i> Search by OEM</button>
-        <button type="button" data-panel="vehicle"><i data-lucide="car"></i> Find by Vehicle</button>
+        <button type="button" class="active" data-panel="oem"><i data-lucide="scan-line"></i> <span data-i18n="tab_oem">Numéro OEM</span></button>
+        <button type="button" data-panel="vin"><i data-lucide="car"></i> <span data-i18n="tab_vin">Numéro de châssis (VIN)</span></button>
       </div>
 
-      <!-- Search by reference -->
-      <div class="finder-panel active" id="panel-search">
+      <!-- OEM search -->
+      <div class="finder-panel active" id="panel-oem">
         <form id="oemSearchForm">
           <div class="search-field">
             <i data-lucide="search"></i>
-            <input type="text" id="oemSearchInput" placeholder="Enter OEM / reference number e.g. 90915-10001" autocomplete="off" />
-            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            <input type="text" id="oemSearchInput" data-i18n-ph="oem_placeholder" placeholder="Ex. 90915-YZZD4" autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-sm" data-i18n="search_btn">Rechercher</button>
           </div>
         </form>
-        <div class="search-hint">Try: <code>90915-10001</code> <code>41060-CA025</code> <code>04152-YZZA6</code></div>
+        <div class="search-hint"><span data-i18n="oem_hint">Essayez :</span> <code data-fill="90915-YZZD4">90915-YZZD4</code> <code data-fill="04465-60290">04465-60290</code> <code data-fill="14411-JF00C">14411-JF00C</code></div>
       </div>
 
-      <!-- Vehicle selector -->
-      <div class="finder-panel" id="panel-vehicle">
-        <div class="select-grid">
-          <div class="select-field">
-            <label for="selBrand">Brand</label>
-            <div class="select-wrap">
-              <select id="selBrand">
-                <option value="">Select Brand</option>
-              </select>
-              <i data-lucide="chevron-down" class="chevron"></i>
-            </div>
+      <!-- VIN search -->
+      <div class="finder-panel" id="panel-vin">
+        <form id="vinSearchForm">
+          <div class="search-field">
+            <i data-lucide="hash"></i>
+            <input type="text" id="vinSearchInput" data-i18n-ph="vin_placeholder" placeholder="Ex. JTMBK3FV000000001 (17 caractères)" maxlength="17" autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-sm" data-i18n="search_btn">Rechercher</button>
           </div>
-          <div class="select-field">
-            <label for="selModel">Model</label>
-            <div class="select-wrap">
-              <select id="selModel" disabled>
-                <option value="">Select Model</option>
-              </select>
-              <i data-lucide="chevron-down" class="chevron"></i>
-            </div>
-          </div>
-          <div class="select-field">
-            <label for="selYear">Year</label>
-            <div class="select-wrap">
-              <select id="selYear" disabled>
-                <option value="">Select Year</option>
-              </select>
-              <i data-lucide="chevron-down" class="chevron"></i>
-            </div>
-          </div>
-          <div class="select-field">
-            <label for="selEngine">Engine</label>
-            <div class="select-wrap">
-              <select id="selEngine" disabled>
-                <option value="">Select Engine</option>
-              </select>
-              <i data-lucide="chevron-down" class="chevron"></i>
-            </div>
-          </div>
-        </div>
-        <div class="finder-submit">
-          <button type="button" id="vehicleFindBtn" class="btn btn-primary btn-block" disabled>
-            <i data-lucide="search"></i> Show Compatible Parts
-          </button>
-        </div>
+        </form>
+        <div class="search-hint"><span data-i18n="vin_hint">Essayez :</span> <code data-fill="JTMBK3FV000000001">JTMBK3FV000000001</code> <code data-fill="JN1AZ0CP0BM000001">JN1AZ0CP0BM000001</code></div>
+        <div class="vin-result" id="vinResult"><i data-lucide="check-circle-2"></i><span id="vinResultText"></span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ BRAND STRIP ============ -->
+<!-- ============ BRAND GRID ============ -->
 <section class="brand-strip" id="brands">
   <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow" data-i18n="brands_eyebrow">Nos marques</span>
+        <h2 class="section-title" data-i18n="brands_title">Achetez par marque</h2>
+      </div>
+    </div>
     <div class="grid brand-strip-grid">
       <button class="brand-card" data-brand-filter="toyota">
         <span class="brand-mark toyota">TOY</span>
-        <span class="info"><span class="bname">Toyota</span><span class="bcount">3,400+ parts</span></span>
+        <span class="bname">Toyota</span><span class="bcount">3,400+</span>
       </button>
       <button class="brand-card" data-brand-filter="nissan">
         <span class="brand-mark nissan">NIS</span>
-        <span class="info"><span class="bname">Nissan</span><span class="bcount">2,850+ parts</span></span>
+        <span class="bname">Nissan</span><span class="bcount">2,850+</span>
       </button>
       <button class="brand-card" data-brand-filter="lexus">
         <span class="brand-mark lexus">LEX</span>
-        <span class="info"><span class="bname">Lexus</span><span class="bcount">1,760+ parts</span></span>
+        <span class="bname">Lexus</span><span class="bcount">1,760+</span>
       </button>
       <button class="brand-card" data-brand-filter="infiniti">
         <span class="brand-mark infiniti">INF</span>
-        <span class="info"><span class="bname">Infiniti</span><span class="bcount">1,390+ parts</span></span>
+        <span class="bname">Infiniti</span><span class="bcount">1,390+</span>
       </button>
     </div>
   </div>
@@ -206,58 +178,58 @@
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="section-eyebrow">Shop by category</span>
-        <h2 class="section-title">Find parts faster</h2>
+        <span class="section-eyebrow" data-i18n="categories_eyebrow">Catégories</span>
+        <h2 class="section-title" data-i18n="categories_title">Trouvez plus vite</h2>
       </div>
-      <a href="#shop" class="link-arrow">View all categories <i data-lucide="arrow-right"></i></a>
+      <a href="#shop" class="link-arrow"><span data-i18n="view_all">Voir toutes les catégories</span> <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="grid cat-grid">
       <button class="cat-card" data-cat-filter="engine">
         <span class="cat-icon"><i data-lucide="cog"></i></span>
-        <span class="cname">Engine Parts</span><span class="ccount">1,920</span>
+        <span class="cname" data-i18n="cat_engine">Moteur</span><span class="ccount">1,920</span>
       </button>
       <button class="cat-card" data-cat-filter="brake">
         <span class="cat-icon"><i data-lucide="disc"></i></span>
-        <span class="cname">Brake System</span><span class="ccount">1,140</span>
+        <span class="cname" data-i18n="cat_brake">Freinage</span><span class="ccount">1,140</span>
       </button>
       <button class="cat-card" data-cat-filter="suspension">
         <span class="cat-icon"><i data-lucide="gauge"></i></span>
-        <span class="cname">Suspension</span><span class="ccount">860</span>
+        <span class="cname" data-i18n="cat_suspension">Suspension</span><span class="ccount">860</span>
       </button>
       <button class="cat-card" data-cat-filter="filter">
         <span class="cat-icon"><i data-lucide="filter"></i></span>
-        <span class="cname">Filters</span><span class="ccount">2,300</span>
+        <span class="cname" data-i18n="cat_filter">Filtres</span><span class="ccount">2,300</span>
       </button>
       <button class="cat-card" data-cat-filter="electrical">
         <span class="cat-icon"><i data-lucide="zap"></i></span>
-        <span class="cname">Electrical</span><span class="ccount">970</span>
+        <span class="cname" data-i18n="cat_electrical">Électrique</span><span class="ccount">970</span>
       </button>
       <button class="cat-card" data-cat-filter="body">
         <span class="cat-icon"><i data-lucide="layers"></i></span>
-        <span class="cname">Body &amp; Trim</span><span class="ccount">1,480</span>
+        <span class="cname" data-i18n="cat_body">Carrosserie</span><span class="ccount">1,480</span>
       </button>
     </div>
   </div>
 </section>
 
-<!-- ============ SHOP / PRODUCT GRID ============ -->
+<!-- ============ SHOP ============ -->
 <section class="section section-tight" id="shop">
   <div class="container">
     <div class="section-head">
       <div>
-        <span class="section-eyebrow">Catalog</span>
-        <h2 class="section-title">Featured Parts</h2>
-        <p class="section-subtitle">Genuine and premium-aftermarket parts for Toyota, Nissan, Lexus &amp; Infiniti vehicles.</p>
+        <span class="section-eyebrow" data-i18n="shop_eyebrow">Catalogue</span>
+        <h2 class="section-title" data-i18n="shop_title">Pièces en vedette</h2>
+        <p class="section-subtitle" data-i18n="shop_subtitle">Pièces d'origine et premium pour Toyota, Nissan, Lexus et Infiniti.</p>
       </div>
       <div class="search-field" style="max-width:320px;">
         <i data-lucide="search"></i>
-        <input type="text" id="gridSearchInput" placeholder="Search parts, SKU, model..." />
+        <input type="text" id="gridSearchInput" data-i18n-ph="grid_search_placeholder" placeholder="Rechercher une pièce, SKU, modèle..." />
       </div>
     </div>
 
     <div class="shop-layout">
       <aside class="filters-panel">
-        <h3>Brand</h3>
+        <h3 data-i18n="filter_brand">Marque</h3>
         <div class="filter-group" id="filterBrand">
           <label class="filter-option"><input type="checkbox" value="toyota" /> <span class="brand-dot toyota"></span> Toyota <span class="fc">(3.4k)</span></label>
           <label class="filter-option"><input type="checkbox" value="nissan" /> <span class="brand-dot nissan"></span> Nissan <span class="fc">(2.8k)</span></label>
@@ -265,40 +237,38 @@
           <label class="filter-option"><input type="checkbox" value="infiniti" /> <span class="brand-dot infiniti"></span> Infiniti <span class="fc">(1.3k)</span></label>
         </div>
 
-        <h3>Category</h3>
+        <h3 data-i18n="filter_category">Catégorie</h3>
         <div class="filter-group" id="filterCategory">
-          <label class="filter-option"><input type="checkbox" value="engine" /> Engine Parts</label>
-          <label class="filter-option"><input type="checkbox" value="brake" /> Brake System</label>
-          <label class="filter-option"><input type="checkbox" value="suspension" /> Suspension</label>
-          <label class="filter-option"><input type="checkbox" value="filter" /> Filters</label>
-          <label class="filter-option"><input type="checkbox" value="electrical" /> Electrical</label>
-          <label class="filter-option"><input type="checkbox" value="body" /> Body &amp; Trim</label>
+          <label class="filter-option"><input type="checkbox" value="engine" /> <span data-i18n="cat_engine">Moteur</span></label>
+          <label class="filter-option"><input type="checkbox" value="brake" /> <span data-i18n="cat_brake">Freinage</span></label>
+          <label class="filter-option"><input type="checkbox" value="suspension" /> <span data-i18n="cat_suspension">Suspension</span></label>
+          <label class="filter-option"><input type="checkbox" value="filter" /> <span data-i18n="cat_filter">Filtres</span></label>
+          <label class="filter-option"><input type="checkbox" value="electrical" /> <span data-i18n="cat_electrical">Électrique</span></label>
+          <label class="filter-option"><input type="checkbox" value="body" /> <span data-i18n="cat_body">Carrosserie</span></label>
         </div>
 
-        <h3>Availability</h3>
+        <h3 data-i18n="filter_availability">Disponibilité</h3>
         <div class="filter-group" id="filterAvailability">
-          <label class="filter-option"><input type="checkbox" value="in-stock" /> In Stock</label>
-          <label class="filter-option"><input type="checkbox" value="out-of-stock" /> Not Available</label>
+          <label class="filter-option"><input type="checkbox" value="in-stock" /> <span data-i18n="avail_in_stock">En stock</span></label>
+          <label class="filter-option"><input type="checkbox" value="out-of-stock" /> <span data-i18n="avail_out_stock">Indisponible</span></label>
         </div>
 
-        <button class="btn btn-ghost btn-block" id="clearFiltersBtn"><i data-lucide="rotate-ccw"></i> Clear Filters</button>
+        <button class="btn btn-ghost btn-block" id="clearFiltersBtn"><i data-lucide="rotate-ccw"></i> <span data-i18n="clear_filters">Réinitialiser</span></button>
       </aside>
 
       <div class="products-col">
         <div class="toolbar">
-          <span class="result-count"><b id="resultCount">0</b> parts found</span>
-          <div class="toolbar-right">
-            <select id="sortSelect">
-              <option value="relevance">Sort: Relevance</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name">Name: A–Z</option>
-            </select>
-          </div>
+          <span class="result-count"><b id="resultCount">0</b> <span data-i18n="results_found">pièces trouvées</span></span>
+          <select id="sortSelect">
+            <option value="relevance" data-i18n="sort_relevance">Trier : Pertinence</option>
+            <option value="price-asc" data-i18n="sort_price_asc">Prix croissant</option>
+            <option value="price-desc" data-i18n="sort_price_desc">Prix décroissant</option>
+            <option value="name" data-i18n="sort_name">Nom : A-Z</option>
+          </select>
         </div>
 
         <div class="grid product-grid" id="productGrid"></div>
-        <p id="noResults" style="display:none;text-align:center;color:var(--text-muted);padding:60px 0;">No parts match your filters. Try adjusting your search.</p>
+        <p id="noResults" style="display:none;text-align:center;color:var(--text-muted);padding:60px 0;" data-i18n="no_results">Aucune pièce ne correspond à vos filtres.</p>
       </div>
     </div>
   </div>
@@ -309,16 +279,16 @@
   <div class="container">
     <div class="cta-banner">
       <div>
-        <span class="section-eyebrow eyebrow">B2B Program</span>
-        <h2>Run a garage or resell parts? Get wholesale pricing.</h2>
-        <p>Unlock tiered bulk pricing, dedicated account support, and priority stock allocation for Toyota, Nissan, Lexus &amp; Infiniti parts.</p>
+        <span class="section-eyebrow" data-i18n="cta_eyebrow">Programme B2B</span>
+        <h2 data-i18n="cta_title">Garagiste ou revendeur ? Profitez des tarifs de gros.</h2>
+        <p data-i18n="cta_desc">Débloquez des remises par palier, un support dédié et une allocation de stock prioritaire.</p>
         <div class="cta-perks">
-          <div><i data-lucide="percent"></i> Up to 30% off retail</div>
-          <div><i data-lucide="truck"></i> Priority dispatch</div>
-          <div><i data-lucide="headset"></i> Dedicated account manager</div>
+          <div><i data-lucide="percent"></i> <span data-i18n="cta_perk1">Jusqu'à 30% de remise</span></div>
+          <div><i data-lucide="truck"></i> <span data-i18n="cta_perk2">Expédition prioritaire</span></div>
+          <div><i data-lucide="headset"></i> <span data-i18n="cta_perk3">Gestionnaire de compte dédié</span></div>
         </div>
       </div>
-      <a href="#contact" class="btn btn-gold"><i data-lucide="briefcase"></i> Apply for B2B Account</a>
+      <a href="#contact" class="btn btn-gold"><i data-lucide="briefcase"></i> <span data-i18n="cta_btn">Demander un compte B2B</span></a>
     </div>
   </div>
 </section>
@@ -329,19 +299,19 @@
     <div class="grid trust-grid">
       <div class="trust-card">
         <span class="trust-icon"><i data-lucide="badge-check"></i></span>
-        <div><h4>100% Genuine Parts</h4><p>Sourced directly from authorized channels.</p></div>
+        <div><h4 data-i18n="trust1_t">100% Pièces d'origine</h4><p data-i18n="trust1_d">Sourcées auprès de canaux autorisés.</p></div>
       </div>
       <div class="trust-card">
         <span class="trust-icon"><i data-lucide="truck"></i></span>
-        <div><h4>Fast Nationwide Shipping</h4><p>Same-day dispatch on in-stock orders.</p></div>
+        <div><h4 data-i18n="trust2_t">Livraison rapide</h4><p data-i18n="trust2_d">Expédition le jour même pour le stock disponible.</p></div>
       </div>
       <div class="trust-card">
         <span class="trust-icon"><i data-lucide="shield-check"></i></span>
-        <div><h4>Warranty Included</h4><p>Every part backed by a fitment guarantee.</p></div>
+        <div><h4 data-i18n="trust3_t">Garantie incluse</h4><p data-i18n="trust3_d">Chaque pièce est couverte par une garantie de compatibilité.</p></div>
       </div>
       <div class="trust-card">
         <span class="trust-icon"><i data-lucide="layers"></i></span>
-        <div><h4>Bulk Pricing</h4><p>Automatic discounts in Wholesale mode.</p></div>
+        <div><h4 data-i18n="trust4_t">Tarifs de gros</h4><p data-i18n="trust4_d">Remises automatiques en mode Vente en gros.</p></div>
       </div>
     </div>
   </div>
@@ -352,12 +322,12 @@
   <div class="container">
     <div class="newsletter">
       <div>
-        <h3>Stay ahead on stock &amp; pricing</h3>
-        <p>Get notified about new arrivals, restocks and wholesale offers.</p>
+        <h3 data-i18n="newsletter_title">Restez informé des stocks et tarifs</h3>
+        <p data-i18n="newsletter_desc">Recevez les nouveautés, réapprovisionnements et offres B2B.</p>
       </div>
       <form class="newsletter-form" id="newsletterForm">
-        <input type="email" placeholder="you@company.com" required />
-        <button type="submit" class="btn btn-primary">Subscribe</button>
+        <input type="email" id="newsletterInput" data-i18n-ph="newsletter_ph" placeholder="vous@entreprise.com" required />
+        <button type="submit" class="btn btn-primary" data-i18n="subscribe">S'abonner</button>
       </form>
     </div>
   </div>
@@ -370,9 +340,9 @@
       <div class="footer-col footer-brand">
         <a href="#" class="logo">
           <span class="logo-mark">SA</span>
-          <span class="logo-text"><span class="name">SALIM AUTO PARTS</span><span class="tag">Genuine &amp; OEM Specialist</span></span>
+          <span class="logo-text"><span class="name">SALIM AUTO PARTS</span><span class="tag" data-i18n="tagline">Spécialiste Pièces d'Origine</span></span>
         </a>
-        <p>Wholesale &amp; retail specialist in genuine and premium-aftermarket spare parts for Toyota, Nissan, Lexus and Infiniti vehicles.</p>
+        <p data-i18n="footer_desc">Spécialiste en pièces détachées d'origine et premium pour Toyota, Nissan, Lexus et Infiniti — vente en gros et au détail.</p>
         <div class="social-row">
           <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
           <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
@@ -380,35 +350,35 @@
         </div>
       </div>
       <div class="footer-col">
-        <h4>Shop</h4>
+        <h4 data-i18n="footer_shop">Boutique</h4>
         <ul>
-          <li><a href="#brands">By Brand</a></li>
-          <li><a href="#categories">By Category</a></li>
-          <li><a href="#shop">All Parts</a></li>
-          <li><a href="#wholesale">Wholesale (B2B)</a></li>
+          <li><a href="#brands" data-i18n="footer_by_brand">Par marque</a></li>
+          <li><a href="#categories" data-i18n="footer_by_cat">Par catégorie</a></li>
+          <li><a href="#shop" data-i18n="footer_all_parts">Toutes les pièces</a></li>
+          <li><a href="#wholesale" data-i18n="footer_wholesale">Vente en gros (B2B)</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Support</h4>
+        <h4 data-i18n="footer_support">Assistance</h4>
         <ul>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Returns &amp; Warranty</a></li>
-          <li><a href="#">Shipping Info</a></li>
-          <li><a href="#">FAQs</a></li>
+          <li><a href="#" data-i18n="footer_track">Suivre ma commande</a></li>
+          <li><a href="#" data-i18n="footer_returns">Retours &amp; garantie</a></li>
+          <li><a href="#" data-i18n="footer_shipping">Livraison</a></li>
+          <li><a href="#" data-i18n="footer_faq">FAQ</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Company</h4>
+        <h4 data-i18n="footer_company">Société</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Become a Partner</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Careers</a></li>
+          <li><a href="#" data-i18n="footer_about">À propos</a></li>
+          <li><a href="#" data-i18n="footer_partner">Devenir partenaire</a></li>
+          <li><a href="#contact" data-i18n="footer_contact">Contact</a></li>
+          <li><a href="#" data-i18n="footer_careers">Carrières</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span id="year"></span> Salim Auto Parts. All rights reserved.</span>
+      <span>&copy; <span id="year"></span> Salim Auto Parts. <span data-i18n="footer_rights">Tous droits réservés.</span></span>
       <div class="payment-icons">
         <span>Visa</span><span>Mastercard</span><span>Bank Transfer</span><span>POS</span>
       </div>
@@ -420,18 +390,18 @@
 <div class="overlay" id="overlay"></div>
 <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
   <div class="drawer-head">
-    <h3><i data-lucide="shopping-cart"></i> Your Cart</h3>
+    <h3><i data-lucide="shopping-cart"></i> <span data-i18n="cart_title">Votre panier</span></h3>
     <button class="drawer-close" id="cartCloseBtn" aria-label="Close cart"><i data-lucide="x"></i></button>
   </div>
   <div class="drawer-mode-note" id="drawerModeNote">
-    <i data-lucide="badge-percent"></i> Wholesale pricing applied to this order.
+    <i data-lucide="badge-percent"></i> <span data-i18n="cart_wholesale_note">Tarifs de gros appliqués à cette commande.</span>
   </div>
   <div class="cart-items" id="cartItems"></div>
   <div class="drawer-footer">
-    <div class="drawer-summary-row"><span>Subtotal</span><span id="cartSubtotal">₦0</span></div>
-    <div class="drawer-summary-row"><span>Estimated Shipping</span><span id="cartShipping">₦0</span></div>
-    <div class="drawer-summary-row total"><span>Total</span><span id="cartTotal">₦0</span></div>
-    <button class="btn btn-primary btn-block" id="checkoutBtn" style="margin-top:14px;"><i data-lucide="lock"></i> Checkout</button>
+    <div class="drawer-summary-row"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0</span></div>
+    <div class="drawer-summary-row"><span data-i18n="cart_shipping">Livraison estimée</span><span id="cartShipping">0</span></div>
+    <div class="drawer-summary-row total"><span data-i18n="cart_total">Total</span><span id="cartTotal">0</span></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn" style="margin-top:14px;"><i data-lucide="lock"></i> <span data-i18n="cart_checkout">Passer la commande</span></button>
   </div>
 </aside>
 
@@ -440,18 +410,18 @@
 <div class="modal" id="notifyModal">
   <button class="modal-close-x" id="notifyCloseBtn"><i data-lucide="x"></i></button>
   <span class="modal-icon"><i data-lucide="bell-ring"></i></span>
-  <h3>Notify me when back in stock</h3>
-  <p id="notifyProductName">We'll email you the moment this part is available again.</p>
-  <input type="email" id="notifyEmailInput" placeholder="you@email.com" />
+  <h3 data-i18n="notify_title">Être notifié du réapprovisionnement</h3>
+  <p id="notifyProductName">—</p>
+  <input type="email" id="notifyEmailInput" data-i18n-ph="notify_ph" placeholder="vous@email.com" />
   <div class="modal-actions">
-    <button class="btn btn-outline" id="notifyCancelBtn">Cancel</button>
-    <button class="btn btn-primary" id="notifyConfirmBtn"><i data-lucide="bell"></i> Notify Me</button>
+    <button class="btn btn-outline" id="notifyCancelBtn" data-i18n="notify_cancel">Annuler</button>
+    <button class="btn btn-primary" id="notifyConfirmBtn"><i data-lucide="bell"></i> <span data-i18n="notify_confirm">M'avertir</span></button>
   </div>
 </div>
 
 <!-- ============ TOASTS ============ -->
 <div class="toast-stack" id="toastStack"></div>
 
-<script src="app.js" defer></script>
+<script src="assets/js/app.js" defer></script>
 </body>
 </html>

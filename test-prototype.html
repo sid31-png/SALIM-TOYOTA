@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" dir="ltr">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Salim Auto Parts — Interactive Prototype</title>
+<title>Salim Auto Parts — Interactive Prototype (PartSouq-inspired)</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -17,25 +17,22 @@
     theme: {
       extend: {
         colors: {
-          bg: '#0a0b0f',
-          elevated: '#101218',
-          card: '#14161e',
-          cardhover: '#191c26',
-          border: '#232633',
-          borderstrong: '#323647',
-          accent: { DEFAULT: '#e0202f', hover: '#ff2e3f' },
-          gold: { DEFAULT: '#d4af7a', dark: '#b98f52' },
-          toyota: '#eb0a1e',
-          nissan: '#c3002f',
-          lexus: '#cfd2d8',
-          infiniti: '#d4af7a'
+          bg: { DEFAULT: '#f3f4f6', dark: '#0a0b0f' },
+          elevated: { DEFAULT: '#ffffff', dark: '#101218' },
+          card: { DEFAULT: '#ffffff', dark: '#14161e' },
+          border: { DEFAULT: '#e3e5ea', dark: '#232633' },
+          borderstrong: { DEFAULT: '#cbced8', dark: '#323647' },
+          ink: { DEFAULT: '#14161e', dark: '#f4f5f7' },
+          sub: { DEFAULT: '#565c6b', dark: '#a3a8b8' },
+          muted: { DEFAULT: '#8b90a0', dark: '#6b7080' },
+          accent: { DEFAULT: '#d81f2f', hover: '#b91626', darkhover: '#ff2e3f' },
+          gold: { DEFAULT: '#a9762f', dark: '#d4af7a' },
+          toyota: '#eb0a1e', nissan: '#c3002f', lexus: '#9aa0ab', infiniti: '#a9762f'
         },
         fontFamily: {
           display: ['Sora', 'Inter', 'sans-serif'],
-          body: ['Inter', 'sans-serif']
-        },
-        boxShadow: {
-          glow: '0 8px 24px rgba(224,32,47,0.25)'
+          body: ['Inter', 'sans-serif'],
+          arabic: ['Cairo', 'Tajawal', 'sans-serif']
         }
       }
     }
@@ -44,410 +41,488 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { background: #0a0b0f; font-family: 'Inter', sans-serif; }
+  body { background: #f3f4f6; font-family: 'Inter', sans-serif; transition: background .2s ease, color .2s ease; }
+  html.dark body { background: #0a0b0f; }
+  html[lang="ar"] body, html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 { font-family: 'Cairo', 'Tajawal', sans-serif; }
   h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #0a0b0f; }
-  ::-webkit-scrollbar-thumb { background: #323647; border-radius: 999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #e0202f; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbced8; border-radius: 999px; }
+  html.dark ::-webkit-scrollbar-thumb { background: #323647; }
+  ::-webkit-scrollbar-thumb:hover { background: #d81f2f; }
   select { appearance: none; }
   .fade-in { animation: fadeIn .25s ease; }
   @keyframes fadeIn { from { opacity:0; transform: translateY(4px);} to {opacity:1; transform:none;} }
   .toast-enter { transform: translateX(120%); }
+  html[dir="rtl"] .toast-enter { transform: translateX(-120%); }
   .drawer-closed { transform: translateX(100%); }
+  html[dir="rtl"] .drawer-closed { transform: translateX(-100%); }
   .modal-hidden { opacity:0; pointer-events:none; transform: translate(-50%,-46%); }
   .modal-visible { opacity:1; pointer-events:auto; transform: translate(-50%,-50%); }
   .overlay-hidden { opacity:0; pointer-events:none; }
   .overlay-visible { opacity:1; pointer-events:auto; }
   [data-lucide] { width: 1em; height: 1em; }
+  .mode-btn { color: #8b90a0; }
+  html.dark .mode-btn { color: #a3a8b8; }
+  .mode-btn.active[data-mode="retail"] { background: #14161e; color: #fff; }
+  html.dark .mode-btn.active[data-mode="retail"] { background: #f4f5f7; color: #101218; }
+  .mode-btn.active[data-mode="wholesale"] { background: linear-gradient(135deg, #a9762f, #7a5620); color: #fff; }
+  .finder-tab { color: #8b90a0; }
+  html.dark .finder-tab { color: #a3a8b8; }
+  .finder-tab.active { background: #d81f2f; color: #fff; }
+  .lang-btn.active { background: #d81f2f; color: #fff; }
+  .lang-btn { color: #8b90a0; }
+  html.dark .lang-btn { color: #a3a8b8; }
+  .theme-icon-moon { display: none; }
+  html.dark .theme-icon-sun { display: none; }
+  html.dark .theme-icon-moon { display: block; }
 </style>
 </head>
 
-<body class="bg-bg text-neutral-100 antialiased">
+<body class="bg-bg dark:bg-bg-dark text-ink dark:text-ink-dark antialiased">
 
 <!-- ============ HEADER ============ -->
-<header class="sticky top-0 z-40 backdrop-blur-lg bg-bg/85 border-b border-border">
-  <div class="max-w-[1320px] mx-auto px-6 h-[76px] flex items-center gap-6">
+<header class="sticky top-0 z-40 backdrop-blur-lg bg-bg/85 dark:bg-bg-dark/85 border-b border-border dark:border-border-dark">
+  <div class="max-w-[1360px] mx-auto px-5 h-[74px] flex items-center gap-4">
     <a href="#" class="flex items-center gap-2.5 shrink-0">
-      <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-[#8f0e18] flex items-center justify-center font-display font-extrabold text-sm shadow-glow">SA</span>
-      <span class="leading-tight">
-        <span class="block font-display font-extrabold text-[17px] tracking-tight">SALIM AUTO PARTS</span>
-        <span class="block text-[10px] text-gold tracking-widest font-semibold uppercase">Genuine &amp; OEM Specialist</span>
+      <span class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-[#8f0e18] flex items-center justify-center font-display font-extrabold text-sm text-white shadow-lg">SA</span>
+      <span class="leading-tight hidden sm:block">
+        <span class="block font-display font-extrabold text-[16px] tracking-tight">SALIM AUTO PARTS</span>
+        <span class="block text-[10px] text-gold dark:text-gold-dark font-semibold" data-i18n="tagline">Spécialiste Pièces d'Origine</span>
       </span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-1 flex-1">
-      <a href="#shop" class="px-3.5 py-2.5 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-elevated transition">Shop</a>
-      <a href="#brands" class="px-3.5 py-2.5 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-elevated transition">Brands</a>
-      <a href="#wholesale" class="px-3.5 py-2.5 rounded-lg text-sm font-medium text-neutral-300 hover:text-white hover:bg-elevated transition">Wholesale (B2B)</a>
+    <nav class="hidden lg:flex items-center gap-1 flex-1 px-2">
+      <a href="#shop" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_shop">Boutique</a>
+      <a href="#brands" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_brands">Marques</a>
+      <a href="#wholesale" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_wholesale">Vente en gros (B2B)</a>
     </nav>
 
-    <div class="flex items-center gap-2.5 ml-auto">
-      <!-- Retail / Wholesale toggle -->
-      <div id="modeToggle" class="flex items-center p-1 gap-0.5 bg-elevated border border-border rounded-full">
-        <button data-mode="retail" class="mode-btn active flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition">
-          <i data-lucide="user" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">Retail</span>
+    <div class="flex items-center gap-2 ms-auto flex-wrap justify-end">
+      <!-- Simulate out-of-stock -->
+      <label class="flex items-center gap-2.5 ps-3 pe-1 h-9 rounded-full bg-gold/10 border border-gold dark:border-gold-dark cursor-pointer select-none">
+        <span class="text-[11px] font-bold text-gold dark:text-gold-dark flex items-center gap-1.5 whitespace-nowrap"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i><span class="hidden md:inline" data-i18n="sim_label">Simuler rupture de stock</span></span>
+        <span class="relative inline-block w-9 h-5 shrink-0">
+          <input type="checkbox" id="simOosToggle" class="peer sr-only" />
+          <span class="absolute inset-0 rounded-full bg-borderstrong dark:bg-borderstrong-dark peer-checked:bg-accent transition"></span>
+          <span class="absolute top-1 start-1 w-3.5 h-3.5 bg-white rounded-full transition peer-checked:translate-x-4 rtl:peer-checked:-translate-x-4"></span>
+        </span>
+      </label>
+
+      <div id="modeToggle" class="flex items-center p-1 gap-0.5 bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-full">
+        <button data-mode="retail" class="mode-btn active flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">
+          <i data-lucide="user" class="w-3.5 h-3.5"></i><span class="hidden sm:inline" data-i18n="mode_retail">Détail</span>
         </button>
-        <button data-mode="wholesale" class="mode-btn flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition">
-          <i data-lucide="building-2" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">Wholesale</span>
+        <button data-mode="wholesale" class="mode-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition">
+          <i data-lucide="building-2" class="w-3.5 h-3.5"></i><span class="hidden sm:inline" data-i18n="mode_wholesale">Gros</span>
         </button>
       </div>
 
-      <button id="cartBtn" class="relative w-[42px] h-[42px] rounded-lg bg-elevated border border-border flex items-center justify-center hover:border-accent hover:text-accent transition">
-        <i data-lucide="shopping-cart" class="w-[19px] h-[19px]"></i>
-        <span id="cartCount" class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center border-2 border-bg">0</span>
+      <div id="langSwitch" class="flex items-center p-1 gap-0.5 bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-full">
+        <button data-lang="fr" class="lang-btn active px-2.5 py-1.5 rounded-full text-[11px] font-bold transition">FR</button>
+        <button data-lang="ar" class="lang-btn px-2.5 py-1.5 rounded-full text-[11px] font-bold transition">AR</button>
+      </div>
+
+      <button id="themeToggleBtn" class="w-[38px] h-[38px] rounded-lg bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark flex items-center justify-center hover:border-accent hover:text-accent transition shrink-0">
+        <i data-lucide="sun" class="theme-icon-sun w-4 h-4"></i>
+        <i data-lucide="moon" class="theme-icon-moon w-4 h-4"></i>
+      </button>
+
+      <button id="cartBtn" class="relative w-[38px] h-[38px] rounded-lg bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark flex items-center justify-center hover:border-accent hover:text-accent transition shrink-0">
+        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+        <span id="cartCount" class="absolute -top-1.5 -end-1.5 min-w-[17px] h-[17px] px-1 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center border-2 border-bg dark:border-bg-dark">0</span>
       </button>
     </div>
   </div>
 
-  <!-- Wholesale banner -->
-  <div id="wholesaleBanner" class="hidden bg-gradient-to-r from-[#1c1710] to-elevated border-t border-border text-gold">
-    <div class="max-w-[1320px] mx-auto px-6 py-2 flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-center">
+  <div id="wholesaleBanner" class="hidden bg-gold/10 border-t border-border dark:border-border-dark text-gold dark:text-gold-dark">
+    <div class="max-w-[1360px] mx-auto px-5 py-2 flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-center">
       <i data-lucide="badge-percent" class="w-4 h-4 shrink-0"></i>
-      <span>Wholesale (B2B) pricing active — bulk discounts applied automatically.</span>
+      <span data-i18n="wholesale_banner">Mode Vente en gros (B2B) actif — remises appliquées automatiquement.</span>
     </div>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="relative overflow-hidden border-b border-border" style="background: radial-gradient(1000px 480px at 15% -10%, rgba(224,32,47,0.16), transparent 60%), radial-gradient(800px 480px at 100% 0%, rgba(212,175,122,0.10), transparent 55%), #0a0b0f;">
-  <div class="max-w-[1320px] mx-auto px-6 py-16 lg:py-20 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
-    <div>
-      <span class="inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-elevated border border-border text-xs font-semibold text-neutral-300 mb-5">
-        <span class="flex gap-1">
-          <span class="w-2 h-2 rounded-full bg-toyota"></span><span class="w-2 h-2 rounded-full bg-nissan"></span><span class="w-2 h-2 rounded-full bg-lexus"></span><span class="w-2 h-2 rounded-full bg-infiniti"></span>
-        </span>
-        Toyota &middot; Nissan &middot; Lexus &middot; Infiniti specialist
+<!-- ============ HERO (PartSouq-style centered search) ============ -->
+<section class="relative overflow-hidden border-b border-border dark:border-border-dark text-center" style="background: radial-gradient(1000px 480px at 50% -10%, rgba(216,31,47,0.08), transparent 60%);">
+  <div class="max-w-[780px] mx-auto px-5 py-14 lg:py-16">
+    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark text-xs font-semibold text-sub dark:text-sub-dark mb-5">
+      <span class="flex gap-1">
+        <span class="w-2 h-2 rounded-full bg-toyota"></span><span class="w-2 h-2 rounded-full bg-nissan"></span><span class="w-2 h-2 rounded-full bg-lexus"></span><span class="w-2 h-2 rounded-full bg-infiniti"></span>
       </span>
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-[1.1]">Genuine parts, <span class="text-accent">found in seconds.</span></h1>
-      <p class="text-neutral-400 text-lg max-w-lg mb-6">Search by OEM reference number or select your exact vehicle to get precision-matched parts &mdash; with transparent retail and wholesale pricing.</p>
-      <div class="flex gap-3 flex-wrap">
-        <a href="#shop" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent hover:bg-accent-hover font-semibold text-sm shadow-glow transition"><i data-lucide="search" class="w-4 h-4"></i> Browse Catalog</a>
-        <a href="#wholesale" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-borderstrong hover:border-accent hover:text-accent font-semibold text-sm transition"><i data-lucide="briefcase" class="w-4 h-4"></i> Apply for B2B</a>
-      </div>
-    </div>
+      <span data-i18n="hero_badge">Spécialiste Toyota · Nissan · Lexus · Infiniti</span>
+    </span>
+    <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight mb-4 leading-[1.15]">
+      <span data-i18n="hero_title_1">Pièces d'origine,</span> <span class="text-accent" data-i18n="hero_title_span">trouvées en secondes.</span>
+    </h1>
+    <p class="text-sub dark:text-sub-dark text-base sm:text-lg max-w-xl mx-auto mb-8" data-i18n="hero_lede">Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.</p>
 
     <!-- Finder card -->
-    <div class="relative bg-card border border-border rounded-[22px] p-6 shadow-2xl">
-      <div class="flex gap-1.5 mb-5 bg-elevated p-1 rounded-xl">
-        <button data-tab="search" class="finder-tab active flex-1 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition"><i data-lucide="scan-line" class="w-4 h-4"></i> Search by OEM</button>
-        <button data-tab="vehicle" class="finder-tab flex-1 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition"><i data-lucide="car" class="w-4 h-4"></i> Find by Vehicle</button>
+    <div class="text-start bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-[22px] p-5 sm:p-6 shadow-2xl max-w-[640px] mx-auto">
+      <div class="flex gap-1.5 mb-4 bg-bg dark:bg-bg-dark p-1 rounded-xl">
+        <button data-tab="oem" class="finder-tab active flex-1 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition"><i data-lucide="scan-line" class="w-4 h-4"></i> <span data-i18n="tab_oem">Numéro OEM</span></button>
+        <button data-tab="vin" class="finder-tab flex-1 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-1.5 transition"><i data-lucide="car" class="w-4 h-4"></i> <span data-i18n="tab_vin">Numéro de châssis (VIN)</span></button>
       </div>
 
-      <!-- OEM Search panel -->
-      <div id="panel-search" class="finder-panel">
-        <div class="flex items-center gap-2.5 bg-elevated border border-borderstrong rounded-xl pl-4 pr-1.5 py-1.5 focus-within:border-accent transition">
-          <i data-lucide="search" class="w-[18px] h-[18px] text-neutral-500 shrink-0"></i>
-          <input id="oemSearchInput" type="text" placeholder="e.g. 90915-YZZD4" class="flex-1 bg-transparent outline-none py-2.5 text-sm placeholder:text-neutral-500" />
-          <button id="oemSearchBtn" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-sm font-semibold shrink-0 transition">Search</button>
-        </div>
-        <p class="text-xs text-neutral-500 mt-3">Try: <code class="bg-elevated border border-border px-1.5 py-0.5 rounded text-gold text-[11px]">90915-YZZD4</code> <code class="bg-elevated border border-border px-1.5 py-0.5 rounded text-gold text-[11px]">04465-60290</code></p>
+      <!-- OEM panel -->
+      <div id="panel-oem" class="finder-panel">
+        <form id="oemSearchForm">
+          <div class="flex items-center gap-2.5 bg-bg dark:bg-bg-dark border border-borderstrong dark:border-borderstrong-dark rounded-xl ps-4 pe-1.5 py-1.5 focus-within:border-accent transition">
+            <i data-lucide="search" class="w-[18px] h-[18px] text-muted dark:text-muted-dark shrink-0"></i>
+            <input id="oemSearchInput" type="text" data-i18n-ph="oem_placeholder" placeholder="Ex. 90915-YZZD4" class="flex-1 bg-transparent outline-none py-2.5 text-sm uppercase placeholder:normal-case placeholder:text-muted" />
+            <button type="submit" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-sm font-semibold shrink-0 transition" data-i18n="search_btn">Rechercher</button>
+          </div>
+        </form>
+        <p class="text-xs text-muted dark:text-muted-dark mt-3 flex flex-wrap items-center gap-1.5"><span data-i18n="oem_hint">Essayez :</span>
+          <code data-fill="90915-YZZD4" class="cursor-pointer bg-bg dark:bg-bg-dark border border-border dark:border-border-dark px-1.5 py-0.5 rounded text-gold dark:text-gold-dark text-[11px] hover:border-gold">90915-YZZD4</code>
+          <code data-fill="04465-60290" class="cursor-pointer bg-bg dark:bg-bg-dark border border-border dark:border-border-dark px-1.5 py-0.5 rounded text-gold dark:text-gold-dark text-[11px] hover:border-gold">04465-60290</code>
+        </p>
       </div>
 
-      <!-- Vehicle Selector panel -->
-      <div id="panel-vehicle" class="finder-panel hidden">
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Brand</label>
-            <select id="selBrand" class="w-full bg-elevated border border-borderstrong rounded-lg px-3 py-2.5 text-sm font-medium outline-none focus:border-accent">
-              <option value="">Select Brand</option>
-            </select>
+      <!-- VIN panel -->
+      <div id="panel-vin" class="finder-panel hidden">
+        <form id="vinSearchForm">
+          <div class="flex items-center gap-2.5 bg-bg dark:bg-bg-dark border border-borderstrong dark:border-borderstrong-dark rounded-xl ps-4 pe-1.5 py-1.5 focus-within:border-accent transition">
+            <i data-lucide="hash" class="w-[18px] h-[18px] text-muted dark:text-muted-dark shrink-0"></i>
+            <input id="vinSearchInput" type="text" maxlength="17" data-i18n-ph="vin_placeholder" placeholder="Ex. JTMBK3FV000000001" class="flex-1 bg-transparent outline-none py-2.5 text-sm uppercase placeholder:normal-case placeholder:text-muted" />
+            <button type="submit" class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-sm font-semibold shrink-0 transition" data-i18n="search_btn">Rechercher</button>
           </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Model</label>
-            <select id="selModel" disabled class="w-full bg-elevated border border-borderstrong rounded-lg px-3 py-2.5 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
-              <option value="">Select Model</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Year</label>
-            <select id="selYear" disabled class="w-full bg-elevated border border-borderstrong rounded-lg px-3 py-2.5 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
-              <option value="">Select Year</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">Engine</label>
-            <select id="selEngine" disabled class="w-full bg-elevated border border-borderstrong rounded-lg px-3 py-2.5 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
-              <option value="">Select Engine</option>
-            </select>
-          </div>
-        </div>
-        <button id="vehicleFindBtn" disabled class="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-accent hover:bg-accent-hover disabled:bg-elevated disabled:text-neutral-500 disabled:cursor-not-allowed font-semibold text-sm transition">
-          <i data-lucide="search" class="w-4 h-4"></i> Show Compatible Parts
-        </button>
+        </form>
+        <p class="text-xs text-muted dark:text-muted-dark mt-3 flex flex-wrap items-center gap-1.5"><span data-i18n="vin_hint">Essayez :</span>
+          <code data-fill="JTMBK3FV000000001" class="cursor-pointer bg-bg dark:bg-bg-dark border border-border dark:border-border-dark px-1.5 py-0.5 rounded text-gold dark:text-gold-dark text-[11px] hover:border-gold">JTMBK3FV000000001</code>
+          <code data-fill="JN1AZ0CP0BM000001" class="cursor-pointer bg-bg dark:bg-bg-dark border border-border dark:border-border-dark px-1.5 py-0.5 rounded text-gold dark:text-gold-dark text-[11px] hover:border-gold">JN1AZ0CP0BM000001</code>
+        </p>
+        <div id="vinResult" class="hidden mt-3.5 px-3.5 py-3 rounded-lg bg-green-500/10 text-green-600 dark:text-green-400 text-sm font-semibold items-center gap-2"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ BRAND STRIP ============ -->
-<section id="brands" class="py-10 border-b border-border">
-  <div class="max-w-[1320px] mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-5">
-    <button data-brand-filter="toyota" class="brand-card flex items-center gap-3.5 p-4 bg-card border border-border rounded-2xl hover:border-borderstrong hover:-translate-y-1 transition">
-      <span class="w-12 h-12 rounded-full flex items-center justify-center font-display font-extrabold text-sm text-white shrink-0" style="background: radial-gradient(circle at 30% 30%, #ff2e3f, #eb0a1e);">TOY</span>
-      <span class="text-left"><span class="block font-display font-bold text-[15px]">Toyota</span><span class="block text-xs text-neutral-500">Land Cruiser, Hilux</span></span>
-    </button>
-    <button data-brand-filter="nissan" class="brand-card flex items-center gap-3.5 p-4 bg-card border border-border rounded-2xl hover:border-borderstrong hover:-translate-y-1 transition">
-      <span class="w-12 h-12 rounded-full flex items-center justify-center font-display font-extrabold text-sm text-white shrink-0" style="background: radial-gradient(circle at 30% 30%, #e0163f, #c3002f);">NIS</span>
-      <span class="text-left"><span class="block font-display font-bold text-[15px]">Nissan</span><span class="block text-xs text-neutral-500">Patrol, GT-R</span></span>
-    </button>
-    <button data-brand-filter="lexus" class="brand-card flex items-center gap-3.5 p-4 bg-card border border-border rounded-2xl hover:border-borderstrong hover:-translate-y-1 transition">
-      <span class="w-12 h-12 rounded-full flex items-center justify-center font-display font-extrabold text-sm text-bg shrink-0" style="background: radial-gradient(circle at 30% 30%, #e7e9ee, #8b8f99);">LEX</span>
-      <span class="text-left"><span class="block font-display font-bold text-[15px]">Lexus</span><span class="block text-xs text-neutral-500">LX570, RX</span></span>
-    </button>
-    <button data-brand-filter="infiniti" class="brand-card flex items-center gap-3.5 p-4 bg-card border border-border rounded-2xl hover:border-borderstrong hover:-translate-y-1 transition">
-      <span class="w-12 h-12 rounded-full flex items-center justify-center font-display font-extrabold text-sm text-bg shrink-0" style="background: radial-gradient(circle at 30% 30%, #ecd3a4, #d4af7a);">INF</span>
-      <span class="text-left"><span class="block font-display font-bold text-[15px]">Infiniti</span><span class="block text-xs text-neutral-500">QX80, Q50</span></span>
-    </button>
+<!-- ============ BRAND GRID ============ -->
+<section id="brands" class="py-12 border-b border-border dark:border-border-dark">
+  <div class="max-w-[1360px] mx-auto px-5">
+    <div class="mb-6">
+      <span class="block text-xs font-bold tracking-widest uppercase text-accent mb-2" data-i18n="brands_eyebrow">Nos marques</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="brands_title">Achetez par marque</h2>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <button data-brand-filter="toyota" class="flex flex-col items-center text-center gap-3 p-7 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:shadow-xl transition">
+        <span class="w-[72px] h-[72px] rounded-full flex items-center justify-center font-display font-extrabold text-base text-white shadow" style="background: radial-gradient(circle at 30% 30%, #ff2e3f, #eb0a1e);">TOY</span>
+        <span class="font-display font-bold text-base">Toyota</span><span class="text-xs text-muted dark:text-muted-dark">3,400+</span>
+      </button>
+      <button data-brand-filter="nissan" class="flex flex-col items-center text-center gap-3 p-7 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:shadow-xl transition">
+        <span class="w-[72px] h-[72px] rounded-full flex items-center justify-center font-display font-extrabold text-base text-white shadow" style="background: radial-gradient(circle at 30% 30%, #e0163f, #c3002f);">NIS</span>
+        <span class="font-display font-bold text-base">Nissan</span><span class="text-xs text-muted dark:text-muted-dark">2,850+</span>
+      </button>
+      <button data-brand-filter="lexus" class="flex flex-col items-center text-center gap-3 p-7 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:shadow-xl transition">
+        <span class="w-[72px] h-[72px] rounded-full flex items-center justify-center font-display font-extrabold text-base text-[#101218] shadow" style="background: radial-gradient(circle at 30% 30%, #e7e9ee, #8b8f99);">LEX</span>
+        <span class="font-display font-bold text-base">Lexus</span><span class="text-xs text-muted dark:text-muted-dark">1,760+</span>
+      </button>
+      <button data-brand-filter="infiniti" class="flex flex-col items-center text-center gap-3 p-7 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:shadow-xl transition">
+        <span class="w-[72px] h-[72px] rounded-full flex items-center justify-center font-display font-extrabold text-base text-white shadow" style="background: radial-gradient(circle at 30% 30%, #ecd3a4, #a9762f);">INF</span>
+        <span class="font-display font-bold text-base">Infiniti</span><span class="text-xs text-muted dark:text-muted-dark">1,390+</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section id="categories" class="py-14">
+  <div class="max-w-[1360px] mx-auto px-5">
+    <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
+      <div>
+        <span class="block text-xs font-bold tracking-widest uppercase text-accent mb-2" data-i18n="categories_eyebrow">Catégories</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="categories_title">Trouvez plus vite</h2>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 lg:grid-cols-6 gap-4">
+      <button data-cat-filter="engine" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="cog" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_engine">Moteur</span>
+      </button>
+      <button data-cat-filter="brake" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="disc" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_brake">Freinage</span>
+      </button>
+      <button data-cat-filter="suspension" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="gauge" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_suspension">Suspension</span>
+      </button>
+      <button data-cat-filter="filter" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="filter" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_filter">Filtres</span>
+      </button>
+      <button data-cat-filter="electrical" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_electrical">Électrique</span>
+      </button>
+      <button data-cat-filter="body" class="flex flex-col items-center text-center gap-2.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:-translate-y-1 hover:border-accent transition">
+        <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center"><i data-lucide="layers" class="w-5 h-5"></i></span>
+        <span class="text-[13px] font-semibold" data-i18n="cat_body">Carrosserie</span>
+      </button>
+    </div>
   </div>
 </section>
 
 <!-- ============ SHOP ============ -->
-<section id="shop" class="py-14">
-  <div class="max-w-[1320px] mx-auto px-6">
+<section id="shop" class="py-8">
+  <div class="max-w-[1360px] mx-auto px-5">
     <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
       <div>
-        <span class="block text-xs font-bold tracking-widest uppercase text-accent mb-2">Catalog</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold">Featured Parts</h2>
+        <span class="block text-xs font-bold tracking-widest uppercase text-accent mb-2" data-i18n="shop_eyebrow">Catalogue</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="shop_title">Pièces en vedette</h2>
       </div>
-      <div class="flex items-center gap-2.5 bg-elevated border border-borderstrong rounded-xl px-4 py-1 w-full sm:w-80 focus-within:border-accent transition">
-        <i data-lucide="search" class="w-4 h-4 text-neutral-500 shrink-0"></i>
-        <input id="gridSearchInput" type="text" placeholder="Search parts, SKU, model..." class="flex-1 bg-transparent outline-none py-2.5 text-sm placeholder:text-neutral-500" />
+      <div class="flex items-center gap-2.5 bg-elevated dark:bg-elevated-dark border border-borderstrong dark:border-borderstrong-dark rounded-xl px-4 py-1 w-full sm:w-80 focus-within:border-accent transition">
+        <i data-lucide="search" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <input id="gridSearchInput" type="text" data-i18n-ph="grid_search_placeholder" placeholder="Rechercher..." class="flex-1 bg-transparent outline-none py-2.5 text-sm placeholder:text-muted" />
       </div>
     </div>
 
-    <!-- Toolbar -->
-    <div class="flex items-center justify-between flex-wrap gap-4 mb-6 p-4 bg-card border border-border rounded-2xl">
+    <div class="flex items-center justify-between flex-wrap gap-4 mb-6 p-4 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl">
       <div class="flex items-center gap-4 flex-wrap">
-        <span class="text-sm text-neutral-300"><b id="resultCount" class="text-white">0</b> parts found</span>
-        <div class="w-px h-5 bg-border hidden sm:block"></div>
-        <label class="inline-flex items-center gap-2 text-sm text-neutral-300 cursor-pointer select-none">
-          <input type="checkbox" id="availInStock" class="accent-accent w-4 h-4" /> In Stock
+        <span class="text-sm text-sub dark:text-sub-dark"><b id="resultCount" class="text-ink dark:text-ink-dark">0</b> <span data-i18n="results_found">pièces trouvées</span></span>
+        <div class="w-px h-5 bg-border dark:bg-border-dark hidden sm:block"></div>
+        <label class="inline-flex items-center gap-2 text-sm text-sub dark:text-sub-dark cursor-pointer select-none">
+          <input type="checkbox" id="availInStock" class="accent-accent w-4 h-4" /> <span data-i18n="avail_in_stock">En stock</span>
         </label>
-        <label class="inline-flex items-center gap-2 text-sm text-neutral-300 cursor-pointer select-none">
-          <input type="checkbox" id="availOutStock" class="accent-accent w-4 h-4" /> Not Available
+        <label class="inline-flex items-center gap-2 text-sm text-sub dark:text-sub-dark cursor-pointer select-none">
+          <input type="checkbox" id="availOutStock" class="accent-accent w-4 h-4" /> <span data-i18n="avail_out_stock">Indisponible</span>
         </label>
       </div>
-
-      <!-- Demo toggle: simulate out of stock -->
-      <label class="inline-flex items-center gap-3 cursor-pointer select-none bg-elevated border border-border rounded-full pl-3.5 pr-1 py-1">
-        <span class="text-xs font-semibold text-gold flex items-center gap-1.5"><i data-lucide="flask-conical" class="w-3.5 h-3.5"></i> Demo: Force All Out of Stock</span>
-        <span class="relative inline-block w-10 h-6">
-          <input type="checkbox" id="demoOosToggle" class="peer sr-only" />
-          <span class="absolute inset-0 rounded-full bg-borderstrong peer-checked:bg-accent transition"></span>
-          <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-4"></span>
-        </span>
-      </label>
+      <select id="sortSelect" class="bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-lg px-3 py-2 text-sm">
+        <option value="relevance" data-i18n="sort_relevance">Trier : Pertinence</option>
+        <option value="price-asc" data-i18n="sort_price_asc">Prix croissant</option>
+        <option value="price-desc" data-i18n="sort_price_desc">Prix décroissant</option>
+        <option value="name" data-i18n="sort_name">Nom : A-Z</option>
+      </select>
     </div>
 
     <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-    <p id="noResults" class="hidden text-center text-neutral-500 py-16">No parts match your filters. Try adjusting your search.</p>
+    <p id="noResults" class="hidden text-center text-muted dark:text-muted-dark py-16" data-i18n="no_results">Aucune pièce ne correspond à vos filtres.</p>
   </div>
 </section>
 
 <!-- ============ WHOLESALE CTA ============ -->
 <section id="wholesale" class="py-8">
-  <div class="max-w-[1320px] mx-auto px-6">
-    <div class="rounded-[22px] p-10 border border-border flex items-center justify-between gap-6 flex-wrap" style="background: radial-gradient(600px 300px at 90% 0%, rgba(212,175,122,0.18), transparent 60%), linear-gradient(120deg, #151116, #14161e 70%);">
+  <div class="max-w-[1360px] mx-auto px-5">
+    <div class="rounded-[22px] p-8 sm:p-10 border border-border dark:border-border-dark flex items-center justify-between gap-6 flex-wrap bg-card dark:bg-card-dark" style="background-image: radial-gradient(600px 300px at 90% 0%, rgba(169,118,47,0.12), transparent 60%);">
       <div>
-        <span class="block text-xs font-bold tracking-widest uppercase text-gold mb-2">B2B Program</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold max-w-lg mb-2">Run a garage or resell parts? Get wholesale pricing.</h2>
-        <p class="text-neutral-400 max-w-md">Unlock tiered bulk pricing and priority stock allocation for Toyota, Nissan, Lexus &amp; Infiniti parts.</p>
+        <span class="block text-xs font-bold tracking-widest uppercase text-gold dark:text-gold-dark mb-2" data-i18n="cta_eyebrow">Programme B2B</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold max-w-lg mb-2" data-i18n="cta_title">Garagiste ou revendeur ? Profitez des tarifs de gros.</h2>
+        <p class="text-sub dark:text-sub-dark max-w-md" data-i18n="cta_desc">Débloquez des remises par palier et une allocation de stock prioritaire.</p>
       </div>
-      <button id="wholesaleCtaBtn" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-[#171308] shrink-0" style="background: linear-gradient(135deg, #d4af7a, #b98f52);">
-        <i data-lucide="briefcase" class="w-4 h-4"></i> Switch to Wholesale Mode
+      <button id="wholesaleCtaBtn" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm text-white shrink-0" style="background: linear-gradient(135deg, #a9762f, #7a5620);">
+        <i data-lucide="briefcase" class="w-4 h-4"></i> <span data-i18n="cta_btn">Demander un compte B2B</span>
       </button>
     </div>
   </div>
 </section>
 
-<footer class="border-t border-border py-8 mt-6">
-  <div class="max-w-[1320px] mx-auto px-6 flex items-center justify-between flex-wrap gap-3 text-xs text-neutral-500">
-    <span>&copy; <span id="year"></span> Salim Auto Parts — Interactive Prototype (for local testing only).</span>
-    <span>Built with Tailwind CSS + Lucide Icons</span>
+<footer class="border-t border-border dark:border-border-dark py-8 mt-6">
+  <div class="max-w-[1360px] mx-auto px-5 flex items-center justify-between flex-wrap gap-3 text-xs text-muted dark:text-muted-dark">
+    <span>&copy; <span id="year"></span> Salim Auto Parts — <span data-i18n="footer_rights">Tous droits réservés.</span></span>
+    <span>Tailwind CSS + Lucide Icons</span>
   </div>
 </footer>
 
 <!-- ============ CART DRAWER ============ -->
-<div id="overlay" class="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-[200] overlay-hidden transition-opacity duration-200"></div>
-<aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-elevated border-l border-border z-[201] flex flex-col drawer-closed transition-transform duration-300 ease-out">
-  <div class="flex items-center justify-between px-5 py-5 border-b border-border">
-    <h3 class="text-base font-bold flex items-center gap-2"><i data-lucide="shopping-cart" class="w-4 h-4"></i> Your Cart</h3>
-    <button id="cartCloseBtn" class="w-8 h-8 rounded-full bg-card flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-4 h-4"></i></button>
+<div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[200] overlay-hidden transition-opacity duration-200"></div>
+<aside id="cartDrawer" class="fixed top-0 end-0 h-full w-full sm:w-[420px] bg-elevated dark:bg-elevated-dark border-s border-border dark:border-border-dark z-[201] flex flex-col drawer-closed transition-transform duration-300 ease-out">
+  <div class="flex items-center justify-between px-5 py-5 border-b border-border dark:border-border-dark">
+    <h3 class="text-base font-bold flex items-center gap-2"><i data-lucide="shopping-cart" class="w-4 h-4"></i> <span data-i18n="cart_title">Votre panier</span></h3>
+    <button id="cartCloseBtn" class="w-8 h-8 rounded-full bg-card dark:bg-card-dark flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-4 h-4"></i></button>
   </div>
-  <div id="drawerModeNote" class="hidden mx-5 mt-3.5 px-3 py-2.5 rounded-lg bg-gold/10 text-gold text-xs items-center gap-2">
-    <i data-lucide="badge-percent" class="w-3.5 h-3.5 shrink-0"></i> Wholesale pricing applied to this order.
+  <div id="drawerModeNote" class="hidden mx-5 mt-3.5 px-3 py-2.5 rounded-lg bg-gold/10 text-gold dark:text-gold-dark text-xs items-center gap-2">
+    <i data-lucide="badge-percent" class="w-3.5 h-3.5 shrink-0"></i> <span data-i18n="cart_wholesale_note">Tarifs de gros appliqués à cette commande.</span>
   </div>
   <div id="cartItems" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-3.5"></div>
-  <div class="border-t border-border px-5 pt-4 pb-5">
-    <div class="flex justify-between text-sm text-neutral-400 mb-2"><span>Subtotal</span><span id="cartSubtotal">₦0</span></div>
-    <div class="flex justify-between text-sm text-neutral-400 mb-2"><span>Estimated Shipping</span><span id="cartShipping">₦0</span></div>
-    <div class="flex justify-between text-base font-bold mt-2 pt-2 border-t border-dashed border-border"><span>Total</span><span id="cartTotal">₦0</span></div>
-    <button id="checkoutBtn" class="w-full mt-3.5 flex items-center justify-center gap-2 py-3 rounded-lg bg-accent hover:bg-accent-hover font-semibold text-sm transition"><i data-lucide="lock" class="w-4 h-4"></i> Checkout</button>
+  <div class="border-t border-border dark:border-border-dark px-5 pt-4 pb-5">
+    <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0</span></div>
+    <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_shipping">Livraison estimée</span><span id="cartShipping">0</span></div>
+    <div class="flex justify-between text-base font-bold mt-2 pt-2 border-t border-dashed border-border dark:border-border-dark"><span data-i18n="cart_total">Total</span><span id="cartTotal">0</span></div>
+    <button id="checkoutBtn" class="w-full mt-3.5 flex items-center justify-center gap-2 py-3 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition"><i data-lucide="lock" class="w-4 h-4"></i> <span data-i18n="cart_checkout">Passer la commande</span></button>
   </div>
 </aside>
 
 <!-- ============ NOTIFY MODAL ============ -->
-<div id="modalOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-[300] overlay-hidden transition-opacity duration-200"></div>
-<div id="notifyModal" class="fixed top-1/2 left-1/2 w-[420px] max-w-[92vw] bg-elevated border border-border rounded-2xl z-[301] p-6 modal-hidden transition-all duration-200 shadow-2xl">
-  <button id="notifyCloseBtn" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-card flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+<div id="modalOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[300] overlay-hidden transition-opacity duration-200"></div>
+<div id="notifyModal" class="fixed top-1/2 left-1/2 w-[420px] max-w-[92vw] bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-2xl z-[301] p-6 modal-hidden transition-all duration-200 shadow-2xl text-start">
+  <button id="notifyCloseBtn" class="absolute top-4 end-4 w-7 h-7 rounded-full bg-card dark:bg-card-dark flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
   <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4"><i data-lucide="bell-ring" class="w-5 h-5"></i></span>
-  <h3 class="text-lg font-bold mb-2">Notify me when back in stock</h3>
-  <p id="notifyProductName" class="text-sm text-neutral-400 mb-4">We'll email you the moment this part is available again.</p>
-  <input id="notifyEmailInput" type="email" placeholder="you@email.com" class="w-full bg-card border border-borderstrong rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+  <h3 class="text-lg font-bold mb-2" data-i18n="notify_title">Être notifié du réapprovisionnement</h3>
+  <p id="notifyProductName" class="text-sm text-sub dark:text-sub-dark mb-4">—</p>
+  <input id="notifyEmailInput" type="email" data-i18n-ph="notify_ph" placeholder="vous@email.com" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
   <div class="flex gap-2.5">
-    <button id="notifyCancelBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong hover:border-accent hover:text-accent font-semibold text-sm transition">Cancel</button>
-    <button id="notifyConfirmBtn" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-accent hover:bg-accent-hover font-semibold text-sm transition"><i data-lucide="bell" class="w-4 h-4"></i> Notify Me</button>
+    <button id="notifyCancelBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="notify_cancel">Annuler</button>
+    <button id="notifyConfirmBtn" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition"><i data-lucide="bell" class="w-4 h-4"></i> <span data-i18n="notify_confirm">M'avertir</span></button>
   </div>
 </div>
 
-<!-- ============ TOASTS ============ -->
-<div id="toastStack" class="fixed bottom-6 right-6 z-[400] flex flex-col gap-2.5"></div>
-
-<style>
-  .mode-btn { color: #a3a8b8; }
-  .mode-btn.active[data-mode="retail"] { background: #f4f5f7; color: #101218; }
-  .mode-btn.active[data-mode="wholesale"] { background: linear-gradient(135deg, #d4af7a, #b98f52); color: #171308; }
-  .finder-tab { color: #a3a8b8; }
-  .finder-tab.active { background: #e0202f; color: #fff; }
-  .cart-drawer-open { transform: translateX(0) !important; }
-</style>
+<div id="toastStack" class="fixed bottom-6 end-6 z-[400] flex flex-col gap-2.5"></div>
 
 <script>
 (function () {
   'use strict';
 
-  /* ---------------- DATA ---------------- */
-  function years(start, end) { const a = []; for (let y = end; y >= start; y--) a.push(y); return a; }
-
-  const VEHICLE_DATA = {
-    toyota: { label: 'Toyota', models: {
-      'Land Cruiser': { years: years(2016, 2024), engines: ['4.5L V8 Turbo Diesel', '4.6L V8 Petrol', '3.5L V6 Twin-Turbo (GR)'] },
-      'Hilux': { years: years(2016, 2024), engines: ['2.4L Diesel', '2.8L Diesel', '2.7L Petrol'] }
-    }},
-    nissan: { label: 'Nissan', models: {
-      'Patrol': { years: years(2016, 2024), engines: ['4.0L V6 Petrol', '5.6L V8 Petrol'] },
-      'GT-R': { years: years(2016, 2024), engines: ['3.8L V6 Twin-Turbo'] }
-    }},
-    lexus: { label: 'Lexus', models: {
-      'LX570': { years: years(2016, 2024), engines: ['5.7L V8 Petrol'] },
-      'RX': { years: years(2016, 2024), engines: ['3.5L V6 Petrol', '2.5L Hybrid'] }
-    }},
-    infiniti: { label: 'Infiniti', models: {
-      'QX80': { years: years(2016, 2024), engines: ['5.6L V8 Petrol'] },
-      'Q50': { years: years(2016, 2024), engines: ['3.0L V6 Twin-Turbo', '2.0L Turbo'] }
-    }}
+  /* ---------------- TRANSLATIONS ---------------- */
+  const TRANSLATIONS = {
+    fr: {
+      tagline: "Spécialiste Pièces d'Origine",
+      nav_shop: 'Boutique', nav_brands: 'Marques', nav_wholesale: 'Vente en gros (B2B)',
+      mode_retail: 'Détail', mode_wholesale: 'Gros', sim_label: 'Simuler rupture de stock',
+      wholesale_banner: 'Mode Vente en gros (B2B) actif — remises appliquées automatiquement.',
+      hero_badge: 'Spécialiste Toyota · Nissan · Lexus · Infiniti', hero_title_1: "Pièces d'origine,", hero_title_span: 'trouvées en secondes.',
+      hero_lede: 'Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.',
+      tab_oem: 'Numéro OEM', tab_vin: 'Numéro de châssis (VIN)',
+      oem_placeholder: 'Ex. 90915-YZZD4', oem_hint: 'Essayez :',
+      vin_placeholder: 'Ex. JTMBK3FV000000001', vin_hint: 'Essayez :',
+      vin_detected: 'Véhicule détecté :', vin_not_found: "VIN non reconnu. Essayez l'un des exemples ci-dessus.",
+      search_btn: 'Rechercher',
+      brands_eyebrow: 'Nos marques', brands_title: 'Achetez par marque',
+      categories_eyebrow: 'Catégories', categories_title: 'Trouvez plus vite',
+      cat_engine: 'Moteur', cat_brake: 'Freinage', cat_suspension: 'Suspension', cat_filter: 'Filtres', cat_electrical: 'Électrique', cat_body: 'Carrosserie',
+      shop_eyebrow: 'Catalogue', shop_title: 'Pièces en vedette',
+      grid_search_placeholder: 'Rechercher une pièce, SKU, modèle...',
+      avail_in_stock: 'En stock', avail_out_stock: 'Indisponible', results_found: 'pièces trouvées',
+      sort_relevance: 'Trier : Pertinence', sort_price_asc: 'Prix croissant', sort_price_desc: 'Prix décroissant', sort_name: 'Nom : A-Z',
+      fits: 'Compatible :', sku: 'Référence :', in_stock: 'En stock', not_available: 'Indisponible', currently_unavailable: 'Actuellement indisponible',
+      add_to_cart: 'Ajouter au panier', notify_me: 'Demander la pièce', min_order: 'Commande min. :', units: 'unité(s)',
+      no_results: 'Aucune pièce ne correspond à vos filtres.',
+      cta_eyebrow: 'Programme B2B', cta_title: 'Garagiste ou revendeur ? Profitez des tarifs de gros.',
+      cta_desc: 'Débloquez des remises par palier et une allocation de stock prioritaire.', cta_btn: 'Demander un compte B2B',
+      footer_rights: 'Tous droits réservés.',
+      cart_title: 'Votre panier', cart_empty: 'Votre panier est vide.', cart_empty_sub: 'Parcourez le catalogue pour ajouter des pièces.',
+      cart_subtotal: 'Sous-total', cart_shipping: 'Livraison estimée', cart_total: 'Total', cart_checkout: 'Passer la commande',
+      cart_wholesale_note: 'Tarifs de gros appliqués à cette commande.', cart_free: 'Gratuit',
+      notify_title: 'Être notifié du réapprovisionnement', notify_desc_prefix: 'Nous vous enverrons un email dès que', notify_desc_suffix: 'sera de nouveau disponible.',
+      notify_ph: 'vous@email.com', notify_cancel: 'Annuler', notify_confirm: "M'avertir",
+      toast_added_cart: 'Ajouté au panier', toast_wholesale_on: 'Mode Vente en gros (B2B) activé', toast_retail_on: 'Mode Détail activé',
+      toast_notify_confirmed: 'Vous serez averti dès le retour en stock', toast_invalid_email: 'Veuillez saisir une adresse email valide',
+      toast_checkout: 'Commande de démonstration simulée avec succès !', toast_cart_empty: 'Votre panier est vide',
+      toast_sim_on: 'Démo : toutes les pièces forcées en rupture de stock', toast_sim_off: 'Démo : niveaux de stock restaurés',
+      toast_wishlist_added: 'Ajouté aux favoris', toast_wishlist_removed: 'Retiré des favoris', toast_vehicle_found: 'Affichage des pièces pour'
+    },
+    ar: {
+      tagline: 'متخصصون في قطع الغيار الأصلية',
+      nav_shop: 'المتجر', nav_brands: 'الماركات', nav_wholesale: 'البيع بالجملة (B2B)',
+      mode_retail: 'تجزئة', mode_wholesale: 'جملة', sim_label: 'محاكاة نفاد المخزون',
+      wholesale_banner: 'وضع البيع بالجملة (B2B) مُفعّل — يتم تطبيق خصومات الكمية تلقائيًا.',
+      hero_badge: 'متخصصون في تويوتا · نيسان · لكزس · إنفينيتي', hero_title_1: 'قطع غيار أصلية،', hero_title_span: 'تجدها في ثوانٍ.',
+      hero_lede: 'ابحث برقم القطعة الأصلي (OEM) أو برقم الهيكل (VIN) للعثور على القطعة المطابقة تمامًا.',
+      tab_oem: 'رقم القطعة (OEM)', tab_vin: 'رقم الهيكل (VIN)',
+      oem_placeholder: 'مثال: 90915-YZZD4', oem_hint: 'جرّب:',
+      vin_placeholder: 'مثال: JTMBK3FV000000001', vin_hint: 'جرّب:',
+      vin_detected: 'تم التعرف على المركبة:', vin_not_found: 'رقم الهيكل غير معروف. جرّب أحد الأمثلة أعلاه.',
+      search_btn: 'بحث',
+      brands_eyebrow: 'ماركاتنا', brands_title: 'تسوّق حسب الماركة',
+      categories_eyebrow: 'الفئات', categories_title: 'ابحث بشكل أسرع',
+      cat_engine: 'قطع المحرك', cat_brake: 'نظام الفرامل', cat_suspension: 'نظام التعليق', cat_filter: 'الفلاتر', cat_electrical: 'الكهرباء', cat_body: 'الهيكل والتشطيب',
+      shop_eyebrow: 'الكتالوج', shop_title: 'قطع مميزة',
+      grid_search_placeholder: 'ابحث عن قطعة، رقم SKU، موديل...',
+      avail_in_stock: 'متوفر', avail_out_stock: 'غير متوفر', results_found: 'قطعة موجودة',
+      sort_relevance: 'الترتيب: الأنسب', sort_price_asc: 'السعر: من الأقل', sort_price_desc: 'السعر: من الأعلى', sort_name: 'الاسم: أ-ي',
+      fits: 'يناسب:', sku: 'الرقم المرجعي:', in_stock: 'متوفر', not_available: 'غير متوفر', currently_unavailable: 'غير متوفر حاليًا',
+      add_to_cart: 'أضف إلى السلة', notify_me: 'أعلمني عند التوفر', min_order: 'الحد الأدنى للطلب:', units: 'وحدة',
+      no_results: 'لا توجد قطع مطابقة لعوامل التصفية.',
+      cta_eyebrow: 'برنامج الجملة', cta_title: 'لديك ورشة أو تعيد بيع القطع؟ احصل على أسعار الجملة.',
+      cta_desc: 'افتح خصومات متدرجة وأولوية في توفر المخزون.', cta_btn: 'التقدم لحساب جملة',
+      footer_rights: 'جميع الحقوق محفوظة.',
+      cart_title: 'سلة التسوق', cart_empty: 'سلتك فارغة.', cart_empty_sub: 'تصفح الكتالوج لإضافة قطع غيار.',
+      cart_subtotal: 'المجموع الفرعي', cart_shipping: 'الشحن التقديري', cart_total: 'الإجمالي', cart_checkout: 'إتمام الطلب',
+      cart_wholesale_note: 'تم تطبيق أسعار الجملة على هذا الطلب.', cart_free: 'مجاني',
+      notify_title: 'أعلمني عند توفر القطعة', notify_desc_prefix: 'سنرسل لك بريدًا إلكترونيًا بمجرد أن تصبح', notify_desc_suffix: 'متوفرة مجددًا.',
+      notify_ph: 'you@email.com', notify_cancel: 'إلغاء', notify_confirm: 'أعلمني',
+      toast_added_cart: 'تمت الإضافة إلى السلة', toast_wholesale_on: 'تم تفعيل وضع الجملة (B2B)', toast_retail_on: 'تم تفعيل وضع التجزئة',
+      toast_notify_confirmed: 'سيتم إعلامك فور توفر القطعة', toast_invalid_email: 'يرجى إدخال بريد إلكتروني صحيح',
+      toast_checkout: 'تمت محاكاة الطلب التجريبي بنجاح!', toast_cart_empty: 'سلتك فارغة',
+      toast_sim_on: 'تجريبي: تم فرض نفاد المخزون على جميع القطع', toast_sim_off: 'تجريبي: تمت استعادة مستويات المخزون',
+      toast_wishlist_added: 'تمت الإضافة إلى المفضلة', toast_wishlist_removed: 'تمت الإزالة من المفضلة', toast_vehicle_found: 'عرض القطع الخاصة بـ'
+    }
   };
 
-  const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', body: 'layers' };
-  const CATEGORY_LABELS = { engine: 'Engine Parts', brake: 'Brake System', suspension: 'Suspension', filter: 'Filters', body: 'Body & Trim' };
-  const CATEGORY_GRADIENT = {
-    engine: 'linear-gradient(135deg,#241014,#14161e)', brake: 'linear-gradient(135deg,#1c1417,#14161e)',
-    suspension: 'linear-gradient(135deg,#101c22,#14161e)', filter: 'linear-gradient(135deg,#1c1a10,#14161e)',
-    body: 'linear-gradient(135deg,#101e18,#14161e)'
-  };
-  const CATEGORY_COLOR = { engine: '#e0202f', brake: '#ff6b6b', suspension: '#3b9ff0', filter: '#d4af7a', body: '#3fd18a' };
-  const BRAND_COLOR = { toyota: '#eb0a1e', nissan: '#c3002f', lexus: '#cfd2d8', infiniti: '#d4af7a' };
+  const BRAND_LABELS = { toyota: 'Toyota', nissan: 'Nissan', lexus: 'Lexus', infiniti: 'Infiniti' };
+  const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
+  const CATEGORY_COLOR = { engine: '#d81f2f', brake: '#dc2626', suspension: '#2563eb', filter: '#a9762f', electrical: '#9333ea', body: '#16a34a' };
 
   const PRODUCTS = [
-    { id: 'p1', brand: 'toyota', model: 'Land Cruiser', name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
-    { id: 'p2', brand: 'toyota', model: 'Land Cruiser', name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60290', price: 42000, wholesalePrice: 34000, moq: 3, stock: false, rating: 4.7, reviews: 132 },
-    { id: 'p3', brand: 'toyota', model: 'Hilux', name: 'Timing Belt Kit', category: 'engine', sku: '13568-09080', price: 65000, wholesalePrice: 54000, moq: 2, stock: true, rating: 4.9, reviews: 97 },
-    { id: 'p4', brand: 'toyota', model: 'Hilux', name: 'Rear Shock Absorber', category: 'suspension', sku: '48531-09500', price: 58000, wholesalePrice: 47000, moq: 2, stock: false, rating: 4.5, reviews: 44 },
-    { id: 'p5', brand: 'nissan', model: 'Patrol', name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-65F0E', price: 7800, wholesalePrice: 5900, moq: 5, stock: true, rating: 4.7, reviews: 188 },
-    { id: 'p6', brand: 'nissan', model: 'Patrol', name: 'Rear Brake Disc Rotor', category: 'brake', sku: '43206-1LA0A', price: 54000, wholesalePrice: 44000, moq: 2, stock: true, rating: 4.6, reviews: 74 },
-    { id: 'p7', brand: 'nissan', model: 'GT-R', name: 'Front Shock Absorber', category: 'suspension', sku: '56110-JF01A', price: 210000, wholesalePrice: 178000, moq: 1, stock: false, rating: 4.9, reviews: 33 },
-    { id: 'p8', brand: 'nissan', model: 'GT-R', name: 'Turbocharger Assembly', category: 'engine', sku: '14411-JF00C', price: 890000, wholesalePrice: 760000, moq: 1, stock: false, rating: 5.0, reviews: 19 },
-    { id: 'p9', brand: 'lexus', model: 'LX570', name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60321', price: 68000, wholesalePrice: 56000, moq: 2, stock: true, rating: 4.7, reviews: 65 },
-    { id: 'p10', brand: 'lexus', model: 'LX570', name: 'Rear Air Suspension Strut', category: 'suspension', sku: '48090-60011', price: 320000, wholesalePrice: 275000, moq: 1, stock: false, rating: 4.9, reviews: 22 },
-    { id: 'p11', brand: 'lexus', model: 'RX', name: 'Cabin Air Filter', category: 'filter', sku: '87139-06060', price: 9800, wholesalePrice: 7600, moq: 4, stock: true, rating: 4.8, reviews: 121 },
-    { id: 'p12', brand: 'lexus', model: 'RX', name: 'Tail Light Assembly', category: 'body', sku: '81551-48180', price: 128000, wholesalePrice: 108000, moq: 1, stock: false, rating: 4.5, reviews: 17 },
-    { id: 'p13', brand: 'infiniti', model: 'QX80', name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-9E01A', price: 8200, wholesalePrice: 6100, moq: 5, stock: true, rating: 4.7, reviews: 103 },
-    { id: 'p14', brand: 'infiniti', model: 'QX80', name: 'Front Brake Pad Set', category: 'brake', sku: 'D1060-1LA0A', price: 61000, wholesalePrice: 50000, moq: 2, stock: false, rating: 4.6, reviews: 44 },
-    { id: 'p15', brand: 'infiniti', model: 'Q50', name: 'Rear Shock Absorber', category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
-    { id: 'p16', brand: 'infiniti', model: 'Q50', name: 'Ignition Coil', category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 }
+    { id: 'p1', brand: 'toyota', fits: ['Land Cruiser'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
+    { id: 'p2', brand: 'toyota', fits: ['Land Cruiser'], name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60290', price: 42000, wholesalePrice: 34000, moq: 3, stock: false, rating: 4.7, reviews: 132 },
+    { id: 'p3', brand: 'toyota', fits: ['Hilux'], name: 'Timing Belt Kit', category: 'engine', sku: '13568-09080', price: 65000, wholesalePrice: 54000, moq: 2, stock: true, rating: 4.9, reviews: 97 },
+    { id: 'p4', brand: 'toyota', fits: ['Hilux'], name: 'Rear Shock Absorber', category: 'suspension', sku: '48531-09500', price: 58000, wholesalePrice: 47000, moq: 2, stock: false, rating: 4.5, reviews: 44 },
+    { id: 'p5', brand: 'nissan', fits: ['Patrol'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-65F0E', price: 7800, wholesalePrice: 5900, moq: 5, stock: true, rating: 4.7, reviews: 188 },
+    { id: 'p6', brand: 'nissan', fits: ['Patrol'], name: 'Rear Brake Disc Rotor', category: 'brake', sku: '43206-1LA0A', price: 54000, wholesalePrice: 44000, moq: 2, stock: true, rating: 4.6, reviews: 74 },
+    { id: 'p7', brand: 'nissan', fits: ['GT-R'], name: 'Front Shock Absorber', category: 'suspension', sku: '56110-JF01A', price: 210000, wholesalePrice: 178000, moq: 1, stock: false, rating: 4.9, reviews: 33 },
+    { id: 'p8', brand: 'nissan', fits: ['GT-R'], name: 'Turbocharger Assembly', category: 'engine', sku: '14411-JF00C', price: 890000, wholesalePrice: 760000, moq: 1, stock: false, rating: 5.0, reviews: 19 },
+    { id: 'p9', brand: 'lexus', fits: ['LX570'], name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60321', price: 68000, wholesalePrice: 56000, moq: 2, stock: true, rating: 4.7, reviews: 65 },
+    { id: 'p10', brand: 'lexus', fits: ['LX570'], name: 'Rear Air Suspension Strut', category: 'suspension', sku: '48090-60011', price: 320000, wholesalePrice: 275000, moq: 1, stock: false, rating: 4.9, reviews: 22 },
+    { id: 'p11', brand: 'lexus', fits: ['RX'], name: 'Cabin Air Filter', category: 'filter', sku: '87139-06060', price: 9800, wholesalePrice: 7600, moq: 4, stock: true, rating: 4.8, reviews: 121 },
+    { id: 'p12', brand: 'lexus', fits: ['RX'], name: 'Tail Light Assembly', category: 'body', sku: '81551-48180', price: 128000, wholesalePrice: 108000, moq: 1, stock: false, rating: 4.5, reviews: 17 },
+    { id: 'p13', brand: 'infiniti', fits: ['QX80'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-9E01A', price: 8200, wholesalePrice: 6100, moq: 5, stock: true, rating: 4.7, reviews: 103 },
+    { id: 'p14', brand: 'infiniti', fits: ['QX80'], name: 'Front Brake Pad Set', category: 'brake', sku: 'D1060-1LA0A', price: 61000, wholesalePrice: 50000, moq: 2, stock: false, rating: 4.6, reviews: 44 },
+    { id: 'p15', brand: 'infiniti', fits: ['Q50'], name: 'Rear Shock Absorber', category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
+    { id: 'p16', brand: 'infiniti', fits: ['Q50'], name: 'Ignition Coil', category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 }
   ];
 
-  const state = {
-    mode: 'retail',
-    search: '',
-    vehicleBrand: null,
-    vehicleModel: null,
-    brandFilter: null,
-    availability: new Set(),
-    demoForceOOS: false,
-    cart: []
+  const VIN_DATABASE = {
+    'JTMBK3FV000000001': { brand: 'toyota', model: 'Land Cruiser' },
+    'MR0FZ29G000000002': { brand: 'toyota', model: 'Hilux' },
+    'JN1AZ0CP0BM000001': { brand: 'nissan', model: 'GT-R' },
+    'JN8AY2NC0BM000002': { brand: 'nissan', model: 'Patrol' },
+    'JTHBK1GG000000003': { brand: 'lexus', model: 'LX570' },
+    'JTJBK1BA0B0000004': { brand: 'lexus', model: 'RX' },
+    'JNKAY41E0BM000003': { brand: 'infiniti', model: 'QX80' },
+    'JN1EV7AR0BM000004': { brand: 'infiniti', model: 'Q50' }
   };
 
-  const currency = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
-  const fmt = (n) => currency.format(n);
+  const state = {
+    lang: 'fr', theme: 'light', mode: 'retail', simulateOOS: false,
+    search: '', vehicleBrand: null, vehicleModel: null, brandFilter: null,
+    availability: new Set(), cart: []
+  };
+
+  function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
+  const currency = () => new Intl.NumberFormat(state.lang === 'ar' ? 'ar-EG' : 'fr-FR', { maximumFractionDigits: 0 });
+  const fmt = (n) => currency().format(n) + ' FCFA';
   const $ = (s, c) => (c || document).querySelector(s);
   const $all = (s, c) => Array.from((c || document).querySelectorAll(s));
   const icons = () => window.lucide && window.lucide.createIcons();
   const findProduct = (id) => PRODUCTS.find((p) => p.id === id);
-  const isInStock = (p) => state.demoForceOOS ? false : p.stock;
+  const isInStock = (p) => state.simulateOOS ? false : p.stock;
   const unitPrice = (p) => state.mode === 'wholesale' ? p.wholesalePrice : p.price;
+
+  /* ---------------- i18n ---------------- */
+  function applyTranslations() {
+    $all('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+    $all('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+  }
+  function setLanguage(lang) {
+    state.lang = lang;
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    $all('.lang-btn').forEach((b) => b.classList.toggle('active', b.dataset.lang === lang));
+    applyTranslations();
+    render(); renderCart();
+  }
+  function setTheme(theme) {
+    state.theme = theme;
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }
 
   /* ---------------- TOAST ---------------- */
   function showToast(message, type) {
     const stack = $('#toastStack');
     const el = document.createElement('div');
-    el.className = 'toast-enter flex items-center gap-2.5 bg-elevated border border-borderstrong rounded-xl px-4 py-3.5 shadow-2xl text-sm min-w-[260px] transition-transform duration-300';
-    const color = type === 'info' ? 'text-blue-400' : 'text-green-400';
+    el.className = 'toast-enter flex items-center gap-2.5 bg-elevated dark:bg-elevated-dark border border-borderstrong dark:border-borderstrong-dark rounded-xl px-4 py-3.5 shadow-2xl text-sm min-w-[260px] transition-transform duration-300';
+    const color = type === 'info' ? 'text-blue-500' : 'text-green-500';
     el.innerHTML = '<i data-lucide="' + (type === 'info' ? 'info' : 'check-circle-2') + '" class="w-5 h-5 shrink-0 ' + color + '"></i><span>' + message + '</span>';
     stack.appendChild(el);
     icons();
     requestAnimationFrame(() => el.classList.remove('toast-enter'));
-    setTimeout(() => {
-      el.classList.add('toast-enter');
-      setTimeout(() => el.remove(), 300);
-    }, 3000);
+    setTimeout(() => { el.classList.add('toast-enter'); setTimeout(() => el.remove(), 300); }, 3000);
   }
 
-  /* ---------------- VEHICLE SELECTOR ---------------- */
-  function populateSelect(sel, items, placeholder) {
-    sel.innerHTML = '<option value="">' + placeholder + '</option>' + items.map((i) => '<option value="' + i + '">' + i + '</option>').join('');
-  }
-
-  function brandKeyFromLabel(label) { return Object.keys(VEHICLE_DATA).find((k) => VEHICLE_DATA[k].label === label); }
-
-  function initVehicleSelector() {
-    const selBrand = $('#selBrand'), selModel = $('#selModel'), selYear = $('#selYear'), selEngine = $('#selEngine'), findBtn = $('#vehicleFindBtn');
-    populateSelect(selBrand, Object.values(VEHICLE_DATA).map((v) => v.label), 'Select Brand');
-
-    selBrand.addEventListener('change', () => {
-      const key = brandKeyFromLabel(selBrand.value);
-      selModel.disabled = !key; selYear.disabled = true; selEngine.disabled = true;
-      populateSelect(selModel, key ? Object.keys(VEHICLE_DATA[key].models) : [], 'Select Model');
-      populateSelect(selYear, [], 'Select Year'); populateSelect(selEngine, [], 'Select Engine');
-      findBtn.disabled = true;
-    });
-    selModel.addEventListener('change', () => {
-      const key = brandKeyFromLabel(selBrand.value);
-      const md = key && selModel.value ? VEHICLE_DATA[key].models[selModel.value] : null;
-      selYear.disabled = !md; selEngine.disabled = true;
-      populateSelect(selYear, md ? md.years : [], 'Select Year'); populateSelect(selEngine, [], 'Select Engine');
-      findBtn.disabled = true;
-    });
-    selYear.addEventListener('change', () => {
-      const key = brandKeyFromLabel(selBrand.value);
-      const md = key && selModel.value ? VEHICLE_DATA[key].models[selModel.value] : null;
-      selEngine.disabled = !(md && selYear.value);
-      populateSelect(selEngine, md && selYear.value ? md.engines : [], 'Select Engine');
-      findBtn.disabled = true;
-    });
-    selEngine.addEventListener('change', () => { findBtn.disabled = !selEngine.value; });
-
-    findBtn.addEventListener('click', () => {
-      const key = brandKeyFromLabel(selBrand.value);
-      if (!key || !selModel.value) return;
-      state.vehicleBrand = key; state.vehicleModel = selModel.value; state.brandFilter = null; state.search = '';
-      $('#gridSearchInput').value = '';
-      render();
-      $('#shop').scrollIntoView({ behavior: 'smooth' });
-      showToast('Showing parts for ' + VEHICLE_DATA[key].label + ' ' + selModel.value, 'info');
-    });
-
+  /* ---------------- SEARCH (OEM + VIN) ---------------- */
+  function initSearch() {
     $all('.finder-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
         $all('.finder-tab').forEach((b) => b.classList.remove('active'));
@@ -456,31 +531,52 @@
         $('#panel-' + btn.dataset.tab).classList.remove('hidden');
       });
     });
-  }
 
-  /* ---------------- SEARCH & FILTERS ---------------- */
-  function initSearchAndFilters() {
-    $('#oemSearchBtn').addEventListener('click', doOemSearch);
-    $('#oemSearchInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') doOemSearch(); });
-
-    function doOemSearch() {
+    $('#oemSearchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
       const val = $('#oemSearchInput').value.trim();
       state.search = val; state.vehicleBrand = null; state.vehicleModel = null;
       $('#gridSearchInput').value = val;
       render();
       $('#shop').scrollIntoView({ behavior: 'smooth' });
-    }
+    });
+
+    $('#vinSearchForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const vin = $('#vinSearchInput').value.trim().toUpperCase();
+      const match = VIN_DATABASE[vin];
+      const box = $('#vinResult');
+      if (match) {
+        box.className = 'flex mt-3.5 px-3.5 py-3 rounded-lg bg-green-500/10 text-green-600 dark:text-green-400 text-sm font-semibold items-center gap-2';
+        box.innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4 shrink-0"></i><span>' + t('vin_detected') + ' ' + BRAND_LABELS[match.brand] + ' ' + match.model + '</span>';
+        state.vehicleBrand = match.brand; state.vehicleModel = match.model; state.brandFilter = null; state.search = '';
+        render();
+        $('#shop').scrollIntoView({ behavior: 'smooth' });
+        showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[match.brand] + ' ' + match.model, 'info');
+      } else {
+        box.className = 'flex mt-3.5 px-3.5 py-3 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-semibold items-center gap-2';
+        box.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i><span>' + t('vin_not_found') + '</span>';
+      }
+      icons();
+    });
 
     $('#gridSearchInput').addEventListener('input', (e) => { state.search = e.target.value.trim(); render(); });
 
-    $('#availInStock').addEventListener('change', (e) => { toggleAvail('in', e.target.checked); });
-    $('#availOutStock').addEventListener('change', (e) => { toggleAvail('out', e.target.checked); });
+    $all('[data-fill]').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const panel = chip.closest('.finder-panel');
+        panel.querySelector('input').value = chip.dataset.fill;
+      });
+    });
+
+    $('#availInStock').addEventListener('change', (e) => toggleAvail('in', e.target.checked));
+    $('#availOutStock').addEventListener('change', (e) => toggleAvail('out', e.target.checked));
     function toggleAvail(v, checked) { if (checked) state.availability.add(v); else state.availability.delete(v); render(); }
 
-    $('#demoOosToggle').addEventListener('change', (e) => {
-      state.demoForceOOS = e.target.checked;
+    $('#simOosToggle').addEventListener('change', (e) => {
+      state.simulateOOS = e.target.checked;
       render();
-      showToast(state.demoForceOOS ? 'Demo: all parts forced to "Not Available"' : 'Demo: stock levels restored to normal', 'info');
+      showToast(state.simulateOOS ? t('toast_sim_on') : t('toast_sim_off'), 'info');
     });
 
     $all('[data-brand-filter]').forEach((btn) => {
@@ -490,14 +586,23 @@
         $('#shop').scrollIntoView({ behavior: 'smooth' });
       });
     });
+    $all('[data-cat-filter]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.categoryFilter = btn.dataset.catFilter;
+        render();
+        $('#shop').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
 
+    $('#sortSelect').addEventListener('change', (e) => { state.sort = e.target.value; render(); });
     $('#wholesaleCtaBtn').addEventListener('click', () => setMode('wholesale'));
   }
 
   function getFiltered() {
     let list = PRODUCTS.slice();
-    if (state.vehicleModel) list = list.filter((p) => p.brand === state.vehicleBrand && p.model === state.vehicleModel);
+    if (state.vehicleModel) list = list.filter((p) => p.brand === state.vehicleBrand && p.fits.includes(state.vehicleModel));
     if (state.brandFilter) list = list.filter((p) => p.brand === state.brandFilter);
+    if (state.categoryFilter) list = list.filter((p) => p.category === state.categoryFilter);
     if (state.availability.size) {
       list = list.filter((p) => {
         const stock = isInStock(p);
@@ -508,53 +613,53 @@
     }
     if (state.search) {
       const q = state.search.toLowerCase();
-      list = list.filter((p) =>
-        p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) || p.model.toLowerCase().includes(q) ||
-        CATEGORY_LABELS[p.category].toLowerCase().includes(q)
-      );
+      list = list.filter((p) => p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.fits.some((f) => f.toLowerCase().includes(q)));
+    }
+    switch (state.sort) {
+      case 'price-asc': list.sort((a, b) => unitPrice(a) - unitPrice(b)); break;
+      case 'price-desc': list.sort((a, b) => unitPrice(b) - unitPrice(a)); break;
+      case 'name': list.sort((a, b) => a.name.localeCompare(b.name)); break;
     }
     return list;
   }
 
   /* ---------------- PRODUCT GRID ---------------- */
   function productCard(p) {
-    const brandLabel = VEHICLE_DATA[p.brand].label;
     const stock = isInStock(p);
     const wholesale = state.mode === 'wholesale';
     const price = unitPrice(p);
 
     const stockBadge = stock
-      ? '<span class="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full bg-green-500/10 text-green-400"><i data-lucide="check-circle" class="w-3 h-3"></i>In Stock</span>'
-      : '<span class="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full bg-red-500/10 text-red-400"><i data-lucide="x-circle" class="w-3 h-3"></i>Not Available</span>';
+      ? '<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-green-500/10 text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-3 h-3"></i>' + t('in_stock') + '</span>'
+      : '<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-3 h-3"></i>' + t('not_available') + '</span>';
 
     const actions = stock
-      ? '<button data-action="add" data-id="' + p.id + '" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-accent hover:bg-accent-hover font-semibold text-sm transition"><i data-lucide="shopping-cart" class="w-4 h-4"></i> Add to Cart</button>'
+      ? '<button data-action="add" data-id="' + p.id + '" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition"><i data-lucide="shopping-cart" class="w-4 h-4"></i> ' + t('add_to_cart') + '</button>'
       : '<div class="flex flex-col gap-2">' +
-          '<button disabled class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-elevated text-neutral-500 font-semibold text-sm cursor-not-allowed"><i data-lucide="ban" class="w-4 h-4"></i> Not Available</button>' +
-          '<button data-action="notify" data-id="' + p.id + '" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-borderstrong hover:border-accent hover:text-accent font-semibold text-sm transition"><i data-lucide="bell" class="w-4 h-4"></i> Notify Me</button>' +
+          '<button disabled class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-bg dark:bg-bg-dark text-muted dark:text-muted-dark font-semibold text-sm cursor-not-allowed"><i data-lucide="ban" class="w-4 h-4"></i> ' + t('not_available') + '</button>' +
+          '<button data-action="notify" data-id="' + p.id + '" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition"><i data-lucide="bell" class="w-4 h-4"></i> ' + t('notify_me') + '</button>' +
         '</div>';
 
     const stockLine = stock
-      ? '<span class="flex items-center gap-1.5 text-xs font-semibold text-green-400"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> In Stock</span>'
-      : '<span class="flex items-center gap-1.5 text-xs font-semibold text-red-400"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i> Currently Unavailable</span>';
+      ? '<span class="flex items-center gap-1.5 text-xs font-semibold text-green-600 dark:text-green-400"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> ' + t('in_stock') + '</span>'
+      : '<span class="flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400"><i data-lucide="x-circle" class="w-3.5 h-3.5"></i> ' + t('currently_unavailable') + '</span>';
 
     const wholesaleNote = wholesale
-      ? '<span class="flex items-center gap-1.5 text-xs text-gold"><i data-lucide="package" class="w-3 h-3"></i> Min. order: ' + p.moq + ' unit' + (p.moq > 1 ? 's' : '') + '</span>'
+      ? '<span class="flex items-center gap-1.5 text-xs text-gold dark:text-gold-dark"><i data-lucide="package" class="w-3 h-3"></i> ' + t('min_order') + ' ' + p.moq + ' ' + t('units') + '</span>'
       : '';
 
     return (
-      '<article class="fade-in bg-card border border-border rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:border-borderstrong transition ' + (stock ? '' : 'opacity-95') + '">' +
-        '<div class="relative aspect-[4/3] flex items-center justify-center" style="background:' + CATEGORY_GRADIENT[p.category] + ';' + (stock ? '' : 'filter:grayscale(0.55) brightness(0.65);') + '">' +
-          '<div class="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">' + stockBadge + '</div>' +
+      '<article class="fade-in bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-lg transition ' + (stock ? '' : 'opacity-95') + '">' +
+        '<div class="relative aspect-[4/3] flex items-center justify-center bg-bg dark:bg-bg-dark" style="' + (stock ? '' : 'filter:grayscale(0.5) brightness(0.96);') + '">' +
+          '<div class="absolute top-3 inset-x-3 flex items-start justify-between gap-2">' + stockBadge + '</div>' +
           '<i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-14 h-14" style="color:' + CATEGORY_COLOR[p.category] + '"></i>' +
         '</div>' +
         '<div class="p-4 flex flex-col gap-1.5 flex-1">' +
-          '<span class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide text-neutral-500"><span class="w-2 h-2 rounded-full" style="background:' + BRAND_COLOR[p.brand] + '"></span>' + brandLabel + ' &middot; ' + CATEGORY_LABELS[p.category] + '</span>' +
+          '<span class="flex items-center gap-1.5 text-[11px] font-bold text-muted dark:text-muted-dark uppercase"><span class="w-2 h-2 rounded-full bg-' + p.brand + '"></span>' + BRAND_LABELS[p.brand] + ' &middot; ' + t('cat_' + p.category) + '</span>' +
           '<h3 class="font-display font-semibold text-[15px] leading-snug">' + p.name + '</h3>' +
-          '<span class="text-xs text-neutral-500">Fits: ' + p.model + '</span>' +
-          '<span class="text-[11px] text-neutral-500 font-mono">SKU: <b class="text-neutral-300 font-mono">' + p.sku + '</b></span>' +
-          '<span class="flex items-center gap-1 text-xs text-neutral-500"><i data-lucide="star" class="w-3.5 h-3.5 text-gold"></i> ' + p.rating.toFixed(1) + ' (' + p.reviews + ')</span>' +
+          '<span class="text-xs text-muted dark:text-muted-dark">' + t('fits') + ' ' + p.fits.join(', ') + '</span>' +
+          '<span class="text-[11px] text-muted dark:text-muted-dark font-mono" dir="ltr" style="text-align:start">' + t('sku') + ' <b class="text-sub dark:text-sub-dark font-mono">' + p.sku + '</b></span>' +
+          '<span class="flex items-center gap-1 text-xs text-muted dark:text-muted-dark"><i data-lucide="star" class="w-3.5 h-3.5 text-gold dark:text-gold-dark"></i> ' + p.rating.toFixed(1) + ' (' + p.reviews + ')</span>' +
           '<div class="flex items-baseline gap-2 mt-0.5"><span class="font-display font-bold text-xl">' + fmt(price) + '</span></div>' +
           wholesaleNote + stockLine +
           '<div class="mt-2">' + actions + '</div>' +
@@ -584,7 +689,7 @@
   function addToCart(id) {
     const existing = state.cart.find((c) => c.id === id);
     if (existing) existing.qty += 1; else state.cart.push({ id, qty: 1 });
-    renderCart(); updateCartCount(); showToast('Added to cart'); openCart();
+    renderCart(); updateCartCount(); showToast(t('toast_added_cart')); openCart();
   }
   function changeQty(id, d) {
     const item = state.cart.find((c) => c.id === id); if (!item) return;
@@ -602,32 +707,32 @@
     else { note.classList.add('hidden'); note.classList.remove('flex'); }
 
     if (!state.cart.length) {
-      box.innerHTML = '<div class="flex-1 flex flex-col items-center justify-center text-center text-neutral-500 gap-3 py-16"><i data-lucide="shopping-cart" class="w-11 h-11 opacity-50"></i><p>Your cart is empty.<br>Browse the catalog to add parts.</p></div>';
+      box.innerHTML = '<div class="flex-1 flex flex-col items-center justify-center text-center text-muted dark:text-muted-dark gap-3 py-16"><i data-lucide="shopping-cart" class="w-11 h-11 opacity-50"></i><p>' + t('cart_empty') + '<br>' + t('cart_empty_sub') + '</p></div>';
     } else {
       box.innerHTML = state.cart.map((c) => {
         const p = findProduct(c.id); const price = unitPrice(p);
-        return '<div class="flex gap-3 pb-3.5 border-b border-border">' +
-          '<div class="w-16 h-16 rounded-lg bg-card flex items-center justify-center shrink-0 text-accent"><i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-6 h-6"></i></div>' +
+        return '<div class="flex gap-3 pb-3.5 border-b border-border dark:border-border-dark">' +
+          '<div class="w-16 h-16 rounded-lg bg-bg dark:bg-bg-dark flex items-center justify-center shrink-0 text-accent"><i data-lucide="' + CATEGORY_ICONS[p.category] + '" class="w-6 h-6"></i></div>' +
           '<div class="flex-1 min-w-0">' +
             '<div class="text-[13.5px] font-semibold mb-0.5 truncate">' + p.name + '</div>' +
-            '<div class="text-[11px] text-neutral-500 mb-2">' + VEHICLE_DATA[p.brand].label + ' &middot; ' + p.sku + '</div>' +
+            '<div class="text-[11px] text-muted dark:text-muted-dark mb-2" dir="ltr" style="text-align:start">' + BRAND_LABELS[p.brand] + ' &middot; ' + p.sku + '</div>' +
             '<div class="flex items-center justify-between">' +
-              '<div class="flex items-center border border-border rounded-md">' +
-                '<button data-act="dec" data-id="' + p.id + '" class="w-6 h-6 flex items-center justify-center text-neutral-400 hover:text-accent">&minus;</button>' +
+              '<div class="flex items-center border border-border dark:border-border-dark rounded-md">' +
+                '<button data-act="dec" data-id="' + p.id + '" class="w-6 h-6 flex items-center justify-center text-sub dark:text-sub-dark hover:text-accent">&minus;</button>' +
                 '<span class="min-w-[22px] text-center text-sm">' + c.qty + '</span>' +
-                '<button data-act="inc" data-id="' + p.id + '" class="w-6 h-6 flex items-center justify-center text-neutral-400 hover:text-accent">+</button>' +
+                '<button data-act="inc" data-id="' + p.id + '" class="w-6 h-6 flex items-center justify-center text-sub dark:text-sub-dark hover:text-accent">+</button>' +
               '</div>' +
               '<span class="font-bold text-[13.5px]">' + fmt(price * c.qty) + '</span>' +
             '</div>' +
           '</div>' +
-          '<button data-act="rm" data-id="' + p.id + '" class="text-neutral-500 hover:text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' +
+          '<button data-act="rm" data-id="' + p.id + '" class="text-muted dark:text-muted-dark hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' +
         '</div>';
       }).join('');
     }
     const subtotal = state.cart.reduce((s, c) => s + unitPrice(findProduct(c.id)) * c.qty, 0);
     const shipping = subtotal > 0 ? (state.mode === 'wholesale' ? 0 : 3500) : 0;
     $('#cartSubtotal').textContent = fmt(subtotal);
-    $('#cartShipping').textContent = shipping === 0 ? 'Free' : fmt(shipping);
+    $('#cartShipping').textContent = shipping === 0 ? t('cart_free') : fmt(shipping);
     $('#cartTotal').textContent = fmt(subtotal + shipping);
     icons();
   }
@@ -644,18 +749,18 @@
     $('#cartCloseBtn').addEventListener('click', closeCart);
     $('#overlay').addEventListener('click', closeCart);
     $('#checkoutBtn').addEventListener('click', () => {
-      if (!state.cart.length) { showToast('Your cart is empty', 'info'); return; }
-      showToast('Demo checkout — order simulated successfully!');
+      if (!state.cart.length) { showToast(t('toast_cart_empty'), 'info'); return; }
+      showToast(t('toast_checkout'));
       state.cart = []; renderCart(); updateCartCount(); closeCart();
     });
   }
-  function openCart() { $('#cartDrawer').classList.remove('drawer-closed'); $('#cartDrawer').classList.add('cart-drawer-open'); $('#overlay').classList.remove('overlay-hidden'); $('#overlay').classList.add('overlay-visible'); }
-  function closeCart() { $('#cartDrawer').classList.add('drawer-closed'); $('#cartDrawer').classList.remove('cart-drawer-open'); $('#overlay').classList.add('overlay-hidden'); $('#overlay').classList.remove('overlay-visible'); }
+  function openCart() { $('#cartDrawer').classList.remove('drawer-closed'); $('#cartDrawer').style.transform = 'translateX(0)'; $('#overlay').classList.remove('overlay-hidden'); $('#overlay').classList.add('overlay-visible'); }
+  function closeCart() { $('#cartDrawer').classList.add('drawer-closed'); $('#cartDrawer').style.transform = ''; $('#overlay').classList.add('overlay-hidden'); $('#overlay').classList.remove('overlay-visible'); }
 
   /* ---------------- NOTIFY MODAL ---------------- */
   function openNotify(id) {
     const p = findProduct(id);
-    $('#notifyProductName').textContent = 'We’ll email you the moment "' + p.name + '" (' + p.sku + ') is back in stock.';
+    $('#notifyProductName').textContent = t('notify_desc_prefix') + ' "' + p.name + '" (' + p.sku + ') ' + t('notify_desc_suffix');
     $('#notifyModal').classList.remove('modal-hidden'); $('#notifyModal').classList.add('modal-visible');
     $('#modalOverlay').classList.remove('overlay-hidden'); $('#modalOverlay').classList.add('overlay-visible');
     $('#notifyEmailInput').value = ''; $('#notifyEmailInput').focus();
@@ -670,13 +775,13 @@
     $('#modalOverlay').addEventListener('click', closeNotify);
     $('#notifyConfirmBtn').addEventListener('click', () => {
       const email = $('#notifyEmailInput').value.trim();
-      if (!email || !email.includes('@')) { showToast('Please enter a valid email address', 'info'); return; }
-      showToast('You’ll be notified when this part is back in stock');
+      if (!email || !email.includes('@')) { showToast(t('toast_invalid_email'), 'info'); return; }
+      showToast(t('toast_notify_confirmed'));
       closeNotify();
     });
   }
 
-  /* ---------------- MODE TOGGLE ---------------- */
+  /* ---------------- MODE / THEME / LANG ---------------- */
   function setMode(mode) {
     state.mode = mode;
     $all('.mode-btn').forEach((b) => b.classList.toggle('active', b.dataset.mode === mode));
@@ -687,16 +792,19 @@
     $('#modeToggle').addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-mode]'); if (!btn) return;
       setMode(btn.dataset.mode);
-      showToast(state.mode === 'wholesale' ? 'Switched to Wholesale (B2B) pricing' : 'Switched to Retail pricing', 'info');
+      showToast(state.mode === 'wholesale' ? t('toast_wholesale_on') : t('toast_retail_on'), 'info');
     });
   }
+  function initThemeToggle() { $('#themeToggleBtn').addEventListener('click', () => setTheme(state.theme === 'dark' ? 'light' : 'dark')); }
+  function initLangSwitch() { $('#langSwitch').addEventListener('click', (e) => { const btn = e.target.closest('button[data-lang]'); if (btn) setLanguage(btn.dataset.lang); }); }
 
   /* ---------------- INIT ---------------- */
   document.addEventListener('DOMContentLoaded', () => {
     icons();
     $('#year').textContent = new Date().getFullYear();
-    initVehicleSelector();
-    initSearchAndFilters();
+    initThemeToggle();
+    initLangSwitch();
+    initSearch();
     initGridEvents();
     initCartEvents();
     initNotify();
