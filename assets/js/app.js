@@ -60,6 +60,12 @@
       checkout_resend_otp: 'Renvoyer le code', checkout_otp_resent: 'Un nouveau code a été envoyé.', checkout_confirm: 'Confirmer la commande',
       checkout_fill_all: 'Merci de remplir tous les champs.', checkout_invalid_phone: 'Numéro de téléphone invalide.',
       checkout_invalid_card: 'Numéro de carte invalide (16 chiffres).', checkout_invalid_expiry: "Date d'expiration invalide (MM/AA).", checkout_invalid_cvv: 'CVV invalide (3 chiffres).',
+      payment_virement: 'Virement bancaire', payment_cheque: 'Chèque',
+      wholesale_doc_note: "Vente en gros : registre de commerce, NIF, NIS et article d'imposition requis à l'étape suivante.",
+      checkout_business_title: 'Informations professionnelles', checkout_business_desc: "Obligatoires pour toute commande en vente en gros (B2B).",
+      checkout_rc: 'N° Registre de commerce (RC)', checkout_nif: 'NIF', checkout_nis: 'NIS', checkout_ai: "Article d'imposition (AI)",
+      checkout_upload_rc: 'Copie scannée du RC', checkout_upload_nif: 'Copie scannée du NIF', checkout_upload_nis: 'Copie scannée du NIS', checkout_upload_ai: "Copie scannée de l'AI",
+      checkout_missing_files: 'Merci de joindre les 4 documents scannés (RC, NIF, NIS, AI).',
       wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
       track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
       track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
@@ -134,6 +140,12 @@
       checkout_resend_otp: 'إعادة إرسال الرمز', checkout_otp_resent: 'تم إرسال رمز جديد.', checkout_confirm: 'تأكيد الطلب',
       checkout_fill_all: 'يرجى ملء جميع الحقول.', checkout_invalid_phone: 'رقم هاتف غير صالح.',
       checkout_invalid_card: 'رقم بطاقة غير صالح (16 رقم).', checkout_invalid_expiry: 'تاريخ انتهاء غير صالح (شهر/سنة).', checkout_invalid_cvv: 'CVV غير صالح (3 أرقام).',
+      payment_virement: 'تحويل بنكي', payment_cheque: 'شيك',
+      wholesale_doc_note: 'البيع بالجملة: السجل التجاري، NIF، NIS ورقم المادة الضريبية مطلوبة في الخطوة التالية.',
+      checkout_business_title: 'المعلومات المهنية', checkout_business_desc: 'إلزامية لكل طلب بيع بالجملة (B2B).',
+      checkout_rc: 'رقم السجل التجاري (RC)', checkout_nif: 'NIF', checkout_nis: 'NIS', checkout_ai: 'المادة الضريبية (AI)',
+      checkout_upload_rc: 'نسخة ممسوحة من السجل التجاري', checkout_upload_nif: 'نسخة ممسوحة من NIF', checkout_upload_nis: 'نسخة ممسوحة من NIS', checkout_upload_ai: 'نسخة ممسوحة من AI',
+      checkout_missing_files: 'يرجى إرفاق المستندات الأربعة الممسوحة ضوئياً (RC، NIF، NIS، AI).',
       wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
       track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
       track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
@@ -208,6 +220,12 @@
       checkout_resend_otp: 'Resend code', checkout_otp_resent: 'A new code has been sent.', checkout_confirm: 'Confirm order',
       checkout_fill_all: 'Please fill in all fields.', checkout_invalid_phone: 'Invalid phone number.',
       checkout_invalid_card: 'Invalid card number (16 digits).', checkout_invalid_expiry: 'Invalid expiry date (MM/YY).', checkout_invalid_cvv: 'Invalid CVV (3 digits).',
+      payment_virement: 'Bank transfer', payment_cheque: 'Cheque',
+      wholesale_doc_note: 'Wholesale orders require a trade register, tax ID (NIF), statistical ID (NIS) and tax article (AI) on the next step.',
+      checkout_business_title: 'Business information', checkout_business_desc: 'Mandatory for any wholesale (B2B) order.',
+      checkout_rc: 'Trade register No. (RC)', checkout_nif: 'Tax ID (NIF)', checkout_nis: 'Statistical ID (NIS)', checkout_ai: 'Tax article (AI)',
+      checkout_upload_rc: 'Scanned copy of RC', checkout_upload_nif: 'Scanned copy of NIF', checkout_upload_nis: 'Scanned copy of NIS', checkout_upload_ai: 'Scanned copy of AI',
+      checkout_missing_files: 'Please attach all 4 scanned documents (RC, NIF, NIS, AI).',
       wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
       track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
       track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
@@ -379,7 +397,7 @@
     paymentMethod: 'cod',
     lastOrder: null,
     page: 1,
-    checkout: { fullName: '', phone: '', wilaya: '', address: '', otp: '' }
+    checkout: { fullName: '', phone: '', wilaya: '', address: '', otp: '', rc: '', nif: '', nis: '', ai: '' }
   };
 
   const PAGE_SIZE = 24;
@@ -931,12 +949,17 @@
     select.value = current;
   }
 
+  function checkoutStepOrder() {
+    return state.mode === 'wholesale' ? ['info', 'business', 'otp'] : ['info', 'card', 'otp'];
+  }
+
   function goToCheckoutStep(step) {
     $all('.checkout-step').forEach((el) => el.classList.toggle('active', el.dataset.step === step));
+    const order = checkoutStepOrder();
     $all('.checkout-progress-step').forEach((el) => {
-      const order = ['info', 'card', 'otp'];
-      el.classList.toggle('active', el.dataset.step === step);
-      el.classList.toggle('done', order.indexOf(el.dataset.step) < order.indexOf(step));
+      const key = el.id === 'checkoutProgressStep2' ? order[1] : el.dataset.step;
+      el.classList.toggle('active', key === step);
+      el.classList.toggle('done', order.indexOf(key) < order.indexOf(step));
     });
   }
 
@@ -947,8 +970,12 @@
     $('#coWilaya').value = state.checkout.wilaya;
     $('#coAddress').value = state.checkout.address;
     $('#coCardName').value = ''; $('#coCardNumber').value = ''; $('#coCardExpiry').value = ''; $('#coCardCvv').value = '';
+    $('#coRC').value = state.checkout.rc; $('#coNIF').value = state.checkout.nif;
+    $('#coNIS').value = state.checkout.nis; $('#coAI').value = state.checkout.ai;
+    $('#coFileRC').value = ''; $('#coFileNIF').value = ''; $('#coFileNIS').value = ''; $('#coFileAI').value = '';
     $('#coOtp').value = '';
     $('#checkoutOtpError').classList.remove('visible');
+    $('#checkoutProgressStep2').dataset.step = checkoutStepOrder()[1];
     goToCheckoutStep('info');
     $('#checkoutModal').classList.add('visible');
     $('#checkoutOverlay').classList.add('visible');
@@ -981,7 +1008,9 @@
       state.checkout.phone = phone;
       state.checkout.wilaya = wilaya;
       state.checkout.address = address;
-      if (state.paymentMethod === 'cod') {
+      if (state.mode === 'wholesale') {
+        goToCheckoutStep('business');
+      } else if (state.paymentMethod === 'cod') {
         $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + phone;
         generateOtp();
         goToCheckoutStep('otp');
@@ -1016,8 +1045,26 @@
     $('#coCardCvv').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); });
     $('#coOtp').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
 
+    $('#coBusinessBackBtn').addEventListener('click', () => goToCheckoutStep('info'));
+
+    $('#coBusinessNextBtn').addEventListener('click', () => {
+      const rc = $('#coRC').value.trim();
+      const nif = $('#coNIF').value.trim();
+      const nis = $('#coNIS').value.trim();
+      const ai = $('#coAI').value.trim();
+      if (!rc || !nif || !nis || !ai) { showToast(t('checkout_fill_all'), 'info'); return; }
+      const files = ['#coFileRC', '#coFileNIF', '#coFileNIS', '#coFileAI'];
+      const missingFile = files.some((sel) => !$(sel).files.length);
+      if (missingFile) { showToast(t('checkout_missing_files'), 'info'); return; }
+      state.checkout.rc = rc; state.checkout.nif = nif; state.checkout.nis = nis; state.checkout.ai = ai;
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      generateOtp();
+      goToCheckoutStep('otp');
+    });
+
     $('#coOtpBackBtn').addEventListener('click', () => {
-      goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
+      if (state.mode === 'wholesale') goToCheckoutStep('business');
+      else goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
     });
 
     $('#coResendOtpBtn').addEventListener('click', () => {
@@ -1041,7 +1088,9 @@
     state.lastOrder = {
       paymentMethod: state.paymentMethod,
       total: subtotal + shipping,
-      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address },
+      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address,
+        rc: state.mode === 'wholesale' ? state.checkout.rc : null, nif: state.mode === 'wholesale' ? state.checkout.nif : null,
+        nis: state.mode === 'wholesale' ? state.checkout.nis : null, ai: state.mode === 'wholesale' ? state.checkout.ai : null },
       step: 2,
       placedAt: Date.now()
     };
@@ -1120,12 +1169,28 @@
    *  12. RETAIL / WHOLESALE + THEME + SIMULATOR TOGGLES
    * ------------------------------------------------------------------ */
 
+  function updatePaymentOptionsVisibility() {
+    const options = $all('.payment-option');
+    options.forEach((opt) => opt.classList.toggle('po-hidden', opt.dataset.mode !== state.mode));
+    const currentChecked = $('input[name="paymentMethod"]:checked');
+    if (!currentChecked || currentChecked.closest('.payment-option').classList.contains('po-hidden')) {
+      const firstVisible = options.find((opt) => !opt.classList.contains('po-hidden'));
+      if (firstVisible) {
+        const input = firstVisible.querySelector('input[name="paymentMethod"]');
+        input.checked = true;
+        state.paymentMethod = input.value;
+      }
+    }
+    $('#wholesaleDocNote').classList.toggle('visible', state.mode === 'wholesale');
+  }
+
   function initModeToggle() {
     $('#modeToggle').addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-mode]'); if (!btn) return;
       state.mode = btn.dataset.mode;
       $all('#modeToggle button').forEach((b) => b.classList.toggle('active', b === btn));
       $('#wholesaleBanner').classList.toggle('visible', state.mode === 'wholesale');
+      updatePaymentOptionsVisibility();
       render(true); renderCart(); renderWishlist();
       showToast(state.mode === 'wholesale' ? t('toast_wholesale_on') : t('toast_retail_on'), 'info');
     });
@@ -1187,6 +1252,7 @@
     initTrackModal();
     initNotifyModal();
     initModeToggle();
+    updatePaymentOptionsVisibility();
     initMisc();
     render();
     renderCart();

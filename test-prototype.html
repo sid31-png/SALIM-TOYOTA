@@ -460,22 +460,33 @@
   <div class="border-t border-border dark:border-border-dark px-5 pt-4 pb-5">
     <div id="paymentMethodGroup" class="mb-4 pb-4 border-b border-dashed border-border dark:border-border-dark">
       <h4 class="text-xs font-bold uppercase tracking-wide text-muted dark:text-muted-dark mb-2.5" data-i18n="payment_method_title">Méthode de paiement</h4>
-      <label class="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+      <label data-mode="retail" class="payment-option flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
         <input type="radio" name="paymentMethod" value="cod" checked class="accent-accent w-4 h-4 shrink-0" />
         <i data-lucide="truck" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
         <span data-i18n="payment_cod">Paiement à la livraison</span>
       </label>
-      <label class="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+      <label data-mode="retail" class="payment-option flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
         <input type="radio" name="paymentMethod" value="edahabia" class="accent-accent w-4 h-4 shrink-0" />
         <i data-lucide="credit-card" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
         <span data-i18n="payment_edahabia">Carte EDAHABIA (Dahabia)</span>
       </label>
-      <label class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+      <label data-mode="retail" class="payment-option flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
         <input type="radio" name="paymentMethod" value="cib" class="accent-accent w-4 h-4 shrink-0" />
         <i data-lucide="credit-card" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
         <span data-i18n="payment_cib">Carte CIB</span>
       </label>
+      <label data-mode="wholesale" class="payment-option hidden flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+        <input type="radio" name="paymentMethod" value="virement" class="accent-accent w-4 h-4 shrink-0" />
+        <i data-lucide="landmark" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <span data-i18n="payment_virement">Virement bancaire</span>
+      </label>
+      <label data-mode="wholesale" class="payment-option hidden flex items-center gap-2.5 px-3 py-2.5 rounded-lg border border-border dark:border-border-dark has-[:checked]:border-accent has-[:checked]:bg-accent/10 cursor-pointer text-sm transition">
+        <input type="radio" name="paymentMethod" value="cheque" class="accent-accent w-4 h-4 shrink-0" />
+        <i data-lucide="banknote" class="w-4 h-4 text-muted dark:text-muted-dark shrink-0"></i>
+        <span data-i18n="payment_cheque">Chèque</span>
+      </label>
     </div>
+    <p id="wholesaleDocNote" class="hidden text-xs text-gold dark:text-gold-dark bg-gold/10 rounded-lg px-3 py-2.5 mb-3.5 text-center" data-i18n="wholesale_doc_note">Vente en gros : registre de commerce, NIF, NIS et article d'imposition requis à l'étape suivante.</p>
     <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0</span></div>
     <div class="flex justify-between text-sm text-sub dark:text-sub-dark mb-2"><span data-i18n="cart_shipping">Livraison estimée</span><span id="cartShipping">0</span></div>
     <div class="flex justify-between text-base font-bold mt-2 pt-2 border-t border-dashed border-border dark:border-border-dark"><span data-i18n="cart_total">Total</span><span id="cartTotal">0</span></div>
@@ -544,7 +555,7 @@
   <div id="checkoutProgress" class="flex items-center justify-center gap-2 mb-5">
     <span data-step="info" class="checkout-progress-step w-7 h-7 rounded-full bg-accent border border-accent text-white text-xs font-bold flex items-center justify-center transition">1</span>
     <span class="w-8 h-0.5 bg-border dark:bg-border-dark"></span>
-    <span data-step="card" class="checkout-progress-step w-7 h-7 rounded-full bg-card dark:bg-card-dark border border-border dark:border-border-dark text-muted dark:text-muted-dark text-xs font-bold flex items-center justify-center transition">2</span>
+    <span data-step="card" id="checkoutProgressStep2" class="checkout-progress-step w-7 h-7 rounded-full bg-card dark:bg-card-dark border border-border dark:border-border-dark text-muted dark:text-muted-dark text-xs font-bold flex items-center justify-center transition">2</span>
     <span class="w-8 h-0.5 bg-border dark:bg-border-dark"></span>
     <span data-step="otp" class="checkout-progress-step w-7 h-7 rounded-full bg-card dark:bg-card-dark border border-border dark:border-border-dark text-muted dark:text-muted-dark text-xs font-bold flex items-center justify-center transition">3</span>
   </div>
@@ -573,6 +584,40 @@
     <div class="flex gap-2.5 mt-3.5">
       <button id="coCardBackBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="checkout_back">Retour</button>
       <button id="coCardNextBtn" class="flex-1 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition" data-i18n="checkout_continue">Continuer</button>
+    </div>
+  </div>
+
+  <div data-step="business" class="checkout-step hidden">
+    <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto"><i data-lucide="building-2" class="w-5 h-5"></i></span>
+    <h3 class="text-lg font-bold mb-2" data-i18n="checkout_business_title">Informations professionnelles</h3>
+    <p class="text-sm text-sub dark:text-sub-dark mb-4" data-i18n="checkout_business_desc">Obligatoires pour toute commande en vente en gros (B2B).</p>
+    <input id="coRC" type="text" data-i18n-ph="checkout_rc" placeholder="N° Registre de commerce (RC)" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <input id="coNIF" type="text" dir="ltr" data-i18n-ph="checkout_nif" placeholder="NIF" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <div class="flex gap-2.5 mb-1">
+      <input id="coNIS" type="text" dir="ltr" data-i18n-ph="checkout_nis" placeholder="NIS" class="w-1/2 bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent text-sm" />
+      <input id="coAI" type="text" dir="ltr" data-i18n-ph="checkout_ai" placeholder="Article d'imposition (AI)" class="w-1/2 bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent text-sm" />
+    </div>
+    <div class="flex flex-col gap-2.5 my-3.5 text-start">
+      <label class="text-xs font-semibold text-sub dark:text-sub-dark flex flex-col gap-1.5">
+        <span data-i18n="checkout_upload_rc">Copie scannée du RC</span>
+        <input id="coFileRC" type="file" accept="image/*,.pdf" class="w-full text-xs bg-card dark:bg-card-dark border border-dashed border-borderstrong dark:border-borderstrong-dark rounded-lg px-2.5 py-2 outline-none" />
+      </label>
+      <label class="text-xs font-semibold text-sub dark:text-sub-dark flex flex-col gap-1.5">
+        <span data-i18n="checkout_upload_nif">Copie scannée du NIF</span>
+        <input id="coFileNIF" type="file" accept="image/*,.pdf" class="w-full text-xs bg-card dark:bg-card-dark border border-dashed border-borderstrong dark:border-borderstrong-dark rounded-lg px-2.5 py-2 outline-none" />
+      </label>
+      <label class="text-xs font-semibold text-sub dark:text-sub-dark flex flex-col gap-1.5">
+        <span data-i18n="checkout_upload_nis">Copie scannée du NIS</span>
+        <input id="coFileNIS" type="file" accept="image/*,.pdf" class="w-full text-xs bg-card dark:bg-card-dark border border-dashed border-borderstrong dark:border-borderstrong-dark rounded-lg px-2.5 py-2 outline-none" />
+      </label>
+      <label class="text-xs font-semibold text-sub dark:text-sub-dark flex flex-col gap-1.5">
+        <span data-i18n="checkout_upload_ai">Copie scannée de l'AI</span>
+        <input id="coFileAI" type="file" accept="image/*,.pdf" class="w-full text-xs bg-card dark:bg-card-dark border border-dashed border-borderstrong dark:border-borderstrong-dark rounded-lg px-2.5 py-2 outline-none" />
+      </label>
+    </div>
+    <div class="flex gap-2.5 mt-3.5">
+      <button id="coBusinessBackBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="checkout_back">Retour</button>
+      <button id="coBusinessNextBtn" class="flex-1 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition" data-i18n="checkout_continue">Continuer</button>
     </div>
   </div>
 
@@ -644,6 +689,12 @@
       checkout_resend_otp: 'Renvoyer le code', checkout_otp_resent: 'Un nouveau code a été envoyé.', checkout_confirm: 'Confirmer la commande',
       checkout_fill_all: 'Merci de remplir tous les champs.', checkout_invalid_phone: 'Numéro de téléphone invalide.',
       checkout_invalid_card: 'Numéro de carte invalide (16 chiffres).', checkout_invalid_expiry: "Date d'expiration invalide (MM/AA).", checkout_invalid_cvv: 'CVV invalide (3 chiffres).',
+      payment_virement: 'Virement bancaire', payment_cheque: 'Chèque',
+      wholesale_doc_note: "Vente en gros : registre de commerce, NIF, NIS et article d'imposition requis à l'étape suivante.",
+      checkout_business_title: 'Informations professionnelles', checkout_business_desc: "Obligatoires pour toute commande en vente en gros (B2B).",
+      checkout_rc: 'N° Registre de commerce (RC)', checkout_nif: 'NIF', checkout_nis: 'NIS', checkout_ai: "Article d'imposition (AI)",
+      checkout_upload_rc: 'Copie scannée du RC', checkout_upload_nif: 'Copie scannée du NIF', checkout_upload_nis: 'Copie scannée du NIS', checkout_upload_ai: "Copie scannée de l'AI",
+      checkout_missing_files: 'Merci de joindre les 4 documents scannés (RC, NIF, NIS, AI).',
       wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
       track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
       track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
@@ -703,6 +754,12 @@
       checkout_resend_otp: 'إعادة إرسال الرمز', checkout_otp_resent: 'تم إرسال رمز جديد.', checkout_confirm: 'تأكيد الطلب',
       checkout_fill_all: 'يرجى ملء جميع الحقول.', checkout_invalid_phone: 'رقم هاتف غير صالح.',
       checkout_invalid_card: 'رقم بطاقة غير صالح (16 رقم).', checkout_invalid_expiry: 'تاريخ انتهاء غير صالح (شهر/سنة).', checkout_invalid_cvv: 'CVV غير صالح (3 أرقام).',
+      payment_virement: 'تحويل بنكي', payment_cheque: 'شيك',
+      wholesale_doc_note: 'البيع بالجملة: السجل التجاري، NIF، NIS ورقم المادة الضريبية مطلوبة في الخطوة التالية.',
+      checkout_business_title: 'المعلومات المهنية', checkout_business_desc: 'إلزامية لكل طلب بيع بالجملة (B2B).',
+      checkout_rc: 'رقم السجل التجاري (RC)', checkout_nif: 'NIF', checkout_nis: 'NIS', checkout_ai: 'المادة الضريبية (AI)',
+      checkout_upload_rc: 'نسخة ممسوحة من السجل التجاري', checkout_upload_nif: 'نسخة ممسوحة من NIF', checkout_upload_nis: 'نسخة ممسوحة من NIS', checkout_upload_ai: 'نسخة ممسوحة من AI',
+      checkout_missing_files: 'يرجى إرفاق المستندات الأربعة الممسوحة ضوئياً (RC، NIF، NIS، AI).',
       wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
       track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
       track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
@@ -762,6 +819,12 @@
       checkout_resend_otp: 'Resend code', checkout_otp_resent: 'A new code has been sent.', checkout_confirm: 'Confirm order',
       checkout_fill_all: 'Please fill in all fields.', checkout_invalid_phone: 'Invalid phone number.',
       checkout_invalid_card: 'Invalid card number (16 digits).', checkout_invalid_expiry: 'Invalid expiry date (MM/YY).', checkout_invalid_cvv: 'Invalid CVV (3 digits).',
+      payment_virement: 'Bank transfer', payment_cheque: 'Cheque',
+      wholesale_doc_note: 'Wholesale orders require a trade register, tax ID (NIF), statistical ID (NIS) and tax article (AI) on the next step.',
+      checkout_business_title: 'Business information', checkout_business_desc: 'Mandatory for any wholesale (B2B) order.',
+      checkout_rc: 'Trade register No. (RC)', checkout_nif: 'Tax ID (NIF)', checkout_nis: 'Statistical ID (NIS)', checkout_ai: 'Tax article (AI)',
+      checkout_upload_rc: 'Scanned copy of RC', checkout_upload_nif: 'Scanned copy of NIF', checkout_upload_nis: 'Scanned copy of NIS', checkout_upload_ai: 'Scanned copy of AI',
+      checkout_missing_files: 'Please attach all 4 scanned documents (RC, NIF, NIS, AI).',
       wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
       track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
       track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
@@ -881,7 +944,7 @@
     search: '', vehicleBrand: null, vehicleModel: null, brandFilter: null,
     availability: new Set(), cart: [], wishlist: new Set(),
     paymentMethod: 'cod', lastOrder: null, page: 1,
-    checkout: { fullName: '', phone: '', wilaya: '', address: '' }
+    checkout: { fullName: '', phone: '', wilaya: '', address: '', rc: '', nif: '', nis: '', ai: '' }
   };
   const PAGE_SIZE = 24;
 
@@ -1368,12 +1431,17 @@
     select.value = current;
   }
 
+  function checkoutStepOrder() {
+    return state.mode === 'wholesale' ? ['info', 'business', 'otp'] : ['info', 'card', 'otp'];
+  }
+
   function goToCheckoutStep(step) {
     $all('.checkout-step').forEach((el) => el.classList.toggle('hidden', el.dataset.step !== step));
-    const order = ['info', 'card', 'otp'];
+    const order = checkoutStepOrder();
     $all('.checkout-progress-step').forEach((el) => {
-      const isActive = el.dataset.step === step;
-      const isDone = order.indexOf(el.dataset.step) < order.indexOf(step);
+      const key = el.id === 'checkoutProgressStep2' ? order[1] : el.dataset.step;
+      const isActive = key === step;
+      const isDone = order.indexOf(key) < order.indexOf(step);
       el.classList.toggle('bg-accent', isActive); el.classList.toggle('border-accent', isActive); el.classList.toggle('text-white', isActive || isDone);
       el.classList.toggle('bg-card', !isActive && !isDone); el.classList.toggle('dark:bg-card-dark', !isActive && !isDone);
       el.classList.toggle('border-border', !isActive && !isDone); el.classList.toggle('dark:border-border-dark', !isActive && !isDone);
@@ -1390,8 +1458,12 @@
     $('#coWilaya').value = state.checkout.wilaya;
     $('#coAddress').value = state.checkout.address;
     $('#coCardName').value = ''; $('#coCardNumber').value = ''; $('#coCardExpiry').value = ''; $('#coCardCvv').value = '';
+    $('#coRC').value = state.checkout.rc; $('#coNIF').value = state.checkout.nif;
+    $('#coNIS').value = state.checkout.nis; $('#coAI').value = state.checkout.ai;
+    $('#coFileRC').value = ''; $('#coFileNIF').value = ''; $('#coFileNIS').value = ''; $('#coFileAI').value = '';
     $('#coOtp').value = '';
     $('#checkoutOtpError').classList.add('hidden');
+    $('#checkoutProgressStep2').dataset.step = checkoutStepOrder()[1];
     goToCheckoutStep('info');
     $('#checkoutModal').classList.remove('modal-hidden'); $('#checkoutModal').classList.add('modal-visible');
     $('#checkoutOverlay').classList.remove('overlay-hidden'); $('#checkoutOverlay').classList.add('overlay-visible');
@@ -1424,7 +1496,9 @@
       state.checkout.phone = phone;
       state.checkout.wilaya = wilaya;
       state.checkout.address = address;
-      if (state.paymentMethod === 'cod') {
+      if (state.mode === 'wholesale') {
+        goToCheckoutStep('business');
+      } else if (state.paymentMethod === 'cod') {
         $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + phone;
         generateOtp();
         goToCheckoutStep('otp');
@@ -1459,8 +1533,26 @@
     $('#coCardCvv').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); });
     $('#coOtp').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
 
+    $('#coBusinessBackBtn').addEventListener('click', () => goToCheckoutStep('info'));
+
+    $('#coBusinessNextBtn').addEventListener('click', () => {
+      const rc = $('#coRC').value.trim();
+      const nif = $('#coNIF').value.trim();
+      const nis = $('#coNIS').value.trim();
+      const ai = $('#coAI').value.trim();
+      if (!rc || !nif || !nis || !ai) { showToast(t('checkout_fill_all'), 'info'); return; }
+      const files = ['#coFileRC', '#coFileNIF', '#coFileNIS', '#coFileAI'];
+      const missingFile = files.some((sel) => !$(sel).files.length);
+      if (missingFile) { showToast(t('checkout_missing_files'), 'info'); return; }
+      state.checkout.rc = rc; state.checkout.nif = nif; state.checkout.nis = nis; state.checkout.ai = ai;
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      generateOtp();
+      goToCheckoutStep('otp');
+    });
+
     $('#coOtpBackBtn').addEventListener('click', () => {
-      goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
+      if (state.mode === 'wholesale') goToCheckoutStep('business');
+      else goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
     });
 
     $('#coResendOtpBtn').addEventListener('click', () => {
@@ -1484,7 +1576,9 @@
     state.lastOrder = {
       paymentMethod: state.paymentMethod,
       total: subtotal + shipping,
-      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address },
+      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address,
+        rc: state.mode === 'wholesale' ? state.checkout.rc : null, nif: state.mode === 'wholesale' ? state.checkout.nif : null,
+        nis: state.mode === 'wholesale' ? state.checkout.nis : null, ai: state.mode === 'wholesale' ? state.checkout.ai : null },
       step: 2,
       placedAt: Date.now()
     };
@@ -1520,10 +1614,26 @@
   }
 
   /* ---------------- MODE / THEME / LANG ---------------- */
+  function updatePaymentOptionsVisibility() {
+    const options = $all('.payment-option');
+    options.forEach((opt) => opt.classList.toggle('hidden', opt.dataset.mode !== state.mode));
+    const currentChecked = $('input[name="paymentMethod"]:checked');
+    if (!currentChecked || currentChecked.closest('.payment-option').classList.contains('hidden')) {
+      const firstVisible = options.find((opt) => !opt.classList.contains('hidden'));
+      if (firstVisible) {
+        const input = firstVisible.querySelector('input[name="paymentMethod"]');
+        input.checked = true;
+        state.paymentMethod = input.value;
+      }
+    }
+    $('#wholesaleDocNote').classList.toggle('hidden', state.mode !== 'wholesale');
+  }
+
   function setMode(mode) {
     state.mode = mode;
     $all('.mode-btn').forEach((b) => b.classList.toggle('active', b.dataset.mode === mode));
     $('#wholesaleBanner').classList.toggle('hidden', mode !== 'wholesale');
+    updatePaymentOptionsVisibility();
     render(true); renderCart(); renderWishlist();
   }
   function initModeToggle() {
@@ -1552,6 +1662,7 @@
     initTrackModal();
     initNotify();
     initModeToggle();
+    updatePaymentOptionsVisibility();
     render();
     renderCart();
     updateCartCount();

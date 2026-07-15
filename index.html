@@ -488,22 +488,33 @@
   <div class="drawer-footer">
     <div class="payment-method-group" id="paymentMethodGroup">
       <h4 data-i18n="payment_method_title">Méthode de paiement</h4>
-      <label class="payment-option">
+      <label class="payment-option" data-mode="retail">
         <input type="radio" name="paymentMethod" value="cod" checked />
         <i data-lucide="truck"></i>
         <span data-i18n="payment_cod">Paiement à la livraison</span>
       </label>
-      <label class="payment-option">
+      <label class="payment-option" data-mode="retail">
         <input type="radio" name="paymentMethod" value="edahabia" />
         <i data-lucide="credit-card"></i>
         <span data-i18n="payment_edahabia">Carte EDAHABIA (Dahabia)</span>
       </label>
-      <label class="payment-option">
+      <label class="payment-option" data-mode="retail">
         <input type="radio" name="paymentMethod" value="cib" />
         <i data-lucide="credit-card"></i>
         <span data-i18n="payment_cib">Carte CIB</span>
       </label>
+      <label class="payment-option" data-mode="wholesale">
+        <input type="radio" name="paymentMethod" value="virement" />
+        <i data-lucide="landmark"></i>
+        <span data-i18n="payment_virement">Virement bancaire</span>
+      </label>
+      <label class="payment-option" data-mode="wholesale">
+        <input type="radio" name="paymentMethod" value="cheque" />
+        <i data-lucide="banknote"></i>
+        <span data-i18n="payment_cheque">Chèque</span>
+      </label>
     </div>
+    <p class="wholesale-doc-note" id="wholesaleDocNote" data-i18n="wholesale_doc_note">Vente en gros : registre de commerce, NIF, NIS et article d'imposition requis à l'étape suivante.</p>
     <div class="drawer-summary-row"><span data-i18n="cart_subtotal">Sous-total</span><span id="cartSubtotal">0</span></div>
     <div class="drawer-summary-row"><span data-i18n="cart_shipping">Livraison estimée</span><span id="cartShipping">0</span></div>
     <div class="drawer-summary-row total"><span data-i18n="cart_total">Total</span><span id="cartTotal">0</span></div>
@@ -572,7 +583,7 @@
   <div class="checkout-progress" id="checkoutProgress">
     <span class="checkout-progress-step active" data-step="info">1</span>
     <span class="checkout-progress-line"></span>
-    <span class="checkout-progress-step" data-step="card">2</span>
+    <span class="checkout-progress-step" data-step="card" id="checkoutProgressStep2">2</span>
     <span class="checkout-progress-line"></span>
     <span class="checkout-progress-step" data-step="otp">3</span>
   </div>
@@ -603,6 +614,40 @@
     <div class="modal-actions">
       <button class="btn btn-outline" id="coCardBackBtn" data-i18n="checkout_back">Retour</button>
       <button class="btn btn-primary" id="coCardNextBtn" data-i18n="checkout_continue">Continuer</button>
+    </div>
+  </div>
+
+  <div class="checkout-step" data-step="business">
+    <span class="modal-icon"><i data-lucide="building-2"></i></span>
+    <h3 data-i18n="checkout_business_title">Informations professionnelles</h3>
+    <p data-i18n="checkout_business_desc">Obligatoires pour toute commande en vente en gros (B2B).</p>
+    <input type="text" id="coRC" data-i18n-ph="checkout_rc" placeholder="N° Registre de commerce (RC)" />
+    <input type="text" id="coNIF" dir="ltr" data-i18n-ph="checkout_nif" placeholder="NIF" />
+    <div class="checkout-card-row">
+      <input type="text" id="coNIS" dir="ltr" data-i18n-ph="checkout_nis" placeholder="NIS" />
+      <input type="text" id="coAI" dir="ltr" data-i18n-ph="checkout_ai" placeholder="Article d'imposition (AI)" />
+    </div>
+    <div class="checkout-file-list">
+      <label class="checkout-file-row">
+        <span data-i18n="checkout_upload_rc">Copie scannée du RC</span>
+        <input type="file" id="coFileRC" accept="image/*,.pdf" />
+      </label>
+      <label class="checkout-file-row">
+        <span data-i18n="checkout_upload_nif">Copie scannée du NIF</span>
+        <input type="file" id="coFileNIF" accept="image/*,.pdf" />
+      </label>
+      <label class="checkout-file-row">
+        <span data-i18n="checkout_upload_nis">Copie scannée du NIS</span>
+        <input type="file" id="coFileNIS" accept="image/*,.pdf" />
+      </label>
+      <label class="checkout-file-row">
+        <span data-i18n="checkout_upload_ai">Copie scannée de l'AI</span>
+        <input type="file" id="coFileAI" accept="image/*,.pdf" />
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="coBusinessBackBtn" data-i18n="checkout_back">Retour</button>
+      <button class="btn btn-primary" id="coBusinessNextBtn" data-i18n="checkout_continue">Continuer</button>
     </div>
   </div>
 

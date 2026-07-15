@@ -83,10 +83,16 @@ Then visit `http://localhost:8080`.
 - **Payment methods** — cash on delivery, EDAHABIA (Dahabia) card, or CIB card, selectable in
   the cart before checkout.
 - **3-step checkout flow** — clicking "Checkout" opens a modal that collects (1) delivery info
-  (name, phone, wilaya, address), then (2) card details if paying by EDAHABIA/CIB (skipped for
-  COD), then (3) an OTP confirmation step. The demo code is shown on-screen (no real SMS
-  gateway is wired up) — entering it confirms the reservation; a wrong code is rejected with
-  an inline error and can be retried or resent.
+  (name, phone, wilaya, address), then (2) either card details (EDAHABIA/CIB, retail mode) or
+  mandatory B2B business documents (wholesale mode — see below), then (3) an OTP confirmation
+  step. The demo code is shown on-screen (no real SMS gateway is wired up) — entering it
+  confirms the reservation; a wrong code is rejected with an inline error and can be retried
+  or resent.
+- **Wholesale (B2B) compliance step** — switching to Wholesale mode restricts payment to
+  **bank transfer (virement)** or **cheque** (cash-on-delivery/card options are hidden); the
+  checkout's step 2 becomes a business-info form requiring **RC** (trade register number),
+  **NIF**, **NIS**, and **AI** (tax article), plus 4 mandatory file uploads (scanned RC, NIF,
+  NIS, AI) before the order can proceed to OTP confirmation.
 - **"Track my order" modal** — a 4-step timeline (accepted → preparation → out for delivery →
   delivered) plus a paid/COD status badge, opened from "Track my order" in the header and
   footer.
@@ -166,7 +172,9 @@ import pipeline (a one-off Python script, not part of the site) does this automa
   adding a new key and wiring a button into `#langSwitch`.
 - Icons load from the Lucide CDN for simplicity; for a stricter production build, vendor the
   package via npm and tree-shake the icons actually used.
-- Payment methods (COD / EDAHABIA / CIB), the checkout info/card/OTP flow, and order tracking
-  are UI-only simulations — no real payment gateway, SMS/OTP provider, or logistics
-  integration is wired up. Card numbers are format-validated (16 digits, MM/YY, 3-digit CVV)
-  but never sent anywhere or stored beyond the current page session.
+- Payment methods (COD / EDAHABIA / CIB / virement / chèque), the checkout flow (info, card
+  or business documents, OTP), and order tracking are UI-only simulations — no real payment
+  gateway, SMS/OTP provider, document storage, or logistics integration is wired up. Card
+  numbers are format-validated (16 digits, MM/YY, 3-digit CVV) but never sent anywhere or
+  stored beyond the current page session; uploaded RC/NIF/NIS/AI files are only checked for
+  presence (a file was selected) and are never actually uploaded anywhere.
