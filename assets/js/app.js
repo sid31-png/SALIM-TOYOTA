@@ -45,6 +45,9 @@
       trust2_t: 'Livraison rapide', trust2_d: 'Expédition le jour même pour le stock disponible.',
       trust3_t: 'Garantie incluse', trust3_d: 'Chaque pièce est couverte par une garantie de compatibilité.',
       trust4_t: 'Tarifs de gros', trust4_d: 'Remises automatiques en mode Vente en gros.',
+      contact_eyebrow: 'Contact', contact_title: 'Une question ? Contactez-nous',
+      contact_phone_label: 'Téléphone', contact_email_label: 'Email',
+      contact_location_label: 'Algérie', contact_location_value: 'Livraison dans tout le pays',
       newsletter_title: 'Restez informé des stocks et tarifs', newsletter_desc: 'Recevez les nouveautés, réapprovisionnements et offres B2B.',
       newsletter_ph: 'vous@entreprise.com', subscribe: "S'abonner",
       footer_desc: 'Spécialiste en pièces détachées d’origine et premium pour Toyota, Nissan, Lexus et Infiniti — vente en gros et au détail.',
@@ -99,6 +102,9 @@
       trust2_t: 'شحن سريع', trust2_d: 'شحن في نفس اليوم للمخزون المتوفر.',
       trust3_t: 'ضمان شامل', trust3_d: 'كل قطعة مضمونة التوافق.',
       trust4_t: 'أسعار الجملة', trust4_d: 'خصومات تلقائية في وضع الجملة.',
+      contact_eyebrow: 'اتصل بنا', contact_title: 'هل لديك سؤال؟ تواصل معنا',
+      contact_phone_label: 'الهاتف', contact_email_label: 'البريد الإلكتروني',
+      contact_location_label: 'الجزائر', contact_location_value: 'توصيل إلى جميع أنحاء البلاد',
       newsletter_title: 'ابقَ على اطّلاع بالمخزون والأسعار', newsletter_desc: 'احصل على إشعارات بالوافدين الجدد وتوفر المخزون وعروض الجملة.',
       newsletter_ph: 'you@company.com', subscribe: 'اشتراك',
       footer_desc: 'متخصصون في قطع الغيار الأصلية والبديلة الممتازة لتويوتا ونيسان ولكزس وإنفينيتي — بالجملة والتجزئة.',
@@ -153,6 +159,9 @@
       trust2_t: 'Fast Shipping', trust2_d: 'Same-day dispatch on in-stock orders.',
       trust3_t: 'Warranty Included', trust3_d: 'Every part is covered by a fitment guarantee.',
       trust4_t: 'Wholesale Pricing', trust4_d: 'Automatic discounts in Wholesale mode.',
+      contact_eyebrow: 'Contact', contact_title: 'Got a question? Get in touch',
+      contact_phone_label: 'Phone', contact_email_label: 'Email',
+      contact_location_label: 'Algeria', contact_location_value: 'Nationwide delivery',
       newsletter_title: 'Stay ahead on stock & pricing', newsletter_desc: 'Get notified about new arrivals, restocks and B2B offers.',
       newsletter_ph: 'you@company.com', subscribe: 'Subscribe',
       footer_desc: 'Genuine and premium-aftermarket parts specialist for Toyota, Nissan, Lexus and Infiniti — wholesale and retail.',
@@ -262,9 +271,9 @@
    * ------------------------------------------------------------------ */
 
   function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
-  const LOCALE_MAP = { fr: 'fr-FR', en: 'en-US', ar: 'ar-EG' };
-  const currency = () => new Intl.NumberFormat(LOCALE_MAP[state.lang] || 'fr-FR', { style: 'currency', currency: 'XOF', maximumFractionDigits: 0 });
-  const fmt = (n) => currency().format(n).replace('XOF', 'FCFA');
+  const LOCALE_MAP = { fr: 'fr-DZ', en: 'en-US', ar: 'ar-DZ' };
+  const currency = () => new Intl.NumberFormat(LOCALE_MAP[state.lang] || 'fr-DZ', { style: 'currency', currency: 'DZD', maximumFractionDigits: 0 });
+  const fmt = (n) => currency().format(n);
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
   function $all(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
   function refreshIcons() { if (window.lucide) window.lucide.createIcons(); }

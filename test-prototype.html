@@ -93,9 +93,10 @@
     </a>
 
     <nav class="hidden lg:flex items-center gap-1 flex-1 px-2">
-      <a href="#shop" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_shop">Boutique</a>
-      <a href="#brands" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_brands">Marques</a>
-      <a href="#wholesale" class="px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_wholesale">Vente en gros (B2B)</a>
+      <a href="#shop" class="whitespace-nowrap px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_shop">Boutique</a>
+      <a href="#brands" class="whitespace-nowrap px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_brands">Marques</a>
+      <a href="#wholesale" class="whitespace-nowrap px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_wholesale">Vente en gros (B2B)</a>
+      <a href="#contact" class="whitespace-nowrap px-3 py-2.5 rounded-lg text-sm font-medium text-sub dark:text-sub-dark hover:text-ink dark:hover:text-ink-dark hover:bg-elevated dark:hover:bg-elevated-dark transition" data-i18n="nav_contact">Contact</a>
     </nav>
 
     <div class="flex items-center gap-2 ms-auto flex-wrap justify-end">
@@ -388,6 +389,39 @@
   </div>
 </section>
 
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="py-10">
+  <div class="max-w-[1360px] mx-auto px-5">
+    <div class="mb-6">
+      <span class="block text-xs font-bold tracking-widest uppercase text-accent mb-2" data-i18n="contact_eyebrow">Contact</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold" data-i18n="contact_title">Une question ? Contactez-nous</h2>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-5">
+      <a href="tel:+213553805157" class="flex items-center gap-3.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:border-accent hover:-translate-y-0.5 transition">
+        <span class="w-11 h-11 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0"><i data-lucide="phone" class="w-5 h-5"></i></span>
+        <span class="flex flex-col gap-0.5 min-w-0">
+          <span class="text-[11px] font-bold uppercase tracking-wide text-muted dark:text-muted-dark" data-i18n="contact_phone_label">Téléphone</span>
+          <span class="text-sm font-semibold" dir="ltr">+213 553 80 51 57</span>
+        </span>
+      </a>
+      <a href="mailto:benmoussa_parts38@outlook.com" class="flex items-center gap-3.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl hover:border-accent hover:-translate-y-0.5 transition">
+        <span class="w-11 h-11 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0"><i data-lucide="mail" class="w-5 h-5"></i></span>
+        <span class="flex flex-col gap-0.5 min-w-0">
+          <span class="text-[11px] font-bold uppercase tracking-wide text-muted dark:text-muted-dark" data-i18n="contact_email_label">Email</span>
+          <span class="text-sm font-semibold break-all" dir="ltr">benmoussa_parts38@outlook.com</span>
+        </span>
+      </a>
+      <span class="flex items-center gap-3.5 p-5 bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-2xl">
+        <span class="w-11 h-11 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
+        <span class="flex flex-col gap-0.5 min-w-0">
+          <span class="text-[11px] font-bold uppercase tracking-wide text-muted dark:text-muted-dark" data-i18n="contact_location_label">Algérie</span>
+          <span class="text-sm font-semibold" data-i18n="contact_location_value">Livraison dans tout le pays</span>
+        </span>
+      </span>
+    </div>
+  </div>
+</section>
+
 <footer class="border-t border-border dark:border-border-dark py-8 mt-6">
   <div class="max-w-[1360px] mx-auto px-5 flex items-center justify-between flex-wrap gap-3 text-xs text-muted dark:text-muted-dark">
     <span>&copy; <span id="year"></span> Salim Auto Parts — <span data-i18n="footer_rights">Tous droits réservés.</span></span>
@@ -438,7 +472,10 @@
   const TRANSLATIONS = {
     fr: {
       tagline: "Spécialiste Pièces d'Origine",
-      nav_shop: 'Boutique', nav_brands: 'Marques', nav_wholesale: 'Vente en gros (B2B)',
+      nav_shop: 'Boutique', nav_brands: 'Marques', nav_wholesale: 'Vente en gros (B2B)', nav_contact: 'Contact',
+      contact_eyebrow: 'Contact', contact_title: 'Une question ? Contactez-nous',
+      contact_phone_label: 'Téléphone', contact_email_label: 'Email',
+      contact_location_label: 'Algérie', contact_location_value: 'Livraison dans tout le pays',
       mode_retail: 'Détail', mode_wholesale: 'Gros', sim_label: 'Simuler rupture de stock',
       wholesale_banner: 'Mode Vente en gros (B2B) actif — remises appliquées automatiquement.',
       hero_badge: 'Spécialiste Toyota · Nissan · Lexus · Infiniti', hero_title_1: "Pièces d'origine,", hero_title_span: 'trouvées en secondes.',
@@ -478,7 +515,10 @@
     },
     ar: {
       tagline: 'متخصصون في قطع الغيار الأصلية',
-      nav_shop: 'المتجر', nav_brands: 'الماركات', nav_wholesale: 'البيع بالجملة (B2B)',
+      nav_shop: 'المتجر', nav_brands: 'الماركات', nav_wholesale: 'البيع بالجملة (B2B)', nav_contact: 'اتصل بنا',
+      contact_eyebrow: 'اتصل بنا', contact_title: 'هل لديك سؤال؟ تواصل معنا',
+      contact_phone_label: 'الهاتف', contact_email_label: 'البريد الإلكتروني',
+      contact_location_label: 'الجزائر', contact_location_value: 'توصيل إلى جميع أنحاء البلاد',
       mode_retail: 'تجزئة', mode_wholesale: 'جملة', sim_label: 'محاكاة نفاد المخزون',
       wholesale_banner: 'وضع البيع بالجملة (B2B) مُفعّل — يتم تطبيق خصومات الكمية تلقائيًا.',
       hero_badge: 'متخصصون في تويوتا · نيسان · لكزس · إنفينيتي', hero_title_1: 'قطع غيار أصلية،', hero_title_span: 'تجدها في ثوانٍ.',
@@ -518,7 +558,10 @@
     },
     en: {
       tagline: 'Genuine & OEM Parts Specialist',
-      nav_shop: 'Shop', nav_brands: 'Brands', nav_wholesale: 'Wholesale (B2B)',
+      nav_shop: 'Shop', nav_brands: 'Brands', nav_wholesale: 'Wholesale (B2B)', nav_contact: 'Contact',
+      contact_eyebrow: 'Contact', contact_title: 'Got a question? Get in touch',
+      contact_phone_label: 'Phone', contact_email_label: 'Email',
+      contact_location_label: 'Algeria', contact_location_value: 'Nationwide delivery',
       mode_retail: 'Retail', mode_wholesale: 'Wholesale', sim_label: 'Simulate out of stock',
       wholesale_banner: 'Wholesale (B2B) mode active — bulk discounts applied automatically.',
       hero_badge: 'Toyota · Nissan · Lexus · Infiniti specialist', hero_title_1: 'Genuine parts,', hero_title_span: 'found in seconds.',
@@ -608,8 +651,9 @@
   };
 
   function t(key) { return (TRANSLATIONS[state.lang] && TRANSLATIONS[state.lang][key]) || key; }
-  const currency = () => new Intl.NumberFormat(state.lang === 'ar' ? 'ar-EG' : 'fr-FR', { maximumFractionDigits: 0 });
-  const fmt = (n) => currency().format(n) + ' FCFA';
+  const LOCALE_MAP = { fr: 'fr-DZ', en: 'en-US', ar: 'ar-DZ' };
+  const currency = () => new Intl.NumberFormat(LOCALE_MAP[state.lang] || 'fr-DZ', { style: 'currency', currency: 'DZD', maximumFractionDigits: 0 });
+  const fmt = (n) => currency().format(n);
   const $ = (s, c) => (c || document).querySelector(s);
   const $all = (s, c) => Array.from((c || document).querySelectorAll(s));
   const icons = () => window.lucide && window.lucide.createIcons();
