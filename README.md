@@ -13,7 +13,8 @@ SALIM-TOYOTA/
 ├── assets/
 │   ├── css/style.css         Design system: CSS vars for light/dark, RTL via logical properties
 │   ├── js/app.js             App logic: i18n, theme, OEM/VIN/Model search, filters, cart, stock states
-│   └── video/hero-bg.mp4     Muted looping hero background video (from the supplied clip)
+│   ├── video/hero-bg.mp4     Muted looping hero background video (from the supplied clip)
+│   └── images/products/      Real product photos supplied by the customer (13 files)
 ├── test-prototype.html       Self-contained interactive demo (Tailwind CDN + Lucide)
 └── README.md
 ```
@@ -62,8 +63,20 @@ Then visit `http://localhost:8080`.
   All three filter the catalog to the matched vehicle/brand and scroll to the shop section.
 - **Brand grid** with real Toyota / Nissan / Lexus / Infiniti logos that launches catalog
   browsing filtered to that brand.
-- **Popular Models photo section** — real vehicle photography (Land Cruiser, GT-R, LX 570,
-  QX80), also clickable to filter by brand.
+- **Popular Models photo section** — real vehicle photography (Toyota Yaris 2013, Corolla
+  2012, Hilux 2015, Nissan Sunny 2014), each clickable to filter the catalog to that exact
+  model.
+- **Trilingual product catalog** — every product name is translated (FR/EN/AR), e.g.
+  "Timing Belt Kit" (EN) / "Kit chaîne de distribution" (FR) / "طقم جنزير التوقيت" (AR).
+  13 products carry the customer's own product photography (`assets/images/products/`)
+  instead of a generic category photo; the rest fall back to a representative category photo.
+- **Payment methods** — cash on delivery, EDAHABIA (Dahabia) card, or CIB card, selectable in
+  the cart before checkout.
+- **"Track my order" modal** — a 4-step timeline (accepted → preparation → out for delivery →
+  delivered) plus a paid/COD status badge, opened from "Track my order" in the header and
+  footer.
+- **Wishlist drawer** — the header heart icon opens a panel listing favorited parts, with
+  quick add-to-cart / remove actions.
 - **Language switcher (FR / EN / AR)** in the header — retranslates every UI string live and
   flips `dir="ltr"` ↔ `dir="rtl"` for Arabic, switching to the Cairo/Tajawal Arabic type
   family. SKUs and prices stay left-to-right even inside the RTL layout for legibility.
@@ -83,18 +96,29 @@ Then visit `http://localhost:8080`.
 
 ## Notes for going to production
 
-- Product/vehicle/VIN data in `app.js` (`PRODUCTS`, `VEHICLE_MODELS`, `VIN_DATABASE`) is mock
-  data — wire it up to your real inventory/PIM and VIN-decoding APIs. Product photos are not
-  included (the mock SKUs aren't real inventory) — category icon tiles are used instead; swap
-  in real product photography per SKU once you have it.
+- Product/vehicle/VIN data lives in `app.js` (`PRODUCTS`, `VEHICLE_MODELS`, `VIN_DATABASE`).
+  22 products are real (from the supplied price list + your product photos); the remaining
+  mock Lexus/Infiniti items (the supplier price list only covers Toyota/Nissan/Daihatsu) stay
+  as placeholders — wire the whole thing up to your real inventory/PIM once you have full
+  coverage for all four brands.
+- Product names use `{ fr, en, ar }` objects (see `productName()` in `app.js`) so every part
+  is properly translated rather than showing raw French text in English/Arabic mode. Add new
+  products the same way.
+- Chassis-code note: the supplier list's "KUN"/"LAN" prefixes (e.g. `KUN15`, `KUN25`) refer to
+  the **Toyota Hilux** (D4D diesel generations), not Land Cruiser Prado — confirmed by your
+  "alternateur hilux d4d" photo. A few items were re-mapped from Land Cruiser to Hilux
+  accordingly.
+- 13 products carry real photos in `assets/images/products/`; the rest fall back to a
+  representative category photo (`CATEGORY_PHOTOS` in `app.js`) sourced from Wikimedia
+  Commons — swap in real photography per SKU as you get it.
 - The hero video is the WhatsApp clip you supplied, used as-is (no transcoding tools were
   available in this environment). For production, compress it (H.264, ~3–6 Mbps, ≤15s loop)
   and provide a `poster` frame for slow connections.
-- Prices are illustrative (FCFA). Swap the `Intl.NumberFormat` locale/currency in `app.js` as
-  needed.
+- Prices are in Algerian Dinar (DZD) via `Intl.NumberFormat` — real prices for the 22
+  supplier-sourced items, illustrative for the rest.
 - Translation strings live in the `TRANSLATIONS` object in `app.js` — add a fourth locale by
   adding a new key and wiring a button into `#langSwitch`.
 - Icons load from the Lucide CDN for simplicity; for a stricter production build, vendor the
   package via npm and tree-shake the icons actually used.
-- No backend/auth/payment integration is included — the cart and checkout are client-side
-  simulations only.
+- Payment methods (COD / EDAHABIA / CIB) and order tracking are UI-only simulations — no real
+  payment gateway or logistics integration is wired up.

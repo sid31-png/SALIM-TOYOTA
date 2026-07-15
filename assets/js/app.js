@@ -236,57 +236,68 @@
   const VERSION_KEYS = ['version_standard', 'version_comfort', 'version_sport', 'version_hybrid'];
 
   const PRODUCTS = [
-    { id: 'p01', brand: 'toyota', fits: ['Land Cruiser', 'Hilux', 'Fortuner'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
-    { id: 'p02', brand: 'toyota', fits: ['Land Cruiser'], name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60290', price: 42000, wholesalePrice: 34000, moq: 3, stock: true, rating: 4.7, reviews: 132 },
-    { id: 'p03', brand: 'toyota', fits: ['Land Cruiser'], name: 'Air Suspension Compressor', category: 'suspension', sku: '48910-60040', price: 185000, wholesalePrice: 162000, moq: 1, stock: false, rating: 4.6, reviews: 58 },
-    { id: 'p04', brand: 'toyota', fits: ['Hilux'], name: 'Timing Belt Kit', category: 'engine', sku: '13568-09080', price: 65000, wholesalePrice: 54000, moq: 2, stock: true, rating: 4.9, reviews: 97 },
-    { id: 'p05', brand: 'toyota', fits: ['Corolla', 'Camry'], name: 'Alternator Assembly', category: 'electrical', sku: '27060-0T170', price: 98000, wholesalePrice: 83000, moq: 2, stock: false, rating: 4.5, reviews: 41 },
-    { id: 'p06', brand: 'toyota', fits: ['Fortuner'], name: 'Front Bumper Grille', category: 'body', sku: '53101-0K230', price: 76000, wholesalePrice: 61000, moq: 2, stock: true, rating: 4.4, reviews: 26 },
+    { id: 'p01', brand: 'toyota', fits: ['Land Cruiser', 'Hilux', 'Fortuner'], name: { fr: "Filtre à huile moteur d'origine", en: 'Genuine Engine Oil Filter', ar: 'فلتر زيت المحرك الأصلي' }, category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
+    { id: 'p02', brand: 'toyota', fits: ['Land Cruiser'], name: { fr: 'Plaquettes de frein avant', en: 'Front Brake Pad Set', ar: 'طقم تيل فرامل أمامي' }, category: 'brake', sku: '04465-60290', price: 42000, wholesalePrice: 34000, moq: 3, stock: true, rating: 4.7, reviews: 132 },
+    { id: 'p03', brand: 'toyota', fits: ['Land Cruiser'], name: { fr: 'Compresseur de suspension pneumatique', en: 'Air Suspension Compressor', ar: 'ضاغط تعليق هوائي' }, category: 'suspension', sku: '48910-60040', price: 185000, wholesalePrice: 162000, moq: 1, stock: false, rating: 4.6, reviews: 58 },
+    { id: 'p04', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Kit chaîne de distribution', en: 'Timing Belt Kit', ar: 'طقم جنزير التوقيت' }, category: 'engine', sku: '13568-09080', price: 65000, wholesalePrice: 54000, moq: 2, stock: true, rating: 4.9, reviews: 97 },
+    { id: 'p05', brand: 'toyota', fits: ['Corolla', 'Camry'], name: { fr: 'Alternateur', en: 'Alternator Assembly', ar: 'مولد كهرباء (دينامو)' }, category: 'electrical', sku: '27060-0T170', price: 98000, wholesalePrice: 83000, moq: 2, stock: false, rating: 4.5, reviews: 41 },
+    { id: 'p06', brand: 'toyota', fits: ['Fortuner'], name: { fr: 'Calandre de pare-chocs avant', en: 'Front Bumper Grille', ar: 'شبكة الصدام الأمامي' }, category: 'body', sku: '53101-0K230', price: 76000, wholesalePrice: 61000, moq: 2, stock: true, rating: 4.4, reviews: 26 },
 
-    { id: 'p07', brand: 'nissan', fits: ['Patrol', 'X-Trail'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-65F0E', price: 7800, wholesalePrice: 5900, moq: 5, stock: true, rating: 4.7, reviews: 188 },
-    { id: 'p08', brand: 'nissan', fits: ['Patrol'], name: 'Rear Brake Disc Rotor', category: 'brake', sku: '43206-1LA0A', price: 54000, wholesalePrice: 44000, moq: 2, stock: true, rating: 4.6, reviews: 74 },
-    { id: 'p09', brand: 'nissan', fits: ['GT-R'], name: 'Front Shock Absorber', category: 'suspension', sku: '56110-JF01A', price: 210000, wholesalePrice: 178000, moq: 1, stock: false, rating: 4.9, reviews: 33 },
-    { id: 'p10', brand: 'nissan', fits: ['GT-R'], name: 'Turbocharger Assembly', category: 'engine', sku: '14411-JF00C', price: 890000, wholesalePrice: 760000, moq: 1, stock: false, rating: 5.0, reviews: 19 },
-    { id: 'p11', brand: 'nissan', fits: ['Navara'], name: 'LED Headlight Assembly', category: 'electrical', sku: '26010-4KP0B', price: 145000, wholesalePrice: 121000, moq: 1, stock: true, rating: 4.5, reviews: 52 },
-    { id: 'p12', brand: 'nissan', fits: ['X-Trail'], name: 'Side Mirror Cover', category: 'body', sku: '96374-4CE0A', price: 21000, wholesalePrice: 16500, moq: 3, stock: true, rating: 4.3, reviews: 39 },
+    { id: 'p07', brand: 'nissan', fits: ['Patrol', 'X-Trail'], name: { fr: "Filtre à huile moteur d'origine", en: 'Genuine Engine Oil Filter', ar: 'فلتر زيت المحرك الأصلي' }, category: 'filter', sku: '15208-65F0E', price: 7800, wholesalePrice: 5900, moq: 5, stock: true, rating: 4.7, reviews: 188 },
+    { id: 'p08', brand: 'nissan', fits: ['Patrol'], name: { fr: 'Disque de frein arrière', en: 'Rear Brake Disc Rotor', ar: 'قرص فرامل خلفي' }, category: 'brake', sku: '43206-1LA0A', price: 54000, wholesalePrice: 44000, moq: 2, stock: true, rating: 4.6, reviews: 74 },
+    { id: 'p09', brand: 'nissan', fits: ['GT-R'], name: { fr: 'Amortisseur avant', en: 'Front Shock Absorber', ar: 'مساعد أمامي' }, category: 'suspension', sku: '56110-JF01A', price: 210000, wholesalePrice: 178000, moq: 1, stock: false, rating: 4.9, reviews: 33 },
+    { id: 'p10', brand: 'nissan', fits: ['GT-R'], name: { fr: 'Turbocompresseur', en: 'Turbocharger Assembly', ar: 'توربو (شاحن توربيني)' }, category: 'engine', sku: '14411-JF00C', price: 890000, wholesalePrice: 760000, moq: 1, stock: false, rating: 5.0, reviews: 19 },
+    { id: 'p11', brand: 'nissan', fits: ['Navara'], name: { fr: 'Bloc optique phare LED', en: 'LED Headlight Assembly', ar: 'مصباح أمامي LED' }, category: 'electrical', sku: '26010-4KP0B', price: 145000, wholesalePrice: 121000, moq: 1, stock: true, rating: 4.5, reviews: 52 },
+    { id: 'p12', brand: 'nissan', fits: ['X-Trail'], name: { fr: 'Coque de rétroviseur', en: 'Side Mirror Cover', ar: 'غطاء مرآة جانبية' }, category: 'body', sku: '96374-4CE0A', price: 21000, wholesalePrice: 16500, moq: 3, stock: true, rating: 4.3, reviews: 39 },
 
-    { id: 'p13', brand: 'lexus', fits: ['RX350', 'ES350'], name: 'Cabin Air Filter', category: 'filter', sku: '87139-06060', price: 9800, wholesalePrice: 7600, moq: 4, stock: true, rating: 4.8, reviews: 121 },
-    { id: 'p14', brand: 'lexus', fits: ['LX570'], name: 'Front Brake Pad Set', category: 'brake', sku: '04465-60321', price: 68000, wholesalePrice: 56000, moq: 2, stock: true, rating: 4.7, reviews: 65 },
-    { id: 'p15', brand: 'lexus', fits: ['LX570'], name: 'Rear Air Suspension Strut', category: 'suspension', sku: '48090-60011', price: 320000, wholesalePrice: 275000, moq: 1, stock: false, rating: 4.9, reviews: 22 },
-    { id: 'p16', brand: 'lexus', fits: ['IS300'], name: 'Ignition Coil', category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 },
-    { id: 'p17', brand: 'lexus', fits: ['RX350'], name: 'Tail Light Assembly', category: 'body', sku: '81551-48180', price: 128000, wholesalePrice: 108000, moq: 1, stock: false, rating: 4.5, reviews: 17 },
-    { id: 'p18', brand: 'lexus', fits: ['ES350'], name: 'Power Window Motor', category: 'electrical', sku: '85720-33180', price: 47000, wholesalePrice: 38000, moq: 2, stock: true, rating: 4.4, reviews: 46 },
+    { id: 'p13', brand: 'lexus', fits: ['RX350', 'ES350'], name: { fr: "Filtre d'habitacle", en: 'Cabin Air Filter', ar: 'فلتر مكيف (هواء المقصورة)' }, category: 'filter', sku: '87139-06060', price: 9800, wholesalePrice: 7600, moq: 4, stock: true, rating: 4.8, reviews: 121 },
+    { id: 'p14', brand: 'lexus', fits: ['LX570'], name: { fr: 'Plaquettes de frein avant', en: 'Front Brake Pad Set', ar: 'طقم تيل فرامل أمامي' }, category: 'brake', sku: '04465-60321', price: 68000, wholesalePrice: 56000, moq: 2, stock: true, rating: 4.7, reviews: 65 },
+    { id: 'p15', brand: 'lexus', fits: ['LX570'], name: { fr: 'Jambe de suspension pneumatique arrière', en: 'Rear Air Suspension Strut', ar: 'مساعد هوائي خلفي' }, category: 'suspension', sku: '48090-60011', price: 320000, wholesalePrice: 275000, moq: 1, stock: false, rating: 4.9, reviews: 22 },
+    { id: 'p16', brand: 'lexus', fits: ['IS300'], name: { fr: "Bobine d'allumage", en: 'Ignition Coil', ar: 'بوبينة إشعال (كويل)' }, category: 'engine', sku: '90919-02258', price: 34000, wholesalePrice: 27000, moq: 3, stock: true, rating: 4.6, reviews: 88 },
+    { id: 'p17', brand: 'lexus', fits: ['RX350'], name: { fr: 'Bloc optique feu arrière', en: 'Tail Light Assembly', ar: 'مصباح خلفي' }, category: 'body', sku: '81551-48180', price: 128000, wholesalePrice: 108000, moq: 1, stock: false, rating: 4.5, reviews: 17 },
+    { id: 'p18', brand: 'lexus', fits: ['ES350'], name: { fr: 'Moteur lève-vitre', en: 'Power Window Motor', ar: 'موتور رفع الزجاج' }, category: 'electrical', sku: '85720-33180', price: 47000, wholesalePrice: 38000, moq: 2, stock: true, rating: 4.4, reviews: 46 },
 
-    { id: 'p19', brand: 'infiniti', fits: ['QX80', 'Q50'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '15208-9E01A', price: 8200, wholesalePrice: 6100, moq: 5, stock: true, rating: 4.7, reviews: 103 },
-    { id: 'p20', brand: 'infiniti', fits: ['QX80'], name: 'Front Brake Pad Set', category: 'brake', sku: 'D1060-1LA0A', price: 61000, wholesalePrice: 50000, moq: 2, stock: false, rating: 4.6, reviews: 44 },
-    { id: 'p21', brand: 'infiniti', fits: ['Q50'], name: 'Rear Shock Absorber', category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
-    { id: 'p22', brand: 'infiniti', fits: ['QX60'], name: 'Engine Mount', category: 'engine', sku: '11220-JA00B', price: 58000, wholesalePrice: 47000, moq: 2, stock: true, rating: 4.5, reviews: 37 },
-    { id: 'p23', brand: 'infiniti', fits: ['FX35'], name: 'Fender Liner', category: 'body', sku: '63840-CG000', price: 19500, wholesalePrice: 15000, moq: 3, stock: false, rating: 4.2, reviews: 15 },
-    { id: 'p24', brand: 'infiniti', fits: ['G37'], name: 'Alternator', category: 'electrical', sku: '23100-JK21A', price: 112000, wholesalePrice: 94000, moq: 1, stock: true, rating: 4.6, reviews: 51 },
+    { id: 'p19', brand: 'infiniti', fits: ['QX80', 'Q50'], name: { fr: "Filtre à huile moteur d'origine", en: 'Genuine Engine Oil Filter', ar: 'فلتر زيت المحرك الأصلي' }, category: 'filter', sku: '15208-9E01A', price: 8200, wholesalePrice: 6100, moq: 5, stock: true, rating: 4.7, reviews: 103 },
+    { id: 'p20', brand: 'infiniti', fits: ['QX80'], name: { fr: 'Plaquettes de frein avant', en: 'Front Brake Pad Set', ar: 'طقم تيل فرامل أمامي' }, category: 'brake', sku: 'D1060-1LA0A', price: 61000, wholesalePrice: 50000, moq: 2, stock: false, rating: 4.6, reviews: 44 },
+    { id: 'p21', brand: 'infiniti', fits: ['Q50'], name: { fr: 'Amortisseur arrière', en: 'Rear Shock Absorber', ar: 'مساعد خلفي' }, category: 'suspension', sku: 'E6210-4GA0A', price: 175000, wholesalePrice: 149000, moq: 1, stock: true, rating: 4.8, reviews: 29 },
+    { id: 'p22', brand: 'infiniti', fits: ['QX60'], name: { fr: 'Support moteur', en: 'Engine Mount', ar: 'كوشوك (مسند) المحرك' }, category: 'engine', sku: '11220-JA00B', price: 58000, wholesalePrice: 47000, moq: 2, stock: true, rating: 4.5, reviews: 37 },
+    { id: 'p23', brand: 'infiniti', fits: ['FX35'], name: { fr: 'Coquille de passage de roue', en: 'Fender Liner', ar: 'بطانة الرفراف' }, category: 'body', sku: '63840-CG000', price: 19500, wholesalePrice: 15000, moq: 3, stock: false, rating: 4.2, reviews: 15 },
+    { id: 'p24', brand: 'infiniti', fits: ['G37'], name: { fr: 'Alternateur', en: 'Alternator', ar: 'مولد كهرباء (دينامو)' }, category: 'electrical', sku: '23100-JK21A', price: 112000, wholesalePrice: 94000, moq: 1, stock: true, rating: 4.6, reviews: 51 },
 
-    // Real inventory — Benmoussa Salim, Tissemsilt (from supplier price list)
-    { id: 'p25', brand: 'toyota', fits: ['Land Cruiser Prado'], name: "Alternateur KUN D4D", category: 'electrical', sku: 'EA1003N', price: 28500, wholesalePrice: 23500, moq: 2, stock: true, rating: 4.6, reviews: 12 },
-    { id: 'p26', brand: 'nissan', fits: ['Navara'], name: 'Alternateur Nissan Navara D40T YD25', category: 'electrical', sku: 'TAL21725', price: 33000, wholesalePrice: 27500, moq: 1, stock: true, rating: 4.7, reviews: 9 },
-    { id: 'p27', brand: 'nissan', fits: ['Micra'], name: 'Alternateur Nissan Micra K13 12V 100A', category: 'electrical', sku: 'EA1006N', price: 22000, wholesalePrice: 18000, moq: 2, stock: true, rating: 4.5, reviews: 15 },
-    { id: 'p28', brand: 'toyota', fits: ['Yaris'], name: 'Alternateur Yaris NSP130 Essence', category: 'electrical', sku: 'WP270600Y120', price: 36000, wholesalePrice: 30000, moq: 1, stock: true, rating: 4.6, reviews: 7 },
-    { id: 'p29', brand: 'nissan', fits: ['Sunny'], name: 'Alternateur Nissan Sunny B10', category: 'electrical', sku: '23100-95F0A', price: 25500, wholesalePrice: 21000, moq: 2, stock: true, rating: 4.5, reviews: 11 },
-    { id: 'p30', brand: 'toyota', fits: ['Land Cruiser'], name: 'Amortisseur AR Land Cruiser/KUN15', category: 'suspension', sku: '48531-09500', price: 9500, wholesalePrice: 7800, moq: 4, stock: true, rating: 4.7, reviews: 22 },
-    { id: 'p31', brand: 'toyota', fits: ['Land Cruiser Prado'], name: 'Amortisseur AV DR Land Cruiser/KUN25', category: 'suspension', sku: '48510-09J80', price: 22800, wholesalePrice: 19000, moq: 1, stock: true, rating: 4.6, reviews: 8 },
-    { id: 'p32', brand: 'nissan', fits: ['Sunny'], name: 'Amortisseur AR Nissan Sunny B10/N16', category: 'suspension', sku: 'DS1103GT', price: 6250, wholesalePrice: 5100, moq: 2, stock: true, rating: 4.4, reviews: 17 },
-    { id: 'p33', brand: 'nissan', fits: ['Qashqai'], name: 'Amortisseur AV DR Nissan Qashqai J11', category: 'suspension', sku: 'TS017240', price: 8350, wholesalePrice: 6900, moq: 2, stock: false, rating: 4.5, reviews: 6 },
-    { id: 'p34', brand: 'toyota', fits: ['Yaris'], name: 'Amortisseur AV DR Yaris NLP/NSP130', category: 'suspension', sku: 'PAM169260962', price: 9500, wholesalePrice: 7900, moq: 1, stock: true, rating: 4.6, reviews: 9 },
-    { id: 'p35', brand: 'toyota', fits: ['Corolla'], name: "Bobine d'allumage Corolla ZRE 1ZRFE", category: 'electrical', sku: '099700-2500', price: 10500, wholesalePrice: 8700, moq: 2, stock: true, rating: 4.7, reviews: 13 },
-    { id: 'p36', brand: 'nissan', fits: ['Sunny'], name: "Bobine d'allumage Nissan Sunny B10", category: 'electrical', sku: '22448-95F0A', price: 4850, wholesalePrice: 3950, moq: 4, stock: true, rating: 4.5, reviews: 19 },
-    { id: 'p37', brand: 'nissan', fits: ['Micra'], name: "Bobine d'allumage Nissan Sunny N17/Micra K13", category: 'electrical', sku: '22448-1HC0A', price: 6200, wholesalePrice: 5100, moq: 3, stock: true, rating: 4.6, reviews: 10 },
-    { id: 'p38', brand: 'nissan', fits: ['Sunny'], name: "Bougie d'allumage Nissan Sunny B10 Iridium", category: 'engine', sku: '22401-1HC1B', price: 2750, wholesalePrice: 2250, moq: 6, stock: true, rating: 4.8, reviews: 28 },
-    { id: 'p39', brand: 'nissan', fits: ['Micra'], name: "Bougie d'allumage Nissan N17/Tiida/K13/NSP130", category: 'engine', sku: '22401-ED815', price: 550, wholesalePrice: 450, moq: 10, stock: true, rating: 4.7, reviews: 34 },
-    { id: 'p40', brand: 'nissan', fits: ['Sunny'], name: 'Arbre à came Nissan Sunny B10/N16 admission', category: 'engine', sku: '13020-AU000', price: 7300, wholesalePrice: 6000, moq: 2, stock: true, rating: 4.5, reviews: 8 },
-    { id: 'p41', brand: 'toyota', fits: ['Land Cruiser'], name: 'Arbre de roue KUN15 ABS', category: 'suspension', sku: '42311-0K020', price: 29500, wholesalePrice: 24500, moq: 1, stock: false, rating: 4.6, reviews: 5 },
-    { id: 'p42', brand: 'toyota', fits: ['Hilux'], name: 'Aile AV Hilux Vigo 11 2WD DR', category: 'body', sku: 'TY210-01AYR', price: 11800, wholesalePrice: 9700, moq: 1, stock: true, rating: 4.4, reviews: 7 },
-    { id: 'p43', brand: 'toyota', fits: ['Land Cruiser Prado'], name: 'Aile AV KUN 12+ DR', category: 'body', sku: 'TYF175RA', price: 13500, wholesalePrice: 11200, moq: 1, stock: true, rating: 4.5, reviews: 6 },
-    { id: 'p44', brand: 'nissan', fits: ['Qashqai'], name: 'Axe étrier AV Nissan Qashqai/X-Trail T31', category: 'brake', sku: 'D7176C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.6, reviews: 11 },
-    { id: 'p45', brand: 'nissan', fits: ['Sunny'], name: 'Axe étrier AV Nissan Sunny N17 Autofren', category: 'brake', sku: 'D7280C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.5, reviews: 9 },
-    { id: 'p46', brand: 'toyota', fits: ['Corolla'], name: 'Balai essuie-glace 700 Toyota', category: 'body', sku: 'T170-28', price: 2000, wholesalePrice: 1600, moq: 6, stock: true, rating: 4.3, reviews: 14 }
+    // Real inventory — Benmoussa Salim, Tissemsilt (from supplier price list + customer photos)
+    { id: 'p25', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Alternateur Hilux D4D (KUN)', en: 'Alternator Hilux D4D (KUN)', ar: 'مولد كهرباء هيلوكس D4D' }, category: 'electrical', sku: 'EA1003N', price: 28500, wholesalePrice: 23500, moq: 2, stock: true, rating: 4.6, reviews: 12, photo: 'assets/images/products/alternateur-hilux-d4d.jpg' },
+    { id: 'p26', brand: 'nissan', fits: ['Navara'], name: { fr: 'Alternateur Nissan Navara D40T YD25', en: 'Alternator Nissan Navara D40T YD25', ar: 'مولد كهرباء نيسان نافارا D40T' }, category: 'electrical', sku: 'TAL21725', price: 33000, wholesalePrice: 27500, moq: 1, stock: true, rating: 4.7, reviews: 9 },
+    { id: 'p27', brand: 'nissan', fits: ['Micra'], name: { fr: 'Alternateur Nissan Micra K13 12V 100A', en: 'Alternator Nissan Micra K13 12V 100A', ar: 'مولد كهرباء نيسان ميكرا K13' }, category: 'electrical', sku: 'EA1006N', price: 22000, wholesalePrice: 18000, moq: 2, stock: true, rating: 4.5, reviews: 15 },
+    { id: 'p28', brand: 'toyota', fits: ['Yaris'], name: { fr: 'Alternateur Yaris NSP130 Essence', en: 'Alternator Yaris NSP130 Petrol', ar: 'مولد كهرباء يارس NSP130 بنزين' }, category: 'electrical', sku: 'WP270600Y120', price: 36000, wholesalePrice: 30000, moq: 1, stock: true, rating: 4.6, reviews: 7 },
+    { id: 'p29', brand: 'nissan', fits: ['Sunny'], name: { fr: 'Alternateur Nissan Sunny B10', en: 'Alternator Nissan Sunny B10', ar: 'مولد كهرباء نيسان صني B10' }, category: 'electrical', sku: '23100-95F0A', price: 25500, wholesalePrice: 21000, moq: 2, stock: true, rating: 4.5, reviews: 11 },
+    { id: 'p30', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Amortisseur AR Hilux/KUN15', en: 'Rear Shock Absorber Hilux/KUN15', ar: 'مساعد خلفي هيلوكس KUN15' }, category: 'suspension', sku: '48531-09500', price: 9500, wholesalePrice: 7800, moq: 4, stock: true, rating: 4.7, reviews: 22 },
+    { id: 'p31', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Amortisseur AV DR Hilux/KUN25', en: 'Front Shock Absorber (RH) Hilux/KUN25', ar: 'مساعد أمامي أيمن هيلوكس KUN25' }, category: 'suspension', sku: '48510-09J80', price: 22800, wholesalePrice: 19000, moq: 1, stock: true, rating: 4.6, reviews: 8, photo: 'assets/images/products/amortisseur-avant-hilux.jpg' },
+    { id: 'p32', brand: 'nissan', fits: ['Sunny'], name: { fr: 'Amortisseur AR Nissan Sunny B10/N16', en: 'Rear Shock Absorber Nissan Sunny B10/N16', ar: 'مساعد خلفي نيسان صني B10/N16' }, category: 'suspension', sku: 'DS1103GT', price: 6250, wholesalePrice: 5100, moq: 2, stock: true, rating: 4.4, reviews: 17 },
+    { id: 'p33', brand: 'nissan', fits: ['Qashqai'], name: { fr: 'Amortisseur AV DR Nissan Qashqai J11', en: 'Front Shock Absorber (RH) Nissan Qashqai J11', ar: 'مساعد أمامي أيمن نيسان قشقاي J11' }, category: 'suspension', sku: 'TS017240', price: 8350, wholesalePrice: 6900, moq: 2, stock: false, rating: 4.5, reviews: 6 },
+    { id: 'p34', brand: 'toyota', fits: ['Yaris'], name: { fr: 'Amortisseur AV DR Yaris NLP/NSP130', en: 'Front Shock Absorber (RH) Yaris NLP/NSP130', ar: 'مساعد أمامي أيمن يارس NLP/NSP130' }, category: 'suspension', sku: 'PAM169260962', price: 9500, wholesalePrice: 7900, moq: 1, stock: true, rating: 4.6, reviews: 9 },
+    { id: 'p35', brand: 'toyota', fits: ['Corolla'], name: { fr: "Bobine d'allumage Corolla ZRE 1ZRFE", en: 'Ignition Coil Corolla ZRE 1ZRFE', ar: 'بوبينة إشعال كورولا ZRE' }, category: 'electrical', sku: '099700-2500', price: 10500, wholesalePrice: 8700, moq: 2, stock: true, rating: 4.7, reviews: 13, photo: 'assets/images/products/bobine-allumage.jpg' },
+    { id: 'p36', brand: 'nissan', fits: ['Sunny'], name: { fr: "Bobine d'allumage Nissan Sunny B10", en: 'Ignition Coil Nissan Sunny B10', ar: 'بوبينة إشعال نيسان صني B10' }, category: 'electrical', sku: '22448-95F0A', price: 4850, wholesalePrice: 3950, moq: 4, stock: true, rating: 4.5, reviews: 19 },
+    { id: 'p37', brand: 'nissan', fits: ['Micra'], name: { fr: "Bobine d'allumage Nissan Sunny N17/Micra K13", en: 'Ignition Coil Nissan Sunny N17/Micra K13', ar: 'بوبينة إشعال نيسان صني N17/ميكرا K13' }, category: 'electrical', sku: '22448-1HC0A', price: 6200, wholesalePrice: 5100, moq: 3, stock: true, rating: 4.6, reviews: 10 },
+    { id: 'p38', brand: 'nissan', fits: ['Sunny'], name: { fr: "Bougie d'allumage Nissan Sunny B10 Iridium", en: 'Spark Plug Nissan Sunny B10 Iridium', ar: 'بوجيه نيسان صني B10 إيريديوم' }, category: 'engine', sku: '22401-1HC1B', price: 2750, wholesalePrice: 2250, moq: 6, stock: true, rating: 4.8, reviews: 28 },
+    { id: 'p39', brand: 'nissan', fits: ['Micra'], name: { fr: "Bougie d'allumage Nissan N17/Tiida/K13/NSP130", en: 'Spark Plug Nissan N17/Tiida/K13/NSP130', ar: 'بوجيه نيسان N17/تيدا/K13' }, category: 'engine', sku: '22401-ED815', price: 550, wholesalePrice: 450, moq: 10, stock: true, rating: 4.7, reviews: 34 },
+    { id: 'p40', brand: 'nissan', fits: ['Sunny'], name: { fr: 'Arbre à came Nissan Sunny B10/N16 admission', en: 'Intake Camshaft Nissan Sunny B10/N16', ar: 'عمود الكامات (السحب) نيسان صني' }, category: 'engine', sku: '13020-AU000', price: 7300, wholesalePrice: 6000, moq: 2, stock: true, rating: 4.5, reviews: 8 },
+    { id: 'p41', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Arbre de roue Hilux/KUN15 ABS', en: 'Drive Shaft Hilux/KUN15 ABS', ar: 'عمود عجلة هيلوكس KUN15 ABS' }, category: 'suspension', sku: '42311-0K020', price: 29500, wholesalePrice: 24500, moq: 1, stock: false, rating: 4.6, reviews: 5 },
+    { id: 'p42', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Aile AV Hilux Vigo 11 2WD DR', en: 'Front Fender (RH) Hilux Vigo 2WD', ar: 'رفرف أمامي أيمن هيلوكس فيغو' }, category: 'body', sku: 'TY210-01AYR', price: 11800, wholesalePrice: 9700, moq: 1, stock: true, rating: 4.4, reviews: 7, photo: 'assets/images/products/aile-avant-hilux.jpg' },
+    { id: 'p43', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Aile AV Hilux KUN 12+ DR', en: 'Front Fender (RH) Hilux KUN 2012+', ar: 'رفرف أمامي أيمن هيلوكس 2012+' }, category: 'body', sku: 'TYF175RA', price: 13500, wholesalePrice: 11200, moq: 1, stock: true, rating: 4.5, reviews: 6 },
+    { id: 'p44', brand: 'nissan', fits: ['Qashqai'], name: { fr: 'Axe étrier AV Nissan Qashqai/X-Trail T31', en: 'Front Caliper Pin Nissan Qashqai/X-Trail T31', ar: 'محور كاليبر أمامي نيسان قشقاي/X-Trail' }, category: 'brake', sku: 'D7176C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.6, reviews: 11 },
+    { id: 'p45', brand: 'nissan', fits: ['Sunny'], name: { fr: 'Axe étrier AV Nissan Sunny N17 Autofren', en: 'Front Caliper Pin Nissan Sunny N17', ar: 'محور كاليبر أمامي نيسان صني N17' }, category: 'brake', sku: 'D7280C', price: 3200, wholesalePrice: 2600, moq: 4, stock: true, rating: 4.5, reviews: 9 },
+    { id: 'p46', brand: 'toyota', fits: ['Corolla'], name: { fr: 'Balai essuie-glace 700 Toyota', en: 'Wiper Blade 700mm Toyota', ar: 'مساحة زجاج 700 ملم تويوتا' }, category: 'body', sku: 'T170-28', price: 2000, wholesalePrice: 1600, moq: 6, stock: true, rating: 4.3, reviews: 14 },
+
+    // Real inventory continued — matched to customer-supplied product photos
+    { id: 'p47', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Antivol complet (barillet de contact) Hilux Vigo', en: 'Ignition Lock / Steering Lock Assembly Hilux Vigo', ar: 'قفل تشغيل (أنتيفول) هيلوكس فيغو' }, category: 'electrical', sku: '45020-0K220', price: 7500, wholesalePrice: 6200, moq: 2, stock: true, rating: 4.5, reviews: 8, photo: 'assets/images/products/antivol.jpg' },
+    { id: 'p48', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Biellette de suspension Hilux/KUN25', en: 'Sway Bar Link Hilux/KUN25', ar: 'بيلية عزقة التوازن هيلوكس KUN25' }, category: 'suspension', sku: '3L-3890', price: 3000, wholesalePrice: 2450, moq: 4, stock: true, rating: 4.4, reviews: 16, photo: 'assets/images/products/biellette-suspension.jpg' },
+    { id: 'p49', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Bougie de préchauffage Hilux/RAV4 D4D', en: 'Glow Plug Hilux/RAV4 D4D', ar: 'شمعة تسخين (بريشوفاج) هيلوكس D4D' }, category: 'engine', sku: 'PT-157', price: 2500, wholesalePrice: 2000, moq: 4, stock: true, rating: 4.6, reviews: 11, photo: 'assets/images/products/bougie-prechauffage.png' },
+    { id: 'p50', brand: 'toyota', fits: ['Hilux', 'Land Cruiser'], name: { fr: 'Bielle moteur Hilux/Land Cruiser 3L/5L', en: 'Connecting Rod Hilux/Land Cruiser 3L/5L', ar: 'ذراع توصيل (بييل) المحرك 3L/5L' }, category: 'engine', sku: '13201-59216', price: 6500, wholesalePrice: 5400, moq: 3, stock: true, rating: 4.5, reviews: 6, photo: 'assets/images/products/bielle-moteur.jpg' },
+    { id: 'p51', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Radiateur Hilux KUN15 (Alt+Clim)', en: 'Radiator Hilux KUN15 (Alt+A/C)', ar: 'رادياتور هيلوكس KUN15' }, category: 'engine', sku: '7KSY1516', price: 3700, wholesalePrice: 3000, moq: 1, stock: true, rating: 4.4, reviews: 5, photo: 'assets/images/products/radiateur.jpg' },
+    { id: 'p52', brand: 'toyota', fits: ['Corolla'], name: { fr: 'Arbre à cames Corolla 2C', en: 'Camshaft Corolla 2C', ar: 'عمود الكامات كورولا 2C' }, category: 'engine', sku: '13511-64071', price: 8800, wholesalePrice: 7300, moq: 1, stock: true, rating: 4.6, reviews: 7, photo: 'assets/images/products/arbre-a-came.jpg' },
+    { id: 'p53', brand: 'toyota', fits: ['Corolla', 'Yaris'], name: { fr: "Bougie d'allumage Denso Corolla/Yaris", en: 'Spark Plug Denso Corolla/Yaris', ar: 'بوجيه دينسو كورولا/يارس' }, category: 'engine', sku: '90080-91161', price: 850, wholesalePrice: 700, moq: 8, stock: true, rating: 4.7, reviews: 21, photo: 'assets/images/products/bougie-allumage-denso.jpg' },
+    { id: 'p54', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Viscocoupleur (coupleur de ventilateur débrayable) Hilux', en: 'Fan Clutch (Viscous Coupling) Hilux', ar: 'كلتش المروحة (فيسكو) هيلوكس' }, category: 'engine', sku: '16210-0L010', price: 23000, wholesalePrice: 19000, moq: 1, stock: true, rating: 4.7, reviews: 9, photo: 'assets/images/products/viscocoupleur.jpg' },
+    { id: 'p55', brand: 'toyota', fits: ['Hilux'], name: { fr: 'Bavette avant Hilux Vigo 2WD (jeu de 2)', en: 'Front Mud Flaps Hilux Vigo 2WD (Set of 2)', ar: 'طقم رفارف طين أمامية هيلوكس فيغو (قطعتان)' }, category: 'body', sku: '76621/2-0K010', price: 4400, wholesalePrice: 3600, moq: 2, stock: true, rating: 4.3, reviews: 10, photo: 'assets/images/products/bavette-garde-boue.jpg' }
   ];
 
   // Mock VIN -> vehicle decoder
@@ -333,6 +344,8 @@
   function $all(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
   function refreshIcons() { if (window.lucide) window.lucide.createIcons(); }
   function findProduct(id) { return PRODUCTS.find((p) => p.id === id); }
+  function productName(p) { return p.name[state.lang] || p.name.fr; }
+  function productPhoto(p) { return p.photo || CATEGORY_PHOTOS[p.category]; }
   function unitPrice(p) { return state.mode === 'wholesale' ? p.wholesalePrice : p.price; }
   function isInStock(p) { return state.simulateOOS ? false : p.stock; }
 
@@ -591,12 +604,15 @@
     }
     if (state.search) {
       const q = state.search.toLowerCase();
-      list = list.filter((p) => p.name.toLowerCase().includes(q) || p.sku.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.fits.some((f) => f.toLowerCase().includes(q)));
+      list = list.filter((p) =>
+        Object.values(p.name).some((n) => n.toLowerCase().includes(q)) ||
+        p.sku.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.fits.some((f) => f.toLowerCase().includes(q))
+      );
     }
     switch (state.sort) {
       case 'price-asc': list.sort((a, b) => unitPrice(a) - unitPrice(b)); break;
       case 'price-desc': list.sort((a, b) => unitPrice(b) - unitPrice(a)); break;
-      case 'name': list.sort((a, b) => a.name.localeCompare(b.name)); break;
+      case 'name': list.sort((a, b) => productName(a).localeCompare(productName(b))); break;
       default: break;
     }
     return list;
@@ -632,7 +648,7 @@
     return (
       '<article class="product-card' + (stock ? '' : ' out-of-stock') + '" data-id="' + p.id + '">' +
         '<div class="product-media cat-' + p.category + '">' +
-          '<img src="' + CATEGORY_PHOTOS[p.category] + '" alt="' + t('cat_' + p.category) + '" loading="lazy" />' +
+          '<img src="' + productPhoto(p) + '" alt="' + t('cat_' + p.category) + '" loading="lazy" />' +
           '<div class="media-badges">' + stockBadge +
             '<button class="wishlist-btn' + (inWishlist ? ' active' : '') + '" data-action="wishlist" data-id="' + p.id + '" aria-label="Wishlist"><i data-lucide="heart"></i></button>' +
           '</div>' +
@@ -640,7 +656,7 @@
         '</div>' +
         '<div class="product-body">' +
           '<span class="product-brand-row"><span class="brand-dot ' + p.brand + '"></span>' + BRAND_LABELS[p.brand] + ' &middot; ' + t('cat_' + p.category) + '</span>' +
-          '<h3 class="product-name">' + p.name + '</h3>' +
+          '<h3 class="product-name">' + productName(p) + '</h3>' +
           '<span class="product-fit">' + t('fits') + ' ' + p.fits.join(', ') + '</span>' +
           '<span class="product-sku">' + t('sku') + ' <b>' + p.sku + '</b></span>' +
           '<span class="product-rating"><i data-lucide="star"></i> ' + p.rating.toFixed(1) + ' (' + p.reviews + ')</span>' +
@@ -699,7 +715,7 @@
         '<div class="cart-item" data-id="' + p.id + '">' +
           '<div class="cart-item-media"><i data-lucide="' + CATEGORY_ICONS[p.category] + '"></i></div>' +
           '<div class="cart-item-info">' +
-            '<div class="ciname">' + p.name + '</div>' +
+            '<div class="ciname">' + productName(p) + '</div>' +
             '<div class="cisku">' + BRAND_LABELS[p.brand] + ' &middot; ' + p.sku + '</div>' +
             '<div class="cart-item-row">' +
               '<span class="cart-item-price">' + fmt(price) + '</span>' +
@@ -768,7 +784,7 @@
           '<div class="cart-item" data-id="' + p.id + '">' +
             '<div class="cart-item-media"><i data-lucide="' + CATEGORY_ICONS[p.category] + '"></i></div>' +
             '<div class="cart-item-info">' +
-              '<div class="ciname">' + p.name + '</div>' +
+              '<div class="ciname">' + productName(p) + '</div>' +
               '<div class="cisku">' + BRAND_LABELS[p.brand] + ' &middot; ' + p.sku + '</div>' +
               '<div class="cart-item-row">' +
                 '<div class="qty-stepper">' +
@@ -867,7 +883,7 @@
 
   function openNotifyModal(id) {
     const p = findProduct(id);
-    $('#notifyProductName').textContent = t('notify_desc_prefix') + ' "' + p.name + '" (' + p.sku + ') ' + t('notify_desc_suffix');
+    $('#notifyProductName').textContent = t('notify_desc_prefix') + ' "' + productName(p) + '" (' + p.sku + ') ' + t('notify_desc_suffix');
     $('#notifyModal').classList.add('visible');
     $('#modalOverlay').classList.add('visible');
     $('#notifyEmailInput').value = '';
