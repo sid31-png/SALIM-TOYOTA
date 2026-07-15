@@ -536,6 +536,61 @@
   </div>
 </div>
 
+<!-- ============ CHECKOUT MODAL (info -> card -> OTP) ============ -->
+<div id="checkoutOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[300] overlay-hidden transition-opacity duration-200"></div>
+<div id="checkoutModal" class="fixed top-1/2 left-1/2 w-[460px] max-w-[92vw] bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark rounded-2xl z-[301] p-6 modal-hidden transition-all duration-200 shadow-2xl text-center">
+  <button id="checkoutCloseBtn" class="absolute top-4 end-4 w-7 h-7 rounded-full bg-card dark:bg-card-dark flex items-center justify-center hover:text-accent"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+
+  <div id="checkoutProgress" class="flex items-center justify-center gap-2 mb-5">
+    <span data-step="info" class="checkout-progress-step w-7 h-7 rounded-full bg-accent border border-accent text-white text-xs font-bold flex items-center justify-center transition">1</span>
+    <span class="w-8 h-0.5 bg-border dark:bg-border-dark"></span>
+    <span data-step="card" class="checkout-progress-step w-7 h-7 rounded-full bg-card dark:bg-card-dark border border-border dark:border-border-dark text-muted dark:text-muted-dark text-xs font-bold flex items-center justify-center transition">2</span>
+    <span class="w-8 h-0.5 bg-border dark:bg-border-dark"></span>
+    <span data-step="otp" class="checkout-progress-step w-7 h-7 rounded-full bg-card dark:bg-card-dark border border-border dark:border-border-dark text-muted dark:text-muted-dark text-xs font-bold flex items-center justify-center transition">3</span>
+  </div>
+
+  <div data-step="info" class="checkout-step">
+    <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto"><i data-lucide="user" class="w-5 h-5"></i></span>
+    <h3 class="text-lg font-bold mb-2" data-i18n="checkout_info_title">Vos informations de livraison</h3>
+    <p class="text-sm text-sub dark:text-sub-dark mb-4" data-i18n="checkout_info_desc">Nécessaires pour confirmer et livrer votre commande.</p>
+    <input id="coFullName" type="text" data-i18n-ph="checkout_full_name" placeholder="Nom et prénom" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <input id="coPhone" type="tel" dir="ltr" data-i18n-ph="checkout_phone" placeholder="+213 5XX XX XX XX" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <select id="coWilaya" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm"></select>
+    <input id="coAddress" type="text" data-i18n-ph="checkout_address" placeholder="Adresse complète" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-1 text-sm" />
+    <button id="coInfoNextBtn" class="w-full mt-3.5 py-3 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition" data-i18n="checkout_continue">Continuer</button>
+  </div>
+
+  <div data-step="card" class="checkout-step hidden">
+    <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto"><i data-lucide="credit-card" class="w-5 h-5"></i></span>
+    <h3 class="text-lg font-bold mb-2" data-i18n="checkout_card_title">Coordonnées bancaires</h3>
+    <p id="checkoutCardDesc" class="text-sm text-sub dark:text-sub-dark mb-4">—</p>
+    <input id="coCardName" type="text" data-i18n-ph="checkout_card_name" placeholder="Nom sur la carte" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <input id="coCardNumber" type="text" dir="ltr" inputmode="numeric" maxlength="19" data-i18n-ph="checkout_card_number" placeholder="0000 0000 0000 0000" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-3.5 text-sm" />
+    <div class="flex gap-2.5 mb-1">
+      <input id="coCardExpiry" type="text" dir="ltr" inputmode="numeric" maxlength="5" data-i18n-ph="checkout_card_expiry" placeholder="MM/AA" class="w-1/2 bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent text-sm" />
+      <input id="coCardCvv" type="text" dir="ltr" inputmode="numeric" maxlength="3" data-i18n-ph="checkout_card_cvv" placeholder="CVV" class="w-1/2 bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent text-sm" />
+    </div>
+    <div class="flex gap-2.5 mt-3.5">
+      <button id="coCardBackBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="checkout_back">Retour</button>
+      <button id="coCardNextBtn" class="flex-1 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition" data-i18n="checkout_continue">Continuer</button>
+    </div>
+  </div>
+
+  <div data-step="otp" class="checkout-step hidden">
+    <span class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4 mx-auto"><i data-lucide="shield-check" class="w-5 h-5"></i></span>
+    <h3 class="text-lg font-bold mb-2" data-i18n="checkout_otp_title">Confirmez votre commande</h3>
+    <p id="checkoutOtpDesc" class="text-sm text-sub dark:text-sub-dark mb-4">—</p>
+    <div id="checkoutOtpDemo" class="bg-accent/10 text-accent rounded-lg px-3.5 py-2.5 text-sm font-bold tracking-wide mb-4 text-center" dir="ltr"></div>
+    <input id="coOtp" type="text" dir="ltr" inputmode="numeric" maxlength="6" data-i18n-ph="checkout_otp_placeholder" placeholder="------" class="w-full bg-card dark:bg-card-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 outline-none focus:border-accent mb-2 text-center text-2xl font-bold tracking-[0.5em]" />
+    <p id="checkoutOtpError" class="hidden text-red-600 dark:text-red-400 text-xs mb-3" data-i18n="checkout_otp_invalid">Code incorrect. Réessayez.</p>
+    <button id="coResendOtpBtn" class="block mx-auto mb-4 text-accent text-sm font-semibold hover:underline" data-i18n="checkout_resend_otp">Renvoyer le code</button>
+    <div class="flex gap-2.5">
+      <button id="coOtpBackBtn" class="flex-1 py-2.5 rounded-lg border border-borderstrong dark:border-borderstrong-dark hover:border-accent hover:text-accent font-semibold text-sm transition" data-i18n="checkout_back">Retour</button>
+      <button id="coOtpConfirmBtn" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-white font-semibold text-sm transition"><i data-lucide="lock" class="w-4 h-4"></i> <span data-i18n="checkout_confirm">Confirmer la commande</span></button>
+    </div>
+  </div>
+</div>
+
 <div id="toastStack" class="fixed bottom-6 end-6 z-[400] flex flex-col gap-2.5"></div>
 
 <script src="assets/js/products-bulk.js"></script>
@@ -579,6 +634,16 @@
       footer_rights: 'Tous droits réservés.', track_order: 'Suivre ma commande',
       payment_method_title: 'Méthode de paiement', payment_cod: 'Paiement à la livraison',
       payment_edahabia: 'Carte EDAHABIA (Dahabia)', payment_cib: 'Carte CIB',
+      checkout_info_title: 'Vos informations de livraison', checkout_info_desc: 'Nécessaires pour confirmer et livrer votre commande.',
+      checkout_full_name: 'Nom et prénom', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'Choisir la wilaya', checkout_address: 'Adresse complète',
+      checkout_continue: 'Continuer', checkout_back: 'Retour',
+      checkout_card_title: 'Coordonnées bancaires', checkout_card_desc: 'Vos informations sont utilisées uniquement pour cette simulation.',
+      checkout_card_name: 'Nom sur la carte', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'MM/AA', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'Confirmez votre commande', checkout_otp_desc: 'Un code de vérification a été envoyé au',
+      checkout_otp_demo_label: 'Code de démonstration :', checkout_otp_placeholder: '------', checkout_otp_invalid: 'Code incorrect. Réessayez.',
+      checkout_resend_otp: 'Renvoyer le code', checkout_otp_resent: 'Un nouveau code a été envoyé.', checkout_confirm: 'Confirmer la commande',
+      checkout_fill_all: 'Merci de remplir tous les champs.', checkout_invalid_phone: 'Numéro de téléphone invalide.',
+      checkout_invalid_card: 'Numéro de carte invalide (16 chiffres).', checkout_invalid_expiry: "Date d'expiration invalide (MM/AA).", checkout_invalid_cvv: 'CVV invalide (3 chiffres).',
       wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
       track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
       track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
@@ -628,6 +693,16 @@
       footer_rights: 'جميع الحقوق محفوظة.', track_order: 'تتبع الطلب',
       payment_method_title: 'طريقة الدفع', payment_cod: 'الدفع عند الاستلام',
       payment_edahabia: 'بطاقة الذهبية (EDAHABIA)', payment_cib: 'بطاقة CIB',
+      checkout_info_title: 'معلومات التوصيل', checkout_info_desc: 'ضرورية لتأكيد وتوصيل طلبك.',
+      checkout_full_name: 'الاسم الكامل', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'اختر الولاية', checkout_address: 'العنوان الكامل',
+      checkout_continue: 'متابعة', checkout_back: 'رجوع',
+      checkout_card_title: 'معلومات البطاقة البنكية', checkout_card_desc: 'تُستخدم معلوماتك فقط لهذه المحاكاة.',
+      checkout_card_name: 'الاسم على البطاقة', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'شهر/سنة', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'أكد طلبك', checkout_otp_desc: 'تم إرسال رمز التحقق إلى',
+      checkout_otp_demo_label: 'رمز تجريبي:', checkout_otp_placeholder: '------', checkout_otp_invalid: 'رمز غير صحيح. حاول مجدداً.',
+      checkout_resend_otp: 'إعادة إرسال الرمز', checkout_otp_resent: 'تم إرسال رمز جديد.', checkout_confirm: 'تأكيد الطلب',
+      checkout_fill_all: 'يرجى ملء جميع الحقول.', checkout_invalid_phone: 'رقم هاتف غير صالح.',
+      checkout_invalid_card: 'رقم بطاقة غير صالح (16 رقم).', checkout_invalid_expiry: 'تاريخ انتهاء غير صالح (شهر/سنة).', checkout_invalid_cvv: 'CVV غير صالح (3 أرقام).',
       wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
       track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
       track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
@@ -677,6 +752,16 @@
       footer_rights: 'All rights reserved.', track_order: 'Track my order',
       payment_method_title: 'Payment method', payment_cod: 'Cash on delivery',
       payment_edahabia: 'EDAHABIA (Dahabia) card', payment_cib: 'CIB card',
+      checkout_info_title: 'Your delivery information', checkout_info_desc: 'Needed to confirm and deliver your order.',
+      checkout_full_name: 'Full name', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'Select your province (wilaya)', checkout_address: 'Full address',
+      checkout_continue: 'Continue', checkout_back: 'Back',
+      checkout_card_title: 'Card details', checkout_card_desc: 'Your details are only used for this simulation.',
+      checkout_card_name: 'Name on card', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'MM/YY', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'Confirm your order', checkout_otp_desc: 'A verification code was sent to',
+      checkout_otp_demo_label: 'Demo code:', checkout_otp_placeholder: '------', checkout_otp_invalid: 'Incorrect code. Try again.',
+      checkout_resend_otp: 'Resend code', checkout_otp_resent: 'A new code has been sent.', checkout_confirm: 'Confirm order',
+      checkout_fill_all: 'Please fill in all fields.', checkout_invalid_phone: 'Invalid phone number.',
+      checkout_invalid_card: 'Invalid card number (16 digits).', checkout_invalid_expiry: 'Invalid expiry date (MM/YY).', checkout_invalid_cvv: 'Invalid CVV (3 digits).',
       wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
       track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
       track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
@@ -714,6 +799,16 @@
   function yearsRange(start, end) { const out = []; for (let y = end; y >= start; y--) out.push(y); return out; }
   const MODEL_YEARS = yearsRange(2000, 2024);
   const VERSION_KEYS = ['version_standard', 'version_comfort', 'version_sport', 'version_hybrid'];
+
+  const WILAYAS = [
+    'Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 'Béchar', 'Blida', 'Bouira',
+    'Tamanrasset', 'Tébessa', 'Tlemcen', 'Tiaret', 'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda',
+    'Skikda', 'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine', 'Médéa', 'Mostaganem', "M'Sila", 'Mascara',
+    'Ouargla', 'Oran', 'El Bayadh', 'Illizi', 'Bordj Bou Arréridj', 'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt',
+    'El Oued', 'Khenchela', 'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 'Ghardaïa',
+    'Relizane', 'Timimoun', 'Bordj Badji Mokhtar', 'Ouled Djellal', 'Béni Abbès', 'In Salah', 'In Guezzam',
+    'Touggourt', 'Djanet', "El M'Ghair", 'El Meniaa'
+  ];
 
   const PRODUCTS = [
     { id: 'p1', brand: 'toyota', fits: ['Land Cruiser'], name: { fr: "Filtre à huile moteur d'origine", en: 'Genuine Engine Oil Filter', ar: 'فلتر زيت المحرك الأصلي' }, category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
@@ -785,7 +880,8 @@
     lang: 'fr', theme: 'light', mode: 'retail', simulateOOS: false,
     search: '', vehicleBrand: null, vehicleModel: null, brandFilter: null,
     availability: new Set(), cart: [], wishlist: new Set(),
-    paymentMethod: 'cod', lastOrder: null, page: 1
+    paymentMethod: 'cod', lastOrder: null, page: 1,
+    checkout: { fullName: '', phone: '', wilaya: '', address: '' }
   };
   const PAGE_SIZE = 24;
 
@@ -815,6 +911,12 @@
     applyTranslations();
     render(true); renderCart(); renderWishlist();
     if ($('#trackModal').classList.contains('modal-visible')) renderTrackModal();
+    if ($('#checkoutModal').classList.contains('modal-visible')) {
+      populateWilayaSelect();
+      $('#checkoutCardDesc').textContent = t('checkout_card_desc');
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      if (checkoutExpectedOtp) $('#checkoutOtpDemo').textContent = t('checkout_otp_demo_label') + ' ' + checkoutExpectedOtp;
+    }
   }
   function setTheme(theme) {
     state.theme = theme;
@@ -1249,15 +1351,149 @@
     });
     $('#checkoutBtn').addEventListener('click', () => {
       if (!state.cart.length) { showToast(t('toast_cart_empty'), 'info'); return; }
-      const subtotal = state.cart.reduce((s, c) => s + unitPrice(findProduct(c.id)) * c.qty, 0);
-      const shipping = state.mode === 'wholesale' ? 0 : 3500;
-      state.lastOrder = { paymentMethod: state.paymentMethod, total: subtotal + shipping, step: 2, placedAt: Date.now() };
-      showToast(t('toast_checkout'));
-      state.cart = []; renderCart(); updateCartCount(); closeCart();
+      openCheckoutModal();
     });
   }
   function openCart() { $('#cartDrawer').classList.remove('drawer-closed'); $('#cartDrawer').style.transform = 'translateX(0)'; $('#overlay').classList.remove('overlay-hidden'); $('#overlay').classList.add('overlay-visible'); }
   function closeCart() { $('#cartDrawer').classList.add('drawer-closed'); $('#cartDrawer').style.transform = ''; $('#overlay').classList.add('overlay-hidden'); $('#overlay').classList.remove('overlay-visible'); }
+
+  /* ---------------- CHECKOUT (info -> card -> OTP) ---------------- */
+  let checkoutExpectedOtp = '';
+
+  function populateWilayaSelect() {
+    const select = $('#coWilaya');
+    const current = select.value;
+    select.innerHTML = '<option value="">' + t('checkout_wilaya_ph') + '</option>' +
+      WILAYAS.map((w, i) => '<option value="' + w + '">' + (i + 1) + ' - ' + w + '</option>').join('');
+    select.value = current;
+  }
+
+  function goToCheckoutStep(step) {
+    $all('.checkout-step').forEach((el) => el.classList.toggle('hidden', el.dataset.step !== step));
+    const order = ['info', 'card', 'otp'];
+    $all('.checkout-progress-step').forEach((el) => {
+      const isActive = el.dataset.step === step;
+      const isDone = order.indexOf(el.dataset.step) < order.indexOf(step);
+      el.classList.toggle('bg-accent', isActive); el.classList.toggle('border-accent', isActive); el.classList.toggle('text-white', isActive || isDone);
+      el.classList.toggle('bg-card', !isActive && !isDone); el.classList.toggle('dark:bg-card-dark', !isActive && !isDone);
+      el.classList.toggle('border-border', !isActive && !isDone); el.classList.toggle('dark:border-border-dark', !isActive && !isDone);
+      el.classList.toggle('text-muted', !isActive && !isDone); el.classList.toggle('dark:text-muted-dark', !isActive && !isDone);
+      if (isDone) { el.classList.add('bg-green-600', 'border-green-600'); el.classList.remove('bg-accent', 'border-accent'); }
+      else { el.classList.remove('bg-green-600', 'border-green-600'); }
+    });
+  }
+
+  function openCheckoutModal() {
+    populateWilayaSelect();
+    $('#coFullName').value = state.checkout.fullName;
+    $('#coPhone').value = state.checkout.phone;
+    $('#coWilaya').value = state.checkout.wilaya;
+    $('#coAddress').value = state.checkout.address;
+    $('#coCardName').value = ''; $('#coCardNumber').value = ''; $('#coCardExpiry').value = ''; $('#coCardCvv').value = '';
+    $('#coOtp').value = '';
+    $('#checkoutOtpError').classList.add('hidden');
+    goToCheckoutStep('info');
+    $('#checkoutModal').classList.remove('modal-hidden'); $('#checkoutModal').classList.add('modal-visible');
+    $('#checkoutOverlay').classList.remove('overlay-hidden'); $('#checkoutOverlay').classList.add('overlay-visible');
+  }
+
+  function closeCheckoutModal() {
+    $('#checkoutModal').classList.add('modal-hidden'); $('#checkoutModal').classList.remove('modal-visible');
+    $('#checkoutOverlay').classList.add('overlay-hidden'); $('#checkoutOverlay').classList.remove('overlay-visible');
+  }
+
+  function generateOtp() {
+    checkoutExpectedOtp = String(Math.floor(100000 + Math.random() * 900000));
+    $('#checkoutOtpDemo').textContent = t('checkout_otp_demo_label') + ' ' + checkoutExpectedOtp;
+    $('#coOtp').value = '';
+    $('#checkoutOtpError').classList.add('hidden');
+  }
+
+  function initCheckoutModal() {
+    $('#checkoutCloseBtn').addEventListener('click', closeCheckoutModal);
+    $('#checkoutOverlay').addEventListener('click', closeCheckoutModal);
+
+    $('#coInfoNextBtn').addEventListener('click', () => {
+      const fullName = $('#coFullName').value.trim();
+      const phone = $('#coPhone').value.trim();
+      const wilaya = $('#coWilaya').value;
+      const address = $('#coAddress').value.trim();
+      if (!fullName || !phone || !wilaya || !address) { showToast(t('checkout_fill_all'), 'info'); return; }
+      if (phone.replace(/\D/g, '').length < 9) { showToast(t('checkout_invalid_phone'), 'info'); return; }
+      state.checkout.fullName = fullName;
+      state.checkout.phone = phone;
+      state.checkout.wilaya = wilaya;
+      state.checkout.address = address;
+      if (state.paymentMethod === 'cod') {
+        $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + phone;
+        generateOtp();
+        goToCheckoutStep('otp');
+      } else {
+        $('#checkoutCardDesc').textContent = t('checkout_card_desc');
+        goToCheckoutStep('card');
+      }
+    });
+
+    $('#coCardBackBtn').addEventListener('click', () => goToCheckoutStep('info'));
+
+    $('#coCardNextBtn').addEventListener('click', () => {
+      const name = $('#coCardName').value.trim();
+      const number = $('#coCardNumber').value.replace(/\s/g, '');
+      const expiry = $('#coCardExpiry').value.trim();
+      const cvv = $('#coCardCvv').value.trim();
+      if (!name || !number || !expiry || !cvv) { showToast(t('checkout_fill_all'), 'info'); return; }
+      if (!/^\d{16}$/.test(number)) { showToast(t('checkout_invalid_card'), 'info'); return; }
+      if (!/^\d{2}\/\d{2}$/.test(expiry)) { showToast(t('checkout_invalid_expiry'), 'info'); return; }
+      if (!/^\d{3}$/.test(cvv)) { showToast(t('checkout_invalid_cvv'), 'info'); return; }
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      generateOtp();
+      goToCheckoutStep('otp');
+    });
+
+    $('#coCardNumber').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    });
+    $('#coCardExpiry').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4).replace(/(\d{2})(?=\d)/, '$1/');
+    });
+    $('#coCardCvv').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); });
+    $('#coOtp').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
+
+    $('#coOtpBackBtn').addEventListener('click', () => {
+      goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
+    });
+
+    $('#coResendOtpBtn').addEventListener('click', () => {
+      generateOtp();
+      showToast(t('checkout_otp_resent'), 'info');
+    });
+
+    $('#coOtpConfirmBtn').addEventListener('click', () => {
+      const entered = $('#coOtp').value.trim();
+      if (entered !== checkoutExpectedOtp) {
+        $('#checkoutOtpError').classList.remove('hidden');
+        return;
+      }
+      finalizeOrder();
+    });
+  }
+
+  function finalizeOrder() {
+    const subtotal = state.cart.reduce((s, c) => s + unitPrice(findProduct(c.id)) * c.qty, 0);
+    const shipping = state.mode === 'wholesale' ? 0 : 3500;
+    state.lastOrder = {
+      paymentMethod: state.paymentMethod,
+      total: subtotal + shipping,
+      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address },
+      step: 2,
+      placedAt: Date.now()
+    };
+    showToast(t('toast_checkout'));
+    state.cart = [];
+    renderCart(); updateCartCount();
+    closeCheckoutModal();
+    closeCart();
+  }
 
   /* ---------------- NOTIFY MODAL ---------------- */
   function openNotify(id) {
@@ -1311,6 +1547,7 @@
     initGridEvents();
     initPagination();
     initCartEvents();
+    initCheckoutModal();
     initWishlistDrawer();
     initTrackModal();
     initNotify();

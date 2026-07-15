@@ -518,6 +518,28 @@ html[lang="ar"] .payment-method-group h4 { letter-spacing: 0; text-transform: no
 .modal-close-x { position: absolute; top: 16px; inset-inline-end: 16px; width: 30px; height: 30px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; }
 .modal-close-x svg { width: 14px; height: 14px; }
 
+/* ---------- Checkout modal (info -> card -> OTP) ---------- */
+.checkout-modal { width: 440px; }
+.checkout-progress { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
+.checkout-progress-step { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background var(--transition), border-color var(--transition), color var(--transition); }
+.checkout-progress-line { width: 32px; height: 2px; background: var(--border); }
+.checkout-progress-step.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.checkout-progress-step.done { background: var(--success); border-color: var(--success); color: #fff; }
+.checkout-step { display: none; text-align: center; }
+.checkout-step.active { display: block; }
+.checkout-step input, .checkout-step select { width: 100%; background: var(--bg-input); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 12px 14px; color: var(--text-primary); outline: none; margin-bottom: 14px; font-size: 14px; }
+.checkout-step input:focus, .checkout-step select:focus { border-color: var(--accent); }
+.checkout-step .modal-icon { margin-inline: auto; }
+.checkout-step h3, .checkout-step p { text-align: center; }
+.checkout-card-row { display: flex; gap: 10px; }
+.checkout-card-row input { margin-bottom: 14px; }
+.checkout-otp-demo { background: var(--accent-soft); color: var(--accent); border-radius: var(--radius-md); padding: 10px 14px; font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 16px; text-align: center; direction: ltr; }
+.checkout-otp-input { text-align: center; font-size: 22px; letter-spacing: 10px; font-weight: 700; }
+.checkout-otp-error { display: none; color: var(--danger); font-size: 12.5px; margin-top: -8px; margin-bottom: 12px; }
+.checkout-otp-error.visible { display: block; }
+.checkout-resend { display: block; margin: 0 auto 18px; background: none; border: none; color: var(--accent); font-size: 13px; font-weight: 600; cursor: pointer; }
+.checkout-resend:hover { text-decoration: underline; }
+
 /* ---------- Toast ---------- */
 .toast-stack { position: fixed; bottom: 24px; inset-inline-end: 24px; z-index: 400; display: flex; flex-direction: column; gap: 10px; }
 .toast { display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 13px 16px; box-shadow: var(--shadow-md); font-size: 13.5px; min-width: 260px; transform: translateX(120%); transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1); }

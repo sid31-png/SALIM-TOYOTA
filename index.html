@@ -564,6 +564,63 @@
   </div>
 </div>
 
+<!-- ============ CHECKOUT MODAL (info -> card -> OTP) ============ -->
+<div class="overlay" id="checkoutOverlay"></div>
+<div class="modal checkout-modal" id="checkoutModal">
+  <button class="modal-close-x" id="checkoutCloseBtn"><i data-lucide="x"></i></button>
+
+  <div class="checkout-progress" id="checkoutProgress">
+    <span class="checkout-progress-step active" data-step="info">1</span>
+    <span class="checkout-progress-line"></span>
+    <span class="checkout-progress-step" data-step="card">2</span>
+    <span class="checkout-progress-line"></span>
+    <span class="checkout-progress-step" data-step="otp">3</span>
+  </div>
+
+  <div class="checkout-step active" data-step="info">
+    <span class="modal-icon"><i data-lucide="user"></i></span>
+    <h3 data-i18n="checkout_info_title">Vos informations de livraison</h3>
+    <p data-i18n="checkout_info_desc">Nécessaires pour confirmer et livrer votre commande.</p>
+    <input type="text" id="coFullName" data-i18n-ph="checkout_full_name" placeholder="Nom et prénom" />
+    <input type="tel" id="coPhone" dir="ltr" data-i18n-ph="checkout_phone" placeholder="+213 5XX XX XX XX" />
+    <select id="coWilaya"></select>
+    <input type="text" id="coAddress" data-i18n-ph="checkout_address" placeholder="Adresse complète" style="margin-top:14px;" />
+    <div class="modal-actions">
+      <button class="btn btn-primary btn-block" id="coInfoNextBtn" data-i18n="checkout_continue">Continuer</button>
+    </div>
+  </div>
+
+  <div class="checkout-step" data-step="card">
+    <span class="modal-icon"><i data-lucide="credit-card"></i></span>
+    <h3 data-i18n="checkout_card_title">Coordonnées bancaires</h3>
+    <p id="checkoutCardDesc">—</p>
+    <input type="text" id="coCardName" data-i18n-ph="checkout_card_name" placeholder="Nom sur la carte" />
+    <input type="text" id="coCardNumber" dir="ltr" inputmode="numeric" maxlength="19" data-i18n-ph="checkout_card_number" placeholder="0000 0000 0000 0000" />
+    <div class="checkout-card-row">
+      <input type="text" id="coCardExpiry" dir="ltr" inputmode="numeric" maxlength="5" data-i18n-ph="checkout_card_expiry" placeholder="MM/AA" />
+      <input type="text" id="coCardCvv" dir="ltr" inputmode="numeric" maxlength="3" data-i18n-ph="checkout_card_cvv" placeholder="CVV" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="coCardBackBtn" data-i18n="checkout_back">Retour</button>
+      <button class="btn btn-primary" id="coCardNextBtn" data-i18n="checkout_continue">Continuer</button>
+    </div>
+  </div>
+
+  <div class="checkout-step" data-step="otp">
+    <span class="modal-icon"><i data-lucide="shield-check"></i></span>
+    <h3 data-i18n="checkout_otp_title">Confirmez votre commande</h3>
+    <p id="checkoutOtpDesc">—</p>
+    <div class="checkout-otp-demo" id="checkoutOtpDemo"></div>
+    <input type="text" id="coOtp" dir="ltr" inputmode="numeric" maxlength="6" class="checkout-otp-input" data-i18n-ph="checkout_otp_placeholder" placeholder="------" />
+    <p class="checkout-otp-error" id="checkoutOtpError" data-i18n="checkout_otp_invalid">Code incorrect. Réessayez.</p>
+    <button class="checkout-resend" id="coResendOtpBtn" data-i18n="checkout_resend_otp">Renvoyer le code</button>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="coOtpBackBtn" data-i18n="checkout_back">Retour</button>
+      <button class="btn btn-primary" id="coOtpConfirmBtn"><i data-lucide="lock"></i> <span data-i18n="checkout_confirm">Confirmer la commande</span></button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ TOASTS ============ -->
 <div class="toast-stack" id="toastStack"></div>
 

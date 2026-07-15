@@ -50,6 +50,16 @@
       contact_location_label: 'Algérie', contact_location_value: 'Livraison dans tout le pays',
       payment_method_title: 'Méthode de paiement', payment_cod: 'Paiement à la livraison',
       payment_edahabia: 'Carte EDAHABIA (Dahabia)', payment_cib: 'Carte CIB',
+      checkout_info_title: 'Vos informations de livraison', checkout_info_desc: 'Nécessaires pour confirmer et livrer votre commande.',
+      checkout_full_name: 'Nom et prénom', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'Choisir la wilaya', checkout_address: 'Adresse complète',
+      checkout_continue: 'Continuer', checkout_back: 'Retour',
+      checkout_card_title: 'Coordonnées bancaires', checkout_card_desc: 'Vos informations sont utilisées uniquement pour cette simulation.',
+      checkout_card_name: 'Nom sur la carte', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'MM/AA', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'Confirmez votre commande', checkout_otp_desc: 'Un code de vérification a été envoyé au',
+      checkout_otp_demo_label: 'Code de démonstration :', checkout_otp_placeholder: '------', checkout_otp_invalid: 'Code incorrect. Réessayez.',
+      checkout_resend_otp: 'Renvoyer le code', checkout_otp_resent: 'Un nouveau code a été envoyé.', checkout_confirm: 'Confirmer la commande',
+      checkout_fill_all: 'Merci de remplir tous les champs.', checkout_invalid_phone: 'Numéro de téléphone invalide.',
+      checkout_invalid_card: 'Numéro de carte invalide (16 chiffres).', checkout_invalid_expiry: "Date d'expiration invalide (MM/AA).", checkout_invalid_cvv: 'CVV invalide (3 chiffres).',
       wishlist_title: 'Mes favoris', wishlist_empty: 'Votre liste de favoris est vide.', wishlist_empty_sub: 'Cliquez sur le cœur d’une pièce pour l’ajouter ici.',
       track_title: 'Suivre ma commande', track_desc: 'Statut de votre dernière commande de démonstration.',
       track_step1: 'Commande acceptée', track_step2: 'Préparation', track_step3: 'En cours de livraison', track_step4: 'Livrée',
@@ -114,6 +124,16 @@
       contact_location_label: 'الجزائر', contact_location_value: 'توصيل إلى جميع أنحاء البلاد',
       payment_method_title: 'طريقة الدفع', payment_cod: 'الدفع عند الاستلام',
       payment_edahabia: 'بطاقة الذهبية (EDAHABIA)', payment_cib: 'بطاقة CIB',
+      checkout_info_title: 'معلومات التوصيل', checkout_info_desc: 'ضرورية لتأكيد وتوصيل طلبك.',
+      checkout_full_name: 'الاسم الكامل', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'اختر الولاية', checkout_address: 'العنوان الكامل',
+      checkout_continue: 'متابعة', checkout_back: 'رجوع',
+      checkout_card_title: 'معلومات البطاقة البنكية', checkout_card_desc: 'تُستخدم معلوماتك فقط لهذه المحاكاة.',
+      checkout_card_name: 'الاسم على البطاقة', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'شهر/سنة', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'أكد طلبك', checkout_otp_desc: 'تم إرسال رمز التحقق إلى',
+      checkout_otp_demo_label: 'رمز تجريبي:', checkout_otp_placeholder: '------', checkout_otp_invalid: 'رمز غير صحيح. حاول مجدداً.',
+      checkout_resend_otp: 'إعادة إرسال الرمز', checkout_otp_resent: 'تم إرسال رمز جديد.', checkout_confirm: 'تأكيد الطلب',
+      checkout_fill_all: 'يرجى ملء جميع الحقول.', checkout_invalid_phone: 'رقم هاتف غير صالح.',
+      checkout_invalid_card: 'رقم بطاقة غير صالح (16 رقم).', checkout_invalid_expiry: 'تاريخ انتهاء غير صالح (شهر/سنة).', checkout_invalid_cvv: 'CVV غير صالح (3 أرقام).',
       wishlist_title: 'المفضلة', wishlist_empty: 'قائمة المفضلة فارغة.', wishlist_empty_sub: 'اضغط على أيقونة القلب لإضافة قطعة هنا.',
       track_title: 'تتبع الطلب', track_desc: 'حالة آخر طلب تجريبي.',
       track_step1: 'تم قبول الطلب', track_step2: 'قيد التحضير', track_step3: 'في طور التوصيل', track_step4: 'تم التوصيل',
@@ -178,6 +198,16 @@
       contact_location_label: 'Algeria', contact_location_value: 'Nationwide delivery',
       payment_method_title: 'Payment method', payment_cod: 'Cash on delivery',
       payment_edahabia: 'EDAHABIA (Dahabia) card', payment_cib: 'CIB card',
+      checkout_info_title: 'Your delivery information', checkout_info_desc: 'Needed to confirm and deliver your order.',
+      checkout_full_name: 'Full name', checkout_phone: '+213 5XX XX XX XX', checkout_wilaya_ph: 'Select your province (wilaya)', checkout_address: 'Full address',
+      checkout_continue: 'Continue', checkout_back: 'Back',
+      checkout_card_title: 'Card details', checkout_card_desc: 'Your details are only used for this simulation.',
+      checkout_card_name: 'Name on card', checkout_card_number: '0000 0000 0000 0000', checkout_card_expiry: 'MM/YY', checkout_card_cvv: 'CVV',
+      checkout_otp_title: 'Confirm your order', checkout_otp_desc: 'A verification code was sent to',
+      checkout_otp_demo_label: 'Demo code:', checkout_otp_placeholder: '------', checkout_otp_invalid: 'Incorrect code. Try again.',
+      checkout_resend_otp: 'Resend code', checkout_otp_resent: 'A new code has been sent.', checkout_confirm: 'Confirm order',
+      checkout_fill_all: 'Please fill in all fields.', checkout_invalid_phone: 'Invalid phone number.',
+      checkout_invalid_card: 'Invalid card number (16 digits).', checkout_invalid_expiry: 'Invalid expiry date (MM/YY).', checkout_invalid_cvv: 'Invalid CVV (3 digits).',
       wishlist_title: 'My Wishlist', wishlist_empty: 'Your wishlist is empty.', wishlist_empty_sub: 'Click a part’s heart icon to add it here.',
       track_title: 'Track my order', track_desc: 'Status of your latest demo order.',
       track_step1: 'Order accepted', track_step2: 'Preparation', track_step3: 'Out for delivery', track_step4: 'Delivered',
@@ -234,6 +264,16 @@
   }
   const MODEL_YEARS = yearsRange(2000, 2024);
   const VERSION_KEYS = ['version_standard', 'version_comfort', 'version_sport', 'version_hybrid'];
+
+  const WILAYAS = [
+    'Adrar', 'Chlef', 'Laghouat', 'Oum El Bouaghi', 'Batna', 'Béjaïa', 'Biskra', 'Béchar', 'Blida', 'Bouira',
+    'Tamanrasset', 'Tébessa', 'Tlemcen', 'Tiaret', 'Tizi Ouzou', 'Alger', 'Djelfa', 'Jijel', 'Sétif', 'Saïda',
+    'Skikda', 'Sidi Bel Abbès', 'Annaba', 'Guelma', 'Constantine', 'Médéa', 'Mostaganem', "M'Sila", 'Mascara',
+    'Ouargla', 'Oran', 'El Bayadh', 'Illizi', 'Bordj Bou Arréridj', 'Boumerdès', 'El Tarf', 'Tindouf', 'Tissemsilt',
+    'El Oued', 'Khenchela', 'Souk Ahras', 'Tipaza', 'Mila', 'Aïn Defla', 'Naâma', 'Aïn Témouchent', 'Ghardaïa',
+    'Relizane', 'Timimoun', 'Bordj Badji Mokhtar', 'Ouled Djellal', 'Béni Abbès', 'In Salah', 'In Guezzam',
+    'Touggourt', 'Djanet', "El M'Ghair", 'El Meniaa'
+  ];
 
   const PRODUCTS = [
     { id: 'p01', brand: 'toyota', fits: ['Land Cruiser', 'Hilux', 'Fortuner'], name: { fr: "Filtre à huile moteur d'origine", en: 'Genuine Engine Oil Filter', ar: 'فلتر زيت المحرك الأصلي' }, category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
@@ -338,7 +378,8 @@
     wishlist: new Set(),
     paymentMethod: 'cod',
     lastOrder: null,
-    page: 1
+    page: 1,
+    checkout: { fullName: '', phone: '', wilaya: '', address: '', otp: '' }
   };
 
   const PAGE_SIZE = 24;
@@ -386,6 +427,12 @@
     renderCart();
     renderWishlist();
     if ($('#trackModal').classList.contains('visible')) renderTrackModal();
+    if ($('#checkoutModal').classList.contains('visible')) {
+      populateWilayaSelect();
+      $('#checkoutCardDesc').textContent = t('checkout_card_desc');
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      if (checkoutExpectedOtp) $('#checkoutOtpDemo').textContent = t('checkout_otp_demo_label') + ' ' + checkoutExpectedOtp;
+    }
   }
 
   function setTheme(theme) {
@@ -864,20 +911,146 @@
     });
     $('#checkoutBtn').addEventListener('click', () => {
       if (!state.cart.length) { showToast(t('toast_cart_empty'), 'info'); return; }
-      const subtotal = state.cart.reduce((sum, c) => sum + unitPrice(findProduct(c.id)) * c.qty, 0);
-      const shipping = state.mode === 'wholesale' ? 0 : 3500;
-      state.lastOrder = {
-        paymentMethod: state.paymentMethod,
-        total: subtotal + shipping,
-        step: 2,
-        placedAt: Date.now()
-      };
-      showToast(t('toast_checkout'));
-      state.cart = []; renderCart(); updateCartCount(); closeCart();
+      openCheckoutModal();
     });
   }
   function openCart() { $('#cartDrawer').classList.add('open'); $('#overlay').classList.add('visible'); }
   function closeCart() { $('#cartDrawer').classList.remove('open'); $('#overlay').classList.remove('visible'); }
+
+  /* ------------------------------------------------------------------ *
+   *  10a. CHECKOUT (info -> card -> OTP)
+   * ------------------------------------------------------------------ */
+
+  let checkoutExpectedOtp = '';
+
+  function populateWilayaSelect() {
+    const select = $('#coWilaya');
+    const current = select.value;
+    select.innerHTML = '<option value="">' + t('checkout_wilaya_ph') + '</option>' +
+      WILAYAS.map((w, i) => '<option value="' + w + '">' + (i + 1) + ' - ' + w + '</option>').join('');
+    select.value = current;
+  }
+
+  function goToCheckoutStep(step) {
+    $all('.checkout-step').forEach((el) => el.classList.toggle('active', el.dataset.step === step));
+    $all('.checkout-progress-step').forEach((el) => {
+      const order = ['info', 'card', 'otp'];
+      el.classList.toggle('active', el.dataset.step === step);
+      el.classList.toggle('done', order.indexOf(el.dataset.step) < order.indexOf(step));
+    });
+  }
+
+  function openCheckoutModal() {
+    populateWilayaSelect();
+    $('#coFullName').value = state.checkout.fullName;
+    $('#coPhone').value = state.checkout.phone;
+    $('#coWilaya').value = state.checkout.wilaya;
+    $('#coAddress').value = state.checkout.address;
+    $('#coCardName').value = ''; $('#coCardNumber').value = ''; $('#coCardExpiry').value = ''; $('#coCardCvv').value = '';
+    $('#coOtp').value = '';
+    $('#checkoutOtpError').classList.remove('visible');
+    goToCheckoutStep('info');
+    $('#checkoutModal').classList.add('visible');
+    $('#checkoutOverlay').classList.add('visible');
+  }
+
+  function closeCheckoutModal() {
+    $('#checkoutModal').classList.remove('visible');
+    $('#checkoutOverlay').classList.remove('visible');
+  }
+
+  function generateOtp() {
+    checkoutExpectedOtp = String(Math.floor(100000 + Math.random() * 900000));
+    $('#checkoutOtpDemo').textContent = t('checkout_otp_demo_label') + ' ' + checkoutExpectedOtp;
+    $('#coOtp').value = '';
+    $('#checkoutOtpError').classList.remove('visible');
+  }
+
+  function initCheckoutModal() {
+    $('#checkoutCloseBtn').addEventListener('click', closeCheckoutModal);
+    $('#checkoutOverlay').addEventListener('click', closeCheckoutModal);
+
+    $('#coInfoNextBtn').addEventListener('click', () => {
+      const fullName = $('#coFullName').value.trim();
+      const phone = $('#coPhone').value.trim();
+      const wilaya = $('#coWilaya').value;
+      const address = $('#coAddress').value.trim();
+      if (!fullName || !phone || !wilaya || !address) { showToast(t('checkout_fill_all'), 'info'); return; }
+      if (phone.replace(/\D/g, '').length < 9) { showToast(t('checkout_invalid_phone'), 'info'); return; }
+      state.checkout.fullName = fullName;
+      state.checkout.phone = phone;
+      state.checkout.wilaya = wilaya;
+      state.checkout.address = address;
+      if (state.paymentMethod === 'cod') {
+        $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + phone;
+        generateOtp();
+        goToCheckoutStep('otp');
+      } else {
+        $('#checkoutCardDesc').textContent = t('checkout_card_desc');
+        goToCheckoutStep('card');
+      }
+    });
+
+    $('#coCardBackBtn').addEventListener('click', () => goToCheckoutStep('info'));
+
+    $('#coCardNextBtn').addEventListener('click', () => {
+      const name = $('#coCardName').value.trim();
+      const number = $('#coCardNumber').value.replace(/\s/g, '');
+      const expiry = $('#coCardExpiry').value.trim();
+      const cvv = $('#coCardCvv').value.trim();
+      if (!name || !number || !expiry || !cvv) { showToast(t('checkout_fill_all'), 'info'); return; }
+      if (!/^\d{16}$/.test(number)) { showToast(t('checkout_invalid_card'), 'info'); return; }
+      if (!/^\d{2}\/\d{2}$/.test(expiry)) { showToast(t('checkout_invalid_expiry'), 'info'); return; }
+      if (!/^\d{3}$/.test(cvv)) { showToast(t('checkout_invalid_cvv'), 'info'); return; }
+      $('#checkoutOtpDesc').textContent = t('checkout_otp_desc') + ' ' + state.checkout.phone;
+      generateOtp();
+      goToCheckoutStep('otp');
+    });
+
+    $('#coCardNumber').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 16).replace(/(\d{4})(?=\d)/g, '$1 ');
+    });
+    $('#coCardExpiry').addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4).replace(/(\d{2})(?=\d)/, '$1/');
+    });
+    $('#coCardCvv').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3); });
+    $('#coOtp').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 6); });
+
+    $('#coOtpBackBtn').addEventListener('click', () => {
+      goToCheckoutStep(state.paymentMethod === 'cod' ? 'info' : 'card');
+    });
+
+    $('#coResendOtpBtn').addEventListener('click', () => {
+      generateOtp();
+      showToast(t('checkout_otp_resent'), 'info');
+    });
+
+    $('#coOtpConfirmBtn').addEventListener('click', () => {
+      const entered = $('#coOtp').value.trim();
+      if (entered !== checkoutExpectedOtp) {
+        $('#checkoutOtpError').classList.add('visible');
+        return;
+      }
+      finalizeOrder();
+    });
+  }
+
+  function finalizeOrder() {
+    const subtotal = state.cart.reduce((sum, c) => sum + unitPrice(findProduct(c.id)) * c.qty, 0);
+    const shipping = state.mode === 'wholesale' ? 0 : 3500;
+    state.lastOrder = {
+      paymentMethod: state.paymentMethod,
+      total: subtotal + shipping,
+      customer: { fullName: state.checkout.fullName, phone: state.checkout.phone, wilaya: state.checkout.wilaya, address: state.checkout.address },
+      step: 2,
+      placedAt: Date.now()
+    };
+    showToast(t('toast_checkout'));
+    state.cart = [];
+    renderCart(); updateCartCount();
+    closeCheckoutModal();
+    closeCart();
+  }
 
   /* ------------------------------------------------------------------ *
    *  10b. TRACK ORDER
@@ -1009,6 +1182,7 @@
     initProductGridEvents();
     initPagination();
     initCartEvents();
+    initCheckoutModal();
     initWishlistDrawer();
     initTrackModal();
     initNotifyModal();
