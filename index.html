@@ -98,13 +98,15 @@
   </div>
 </div>
 
-<!-- ============ HERO (PartSouq-style centered search) ============ -->
-<section class="hero has-video">
-  <div class="hero-video-bg">
-    <video autoplay muted loop playsinline preload="auto">
-      <source src="assets/video/hero-bg.mp4" type="video/mp4" />
-    </video>
-  </div>
+<!-- ============ VIDEO SHOWCASE (full width, unobstructed) ============ -->
+<section class="hero-video-showcase">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="assets/video/hero-bg.mp4" type="video/mp4" />
+  </video>
+</section>
+
+<!-- ============ HERO (PartSouq-style centered search, below the video) ============ -->
+<section class="hero">
   <div class="container hero-inner">
     <span class="hero-badge">
       <span class="dots">
@@ -159,6 +161,12 @@
           </select>
           <select id="modelModelSelect" disabled>
             <option value="" data-i18n="model_select_model_ph">Choisir le modèle</option>
+          </select>
+          <select id="modelYearSelect" disabled>
+            <option value="" data-i18n="model_select_year_ph">Choisir l'année</option>
+          </select>
+          <select id="modelVersionSelect" disabled>
+            <option value="" data-i18n="model_select_version_ph">Choisir la version</option>
           </select>
         </div>
         <button type="button" id="modelFindBtn" class="btn btn-primary btn-block" disabled>

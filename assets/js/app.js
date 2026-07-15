@@ -23,6 +23,8 @@
       vin_placeholder: 'Ex. JTMBK3FV000000001 (17 caractères)', vin_hint: 'Essayez :',
       vin_detected: 'Véhicule détecté :', vin_not_found: "VIN non reconnu. Essayez l'un des exemples ci-dessus.",
       model_select_brand_ph: 'Choisir la marque', model_select_model_ph: 'Choisir le modèle',
+      model_select_year_ph: "Choisir l'année", model_select_version_ph: 'Choisir la version',
+      version_standard: 'Standard', version_comfort: 'Confort / SE', version_sport: 'Sport / GR-F', version_hybrid: 'Hybride',
       search_btn: 'Rechercher',
       brands_eyebrow: 'Nos marques', brands_title: 'Achetez par marque',
       models_eyebrow: 'Véhicules populaires', models_title: 'Modèles les plus demandés',
@@ -75,6 +77,8 @@
       vin_placeholder: 'مثال: JTMBK3FV000000001 (17 رمزًا)', vin_hint: 'جرّب:',
       vin_detected: 'تم التعرف على المركبة:', vin_not_found: 'رقم الهيكل غير معروف. جرّب أحد الأمثلة أعلاه.',
       model_select_brand_ph: 'اختر الماركة', model_select_model_ph: 'اختر الموديل',
+      model_select_year_ph: 'اختر السنة', model_select_version_ph: 'اختر الفئة',
+      version_standard: 'قياسي', version_comfort: 'مريح / SE', version_sport: 'رياضي / GR-F', version_hybrid: 'هجين',
       search_btn: 'بحث',
       brands_eyebrow: 'ماركاتنا', brands_title: 'تسوّق حسب الماركة',
       models_eyebrow: 'المركبات الشائعة', models_title: 'الموديلات الأكثر طلبًا',
@@ -127,6 +131,8 @@
       vin_placeholder: 'e.g. JTMBK3FV000000001 (17 characters)', vin_hint: 'Try:',
       vin_detected: 'Vehicle detected:', vin_not_found: 'VIN not recognized. Try one of the examples above.',
       model_select_brand_ph: 'Select brand', model_select_model_ph: 'Select model',
+      model_select_year_ph: 'Select year', model_select_version_ph: 'Select version',
+      version_standard: 'Standard', version_comfort: 'Comfort / SE', version_sport: 'Sport / GR-F', version_hybrid: 'Hybrid',
       search_btn: 'Search',
       brands_eyebrow: 'Our brands', brands_title: 'Shop by brand',
       models_eyebrow: 'Popular vehicles', models_title: 'Most requested models',
@@ -177,11 +183,19 @@
   const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
 
   const VEHICLE_MODELS = {
-    toyota: ['Land Cruiser', 'Hilux', 'Corolla', 'Camry', 'Fortuner'],
-    nissan: ['Patrol', 'GT-R', 'X-Trail', 'Navara'],
-    lexus: ['LX570', 'RX350', 'ES350', 'IS300'],
-    infiniti: ['QX80', 'Q50', 'QX60', 'FX35', 'G37']
+    toyota: ['Land Cruiser', 'Land Cruiser Prado', 'Hilux', 'Corolla', 'Camry', 'Fortuner', 'Yaris', 'Vitz', 'RAV4', 'Highlander', 'C-HR', 'Prius', 'Avalon', 'Avensis', 'Auris', 'Tacoma', 'Tundra', '4Runner', 'Sequoia', 'Sienna', 'Supra', 'Hiace', 'Innova', 'Alphard', 'Crown'],
+    nissan: ['Patrol', 'GT-R', 'X-Trail', 'Navara', 'Sunny', 'Sentra', 'Altima', 'Maxima', 'Micra', 'Note', 'Juke', 'Qashqai', 'Murano', 'Pathfinder', 'Armada', 'Frontier', 'Titan', '370Z', 'Kicks', 'Rogue', 'Tiida', 'Almera'],
+    lexus: ['LX570', 'RX350', 'ES350', 'IS300', 'GX460', 'GS', 'LS', 'RC', 'LC', 'CT', 'UX', 'NX'],
+    infiniti: ['QX80', 'Q50', 'QX60', 'FX35', 'G37', 'M35', 'M37', 'Q70', 'EX35', 'QX50', 'QX56', 'QX30', 'Q30', 'Q60', 'JX35']
   };
+
+  function yearsRange(start, end) {
+    const out = [];
+    for (let y = end; y >= start; y--) out.push(y);
+    return out;
+  }
+  const MODEL_YEARS = yearsRange(2000, 2024);
+  const VERSION_KEYS = ['version_standard', 'version_comfort', 'version_sport', 'version_hybrid'];
 
   const PRODUCTS = [
     { id: 'p01', brand: 'toyota', fits: ['Land Cruiser', 'Hilux', 'Fortuner'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
@@ -373,17 +387,50 @@
   function initModelSearch() {
     const brandSelect = $('#modelBrandSelect');
     const modelSelect = $('#modelModelSelect');
+    const yearSelect = $('#modelYearSelect');
+    const versionSelect = $('#modelVersionSelect');
     const findBtn = $('#modelFindBtn');
+
+    function resetSelect(select, placeholderKey) {
+      select.disabled = true;
+      select.innerHTML = '<option value="">' + t(placeholderKey) + '</option>';
+    }
 
     brandSelect.addEventListener('change', () => {
       const brand = brandSelect.value;
-      modelSelect.disabled = !brand;
+      resetSelect(modelSelect, 'model_select_model_ph');
+      resetSelect(yearSelect, 'model_select_year_ph');
+      resetSelect(versionSelect, 'model_select_version_ph');
       findBtn.disabled = true;
-      modelSelect.innerHTML = '<option value="">' + t('model_select_model_ph') + '</option>' +
-        (brand ? VEHICLE_MODELS[brand].map((m) => '<option value="' + m + '">' + m + '</option>').join('') : '');
+      modelSelect.disabled = !brand;
+      if (brand) {
+        modelSelect.innerHTML = '<option value="">' + t('model_select_model_ph') + '</option>' +
+          VEHICLE_MODELS[brand].map((m) => '<option value="' + m + '">' + m + '</option>').join('');
+      }
     });
 
-    modelSelect.addEventListener('change', () => { findBtn.disabled = !modelSelect.value; });
+    modelSelect.addEventListener('change', () => {
+      resetSelect(yearSelect, 'model_select_year_ph');
+      resetSelect(versionSelect, 'model_select_version_ph');
+      findBtn.disabled = true;
+      yearSelect.disabled = !modelSelect.value;
+      if (modelSelect.value) {
+        yearSelect.innerHTML = '<option value="">' + t('model_select_year_ph') + '</option>' +
+          MODEL_YEARS.map((y) => '<option value="' + y + '">' + y + '</option>').join('');
+      }
+    });
+
+    yearSelect.addEventListener('change', () => {
+      resetSelect(versionSelect, 'model_select_version_ph');
+      findBtn.disabled = true;
+      versionSelect.disabled = !yearSelect.value;
+      if (yearSelect.value) {
+        versionSelect.innerHTML = '<option value="">' + t('model_select_version_ph') + '</option>' +
+          VERSION_KEYS.map((k) => '<option value="' + k + '">' + t(k) + '</option>').join('');
+      }
+    });
+
+    versionSelect.addEventListener('change', () => { findBtn.disabled = !versionSelect.value; });
 
     findBtn.addEventListener('click', () => {
       const brand = brandSelect.value;
@@ -396,7 +443,7 @@
       syncFilterCheckboxes();
       render();
       $('#shop').scrollIntoView({ behavior: 'smooth' });
-      showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[brand] + ' ' + model, 'info');
+      showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[brand] + ' ' + model + ' (' + yearSelect.value + ')', 'info');
     });
   }
 

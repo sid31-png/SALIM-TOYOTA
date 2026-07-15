@@ -144,25 +144,26 @@
   </div>
 </header>
 
-<!-- ============ HERO (PartSouq-style centered search, muted video bg) ============ -->
-<section class="relative overflow-hidden border-b border-border dark:border-border-dark text-center min-h-[620px] flex items-center justify-center bg-[#05060a]">
-  <div class="absolute inset-0 z-0 overflow-hidden">
-    <video autoplay muted loop playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
-      <source src="assets/video/hero-bg.mp4" type="video/mp4" />
-    </video>
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(6,7,11,0.78), rgba(6,7,11,0.68) 45%, rgba(6,7,11,0.88));"></div>
-  </div>
-  <div class="relative z-10 max-w-[780px] mx-auto px-5 py-14 lg:py-16 w-full">
-    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-neutral-100 backdrop-blur mb-5">
+<!-- ============ VIDEO SHOWCASE (full width, unobstructed, clearly visible) ============ -->
+<section class="relative w-full overflow-hidden bg-black border-b border-border dark:border-border-dark" style="aspect-ratio: 21/8; max-height: 460px; min-height: 220px;">
+  <video autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover block">
+    <source src="assets/video/hero-bg.mp4" type="video/mp4" />
+  </video>
+</section>
+
+<!-- ============ HERO (PartSouq-style centered search, below the video) ============ -->
+<section class="relative overflow-hidden border-b border-border dark:border-border-dark text-center bg-bg dark:bg-bg-dark" style="background-image: radial-gradient(1000px 480px at 50% -10%, rgba(216,31,47,0.08), transparent 60%);">
+  <div class="max-w-[780px] mx-auto px-5 py-14 lg:py-16 w-full">
+    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-elevated dark:bg-elevated-dark border border-border dark:border-border-dark text-xs font-semibold text-sub dark:text-sub-dark mb-5">
       <span class="flex gap-1">
         <span class="w-2 h-2 rounded-full bg-toyota"></span><span class="w-2 h-2 rounded-full bg-nissan"></span><span class="w-2 h-2 rounded-full bg-lexus"></span><span class="w-2 h-2 rounded-full bg-infiniti"></span>
       </span>
       <span data-i18n="hero_badge">Spécialiste Toyota · Nissan · Lexus · Infiniti</span>
     </span>
-    <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight mb-4 leading-[1.15] text-white">
+    <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight mb-4 leading-[1.15]">
       <span data-i18n="hero_title_1">Pièces d'origine,</span> <span class="text-accent" data-i18n="hero_title_span">trouvées en secondes.</span>
     </h1>
-    <p class="text-neutral-300 text-base sm:text-lg max-w-xl mx-auto mb-8" data-i18n="hero_lede">Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.</p>
+    <p class="text-sub dark:text-sub-dark text-base sm:text-lg max-w-xl mx-auto mb-8" data-i18n="hero_lede">Recherchez par numéro de référence OEM ou par numéro de châssis (VIN) pour trouver la pièce exacte.</p>
 
     <!-- Finder card -->
     <div class="text-start bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-[22px] p-5 sm:p-6 shadow-2xl max-w-[640px] mx-auto">
@@ -215,6 +216,12 @@
           </select>
           <select id="modelModelSelect" disabled class="w-full bg-bg dark:bg-bg-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
             <option value="" data-i18n="model_select_model_ph">Choisir le modèle</option>
+          </select>
+          <select id="modelYearSelect" disabled class="w-full bg-bg dark:bg-bg-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
+            <option value="" data-i18n="model_select_year_ph">Choisir l'année</option>
+          </select>
+          <select id="modelVersionSelect" disabled class="w-full bg-bg dark:bg-bg-dark border border-borderstrong dark:border-borderstrong-dark rounded-lg px-3.5 py-3 text-sm font-medium outline-none focus:border-accent disabled:opacity-50">
+            <option value="" data-i18n="model_select_version_ph">Choisir la version</option>
           </select>
         </div>
         <button type="button" id="modelFindBtn" disabled class="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-accent hover:bg-accent-hover disabled:bg-elevated dark:disabled:bg-elevated-dark disabled:text-muted disabled:cursor-not-allowed text-white font-semibold text-sm transition">
@@ -441,6 +448,8 @@
       vin_placeholder: 'Ex. JTMBK3FV000000001', vin_hint: 'Essayez :',
       vin_detected: 'Véhicule détecté :', vin_not_found: "VIN non reconnu. Essayez l'un des exemples ci-dessus.",
       model_select_brand_ph: 'Choisir la marque', model_select_model_ph: 'Choisir le modèle',
+      model_select_year_ph: "Choisir l'année", model_select_version_ph: 'Choisir la version',
+      version_standard: 'Standard', version_comfort: 'Confort / SE', version_sport: 'Sport / GR-F', version_hybrid: 'Hybride',
       search_btn: 'Rechercher',
       brands_eyebrow: 'Nos marques', brands_title: 'Achetez par marque',
       models_eyebrow: 'Véhicules populaires', models_title: 'Modèles les plus demandés',
@@ -479,6 +488,8 @@
       vin_placeholder: 'مثال: JTMBK3FV000000001', vin_hint: 'جرّب:',
       vin_detected: 'تم التعرف على المركبة:', vin_not_found: 'رقم الهيكل غير معروف. جرّب أحد الأمثلة أعلاه.',
       model_select_brand_ph: 'اختر الماركة', model_select_model_ph: 'اختر الموديل',
+      model_select_year_ph: 'اختر السنة', model_select_version_ph: 'اختر الفئة',
+      version_standard: 'قياسي', version_comfort: 'مريح / SE', version_sport: 'رياضي / GR-F', version_hybrid: 'هجين',
       search_btn: 'بحث',
       brands_eyebrow: 'ماركاتنا', brands_title: 'تسوّق حسب الماركة',
       models_eyebrow: 'المركبات الشائعة', models_title: 'الموديلات الأكثر طلبًا',
@@ -517,6 +528,8 @@
       vin_placeholder: 'e.g. JTMBK3FV000000001', vin_hint: 'Try:',
       vin_detected: 'Vehicle detected:', vin_not_found: 'VIN not recognized. Try one of the examples above.',
       model_select_brand_ph: 'Select brand', model_select_model_ph: 'Select model',
+      model_select_year_ph: 'Select year', model_select_version_ph: 'Select version',
+      version_standard: 'Standard', version_comfort: 'Comfort / SE', version_sport: 'Sport / GR-F', version_hybrid: 'Hybrid',
       search_btn: 'Search',
       brands_eyebrow: 'Our brands', brands_title: 'Shop by brand',
       models_eyebrow: 'Popular vehicles', models_title: 'Most requested models',
@@ -549,11 +562,14 @@
   const CATEGORY_ICONS = { engine: 'cog', brake: 'disc', suspension: 'gauge', filter: 'filter', electrical: 'zap', body: 'layers' };
   const CATEGORY_COLOR = { engine: '#d81f2f', brake: '#dc2626', suspension: '#2563eb', filter: '#a9762f', electrical: '#9333ea', body: '#16a34a' };
   const VEHICLE_MODELS = {
-    toyota: ['Land Cruiser', 'Hilux'],
-    nissan: ['Patrol', 'GT-R'],
-    lexus: ['LX570', 'RX'],
-    infiniti: ['QX80', 'Q50']
+    toyota: ['Land Cruiser', 'Land Cruiser Prado', 'Hilux', 'Corolla', 'Camry', 'Fortuner', 'Yaris', 'Vitz', 'RAV4', 'Highlander', 'C-HR', 'Prius', 'Avalon', 'Avensis', 'Auris', 'Tacoma', 'Tundra', '4Runner', 'Sequoia', 'Sienna', 'Supra', 'Hiace', 'Innova', 'Alphard', 'Crown'],
+    nissan: ['Patrol', 'GT-R', 'X-Trail', 'Navara', 'Sunny', 'Sentra', 'Altima', 'Maxima', 'Micra', 'Note', 'Juke', 'Qashqai', 'Murano', 'Pathfinder', 'Armada', 'Frontier', 'Titan', '370Z', 'Kicks', 'Rogue', 'Tiida', 'Almera'],
+    lexus: ['LX570', 'RX', 'ES350', 'IS300', 'GX460', 'GS', 'LS', 'RC', 'LC', 'CT', 'UX', 'NX'],
+    infiniti: ['QX80', 'Q50', 'QX60', 'FX35', 'G37', 'M35', 'M37', 'Q70', 'EX35', 'QX50', 'QX56', 'QX30', 'Q30', 'Q60', 'JX35']
   };
+  function yearsRange(start, end) { const out = []; for (let y = end; y >= start; y--) out.push(y); return out; }
+  const MODEL_YEARS = yearsRange(2000, 2024);
+  const VERSION_KEYS = ['version_standard', 'version_comfort', 'version_sport', 'version_hybrid'];
 
   const PRODUCTS = [
     { id: 'p1', brand: 'toyota', fits: ['Land Cruiser'], name: 'Genuine Engine Oil Filter', category: 'filter', sku: '90915-YZZD4', price: 8500, wholesalePrice: 6200, moq: 5, stock: true, rating: 4.8, reviews: 214 },
@@ -712,17 +728,50 @@
   function initModelSearch() {
     const brandSelect = $('#modelBrandSelect');
     const modelSelect = $('#modelModelSelect');
+    const yearSelect = $('#modelYearSelect');
+    const versionSelect = $('#modelVersionSelect');
     const findBtn = $('#modelFindBtn');
+
+    function resetSelect(select, placeholderKey) {
+      select.disabled = true;
+      select.innerHTML = '<option value="">' + t(placeholderKey) + '</option>';
+    }
 
     brandSelect.addEventListener('change', () => {
       const brand = brandSelect.value;
-      modelSelect.disabled = !brand;
+      resetSelect(modelSelect, 'model_select_model_ph');
+      resetSelect(yearSelect, 'model_select_year_ph');
+      resetSelect(versionSelect, 'model_select_version_ph');
       findBtn.disabled = true;
-      modelSelect.innerHTML = '<option value="">' + t('model_select_model_ph') + '</option>' +
-        (brand ? VEHICLE_MODELS[brand].map((m) => '<option value="' + m + '">' + m + '</option>').join('') : '');
+      modelSelect.disabled = !brand;
+      if (brand) {
+        modelSelect.innerHTML = '<option value="">' + t('model_select_model_ph') + '</option>' +
+          VEHICLE_MODELS[brand].map((m) => '<option value="' + m + '">' + m + '</option>').join('');
+      }
     });
 
-    modelSelect.addEventListener('change', () => { findBtn.disabled = !modelSelect.value; });
+    modelSelect.addEventListener('change', () => {
+      resetSelect(yearSelect, 'model_select_year_ph');
+      resetSelect(versionSelect, 'model_select_version_ph');
+      findBtn.disabled = true;
+      yearSelect.disabled = !modelSelect.value;
+      if (modelSelect.value) {
+        yearSelect.innerHTML = '<option value="">' + t('model_select_year_ph') + '</option>' +
+          MODEL_YEARS.map((y) => '<option value="' + y + '">' + y + '</option>').join('');
+      }
+    });
+
+    yearSelect.addEventListener('change', () => {
+      resetSelect(versionSelect, 'model_select_version_ph');
+      findBtn.disabled = true;
+      versionSelect.disabled = !yearSelect.value;
+      if (yearSelect.value) {
+        versionSelect.innerHTML = '<option value="">' + t('model_select_version_ph') + '</option>' +
+          VERSION_KEYS.map((k) => '<option value="' + k + '">' + t(k) + '</option>').join('');
+      }
+    });
+
+    versionSelect.addEventListener('change', () => { findBtn.disabled = !versionSelect.value; });
 
     findBtn.addEventListener('click', () => {
       const brand = brandSelect.value;
@@ -731,7 +780,7 @@
       state.vehicleBrand = brand; state.vehicleModel = model; state.brandFilter = null; state.search = '';
       render();
       $('#shop').scrollIntoView({ behavior: 'smooth' });
-      showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[brand] + ' ' + model, 'info');
+      showToast(t('toast_vehicle_found') + ' ' + BRAND_LABELS[brand] + ' ' + model + ' (' + yearSelect.value + ')', 'info');
     });
   }
 
