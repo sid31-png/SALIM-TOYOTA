@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Salim Auto Parts | Genuine Toyota, Nissan, Lexus &amp; Infiniti Parts</title>
+<meta name="description" content="Wholesale &amp; retail spare parts specialist for Toyota, Nissan, Lexus and Infiniti. Search by OEM reference or find parts by vehicle." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e0202f'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
+
+<link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left">
+      <span class="topbar-item"><i data-lucide="phone"></i> +234 800 123 4567</span>
+      <span class="topbar-item"><i data-lucide="map-pin"></i> Lagos • Abuja • Port Harcourt</span>
+    </div>
+    <div class="topbar-left">
+      <a href="#" class="topbar-item"><i data-lucide="truck"></i> Track Order</a>
+      <a href="#wholesale" class="topbar-item"><i data-lucide="briefcase"></i> Become a Wholesale Partner</a>
+      <a href="#" class="topbar-item"><i data-lucide="help-circle"></i> Help</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-mark">SA</span>
+      <span class="logo-text">
+        <span class="name">SALIM AUTO PARTS</span>
+        <span class="tag">Genuine &amp; OEM Specialist</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#shop" class="active">Shop</a>
+      <a href="#brands">Brands</a>
+      <a href="#categories">Categories</a>
+      <a href="#wholesale">Wholesale (B2B)</a>
+      <a href="#" >Track Order</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="mode-toggle" id="modeToggle" role="group" aria-label="Pricing mode">
+        <button type="button" class="active retail" data-mode="retail">
+          <i data-lucide="user"></i><span class="label">Retail</span>
+        </button>
+        <button type="button" class="wholesale" data-mode="wholesale">
+          <i data-lucide="building-2"></i><span class="label">Wholesale</span>
+        </button>
+      </div>
+
+      <button class="icon-btn" id="accountBtn" title="Account" aria-label="Account">
+        <i data-lucide="user-circle-2"></i>
+      </button>
+      <button class="icon-btn" id="wishlistNavBtn" title="Wishlist" aria-label="Wishlist">
+        <i data-lucide="heart"></i>
+      </button>
+      <button class="icon-btn" id="cartBtn" title="Cart" aria-label="Open cart">
+        <i data-lucide="shopping-cart"></i>
+        <span class="count-badge" id="cartCount">0</span>
+      </button>
+      <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHOLESALE MODE BANNER ============ -->
+<div class="wholesale-banner" id="wholesaleBanner">
+  <div class="container">
+    <i data-lucide="badge-percent"></i>
+    <span>You're viewing <strong>Wholesale (B2B) pricing</strong> — bulk discounts applied automatically. Minimum order quantities may apply.</span>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="hero-badge">
+        <span class="dots">
+          <span class="brand-dot toyota"></span><span class="brand-dot nissan"></span><span class="brand-dot lexus"></span><span class="brand-dot infiniti"></span>
+        </span>
+        Authorized specialist &mdash; Toyota, Nissan, Lexus &amp; Infiniti only
+      </span>
+      <h1>Genuine parts, <span>found in seconds.</span></h1>
+      <p class="hero-lede">Search by OEM reference number or select your exact vehicle to get precision-matched parts &mdash; with transparent retail and wholesale pricing.</p>
+
+      <div class="hero-cta-row">
+        <a href="#shop" class="btn btn-primary"><i data-lucide="search"></i> Browse Catalog</a>
+        <a href="#wholesale" class="btn btn-outline"><i data-lucide="briefcase"></i> Apply for B2B Account</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><b>12,400+</b><span>Parts in stock</span></div>
+        <div class="stat"><b>4</b><span>Brands specialized</span></div>
+        <div class="stat"><b>98%</b><span>Fitment accuracy</span></div>
+        <div class="stat"><b>24h</b><span>Dispatch time</span></div>
+      </div>
+    </div>
+
+    <div class="finder-card">
+      <div class="finder-tabs">
+        <button type="button" class="active" data-panel="search"><i data-lucide="scan-line"></i> Search by OEM</button>
+        <button type="button" data-panel="vehicle"><i data-lucide="car"></i> Find by Vehicle</button>
+      </div>
+
+      <!-- Search by reference -->
+      <div class="finder-panel active" id="panel-search">
+        <form id="oemSearchForm">
+          <div class="search-field">
+            <i data-lucide="search"></i>
+            <input type="text" id="oemSearchInput" placeholder="Enter OEM / reference number e.g. 90915-10001" autocomplete="off" />
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </form>
+        <div class="search-hint">Try: <code>90915-10001</code> <code>41060-CA025</code> <code>04152-YZZA6</code></div>
+      </div>
+
+      <!-- Vehicle selector -->
+      <div class="finder-panel" id="panel-vehicle">
+        <div class="select-grid">
+          <div class="select-field">
+            <label for="selBrand">Brand</label>
+            <div class="select-wrap">
+              <select id="selBrand">
+                <option value="">Select Brand</option>
+              </select>
+              <i data-lucide="chevron-down" class="chevron"></i>
+            </div>
+          </div>
+          <div class="select-field">
+            <label for="selModel">Model</label>
+            <div class="select-wrap">
+              <select id="selModel" disabled>
+                <option value="">Select Model</option>
+              </select>
+              <i data-lucide="chevron-down" class="chevron"></i>
+            </div>
+          </div>
+          <div class="select-field">
+            <label for="selYear">Year</label>
+            <div class="select-wrap">
+              <select id="selYear" disabled>
+                <option value="">Select Year</option>
+              </select>
+              <i data-lucide="chevron-down" class="chevron"></i>
+            </div>
+          </div>
+          <div class="select-field">
+            <label for="selEngine">Engine</label>
+            <div class="select-wrap">
+              <select id="selEngine" disabled>
+                <option value="">Select Engine</option>
+              </select>
+              <i data-lucide="chevron-down" class="chevron"></i>
+            </div>
+          </div>
+        </div>
+        <div class="finder-submit">
+          <button type="button" id="vehicleFindBtn" class="btn btn-primary btn-block" disabled>
+            <i data-lucide="search"></i> Show Compatible Parts
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRAND STRIP ============ -->
+<section class="brand-strip" id="brands">
+  <div class="container">
+    <div class="grid brand-strip-grid">
+      <button class="brand-card" data-brand-filter="toyota">
+        <span class="brand-mark toyota">TOY</span>
+        <span class="info"><span class="bname">Toyota</span><span class="bcount">3,400+ parts</span></span>
+      </button>
+      <button class="brand-card" data-brand-filter="nissan">
+        <span class="brand-mark nissan">NIS</span>
+        <span class="info"><span class="bname">Nissan</span><span class="bcount">2,850+ parts</span></span>
+      </button>
+      <button class="brand-card" data-brand-filter="lexus">
+        <span class="brand-mark lexus">LEX</span>
+        <span class="info"><span class="bname">Lexus</span><span class="bcount">1,760+ parts</span></span>
+      </button>
+      <button class="brand-card" data-brand-filter="infiniti">
+        <span class="brand-mark infiniti">INF</span>
+        <span class="info"><span class="bname">Infiniti</span><span class="bcount">1,390+ parts</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Shop by category</span>
+        <h2 class="section-title">Find parts faster</h2>
+      </div>
+      <a href="#shop" class="link-arrow">View all categories <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="grid cat-grid">
+      <button class="cat-card" data-cat-filter="engine">
+        <span class="cat-icon"><i data-lucide="cog"></i></span>
+        <span class="cname">Engine Parts</span><span class="ccount">1,920</span>
+      </button>
+      <button class="cat-card" data-cat-filter="brake">
+        <span class="cat-icon"><i data-lucide="disc"></i></span>
+        <span class="cname">Brake System</span><span class="ccount">1,140</span>
+      </button>
+      <button class="cat-card" data-cat-filter="suspension">
+        <span class="cat-icon"><i data-lucide="gauge"></i></span>
+        <span class="cname">Suspension</span><span class="ccount">860</span>
+      </button>
+      <button class="cat-card" data-cat-filter="filter">
+        <span class="cat-icon"><i data-lucide="filter"></i></span>
+        <span class="cname">Filters</span><span class="ccount">2,300</span>
+      </button>
+      <button class="cat-card" data-cat-filter="electrical">
+        <span class="cat-icon"><i data-lucide="zap"></i></span>
+        <span class="cname">Electrical</span><span class="ccount">970</span>
+      </button>
+      <button class="cat-card" data-cat-filter="body">
+        <span class="cat-icon"><i data-lucide="layers"></i></span>
+        <span class="cname">Body &amp; Trim</span><span class="ccount">1,480</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP / PRODUCT GRID ============ -->
+<section class="section section-tight" id="shop">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow">Catalog</span>
+        <h2 class="section-title">Featured Parts</h2>
+        <p class="section-subtitle">Genuine and premium-aftermarket parts for Toyota, Nissan, Lexus &amp; Infiniti vehicles.</p>
+      </div>
+      <div class="search-field" style="max-width:320px;">
+        <i data-lucide="search"></i>
+        <input type="text" id="gridSearchInput" placeholder="Search parts, SKU, model..." />
+      </div>
+    </div>
+
+    <div class="shop-layout">
+      <aside class="filters-panel">
+        <h3>Brand</h3>
+        <div class="filter-group" id="filterBrand">
+          <label class="filter-option"><input type="checkbox" value="toyota" /> <span class="brand-dot toyota"></span> Toyota <span class="fc">(3.4k)</span></label>
+          <label class="filter-option"><input type="checkbox" value="nissan" /> <span class="brand-dot nissan"></span> Nissan <span class="fc">(2.8k)</span></label>
+          <label class="filter-option"><input type="checkbox" value="lexus" /> <span class="brand-dot lexus"></span> Lexus <span class="fc">(1.7k)</span></label>
+          <label class="filter-option"><input type="checkbox" value="infiniti" /> <span class="brand-dot infiniti"></span> Infiniti <span class="fc">(1.3k)</span></label>
+        </div>
+
+        <h3>Category</h3>
+        <div class="filter-group" id="filterCategory">
+          <label class="filter-option"><input type="checkbox" value="engine" /> Engine Parts</label>
+          <label class="filter-option"><input type="checkbox" value="brake" /> Brake System</label>
+          <label class="filter-option"><input type="checkbox" value="suspension" /> Suspension</label>
+          <label class="filter-option"><input type="checkbox" value="filter" /> Filters</label>
+          <label class="filter-option"><input type="checkbox" value="electrical" /> Electrical</label>
+          <label class="filter-option"><input type="checkbox" value="body" /> Body &amp; Trim</label>
+        </div>
+
+        <h3>Availability</h3>
+        <div class="filter-group" id="filterAvailability">
+          <label class="filter-option"><input type="checkbox" value="in-stock" /> In Stock</label>
+          <label class="filter-option"><input type="checkbox" value="out-of-stock" /> Not Available</label>
+        </div>
+
+        <button class="btn btn-ghost btn-block" id="clearFiltersBtn"><i data-lucide="rotate-ccw"></i> Clear Filters</button>
+      </aside>
+
+      <div class="products-col">
+        <div class="toolbar">
+          <span class="result-count"><b id="resultCount">0</b> parts found</span>
+          <div class="toolbar-right">
+            <select id="sortSelect">
+              <option value="relevance">Sort: Relevance</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name">Name: A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid product-grid" id="productGrid"></div>
+        <p id="noResults" style="display:none;text-align:center;color:var(--text-muted);padding:60px 0;">No parts match your filters. Try adjusting your search.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHOLESALE CTA ============ -->
+<section class="section section-tight" id="wholesale">
+  <div class="container">
+    <div class="cta-banner">
+      <div>
+        <span class="section-eyebrow eyebrow">B2B Program</span>
+        <h2>Run a garage or resell parts? Get wholesale pricing.</h2>
+        <p>Unlock tiered bulk pricing, dedicated account support, and priority stock allocation for Toyota, Nissan, Lexus &amp; Infiniti parts.</p>
+        <div class="cta-perks">
+          <div><i data-lucide="percent"></i> Up to 30% off retail</div>
+          <div><i data-lucide="truck"></i> Priority dispatch</div>
+          <div><i data-lucide="headset"></i> Dedicated account manager</div>
+        </div>
+      </div>
+      <a href="#contact" class="btn btn-gold"><i data-lucide="briefcase"></i> Apply for B2B Account</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST BAR ============ -->
+<section class="section section-tight">
+  <div class="container">
+    <div class="grid trust-grid">
+      <div class="trust-card">
+        <span class="trust-icon"><i data-lucide="badge-check"></i></span>
+        <div><h4>100% Genuine Parts</h4><p>Sourced directly from authorized channels.</p></div>
+      </div>
+      <div class="trust-card">
+        <span class="trust-icon"><i data-lucide="truck"></i></span>
+        <div><h4>Fast Nationwide Shipping</h4><p>Same-day dispatch on in-stock orders.</p></div>
+      </div>
+      <div class="trust-card">
+        <span class="trust-icon"><i data-lucide="shield-check"></i></span>
+        <div><h4>Warranty Included</h4><p>Every part backed by a fitment guarantee.</p></div>
+      </div>
+      <div class="trust-card">
+        <span class="trust-icon"><i data-lucide="layers"></i></span>
+        <div><h4>Bulk Pricing</h4><p>Automatic discounts in Wholesale mode.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="section section-tight" id="contact">
+  <div class="container">
+    <div class="newsletter">
+      <div>
+        <h3>Stay ahead on stock &amp; pricing</h3>
+        <p>Get notified about new arrivals, restocks and wholesale offers.</p>
+      </div>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" placeholder="you@company.com" required />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark">SA</span>
+          <span class="logo-text"><span class="name">SALIM AUTO PARTS</span><span class="tag">Genuine &amp; OEM Specialist</span></span>
+        </a>
+        <p>Wholesale &amp; retail specialist in genuine and premium-aftermarket spare parts for Toyota, Nissan, Lexus and Infiniti vehicles.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#brands">By Brand</a></li>
+          <li><a href="#categories">By Category</a></li>
+          <li><a href="#shop">All Parts</a></li>
+          <li><a href="#wholesale">Wholesale (B2B)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns &amp; Warranty</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Become a Partner</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Salim Auto Parts. All rights reserved.</span>
+      <div class="payment-icons">
+        <span>Visa</span><span>Mastercard</span><span>Bank Transfer</span><span>POS</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3><i data-lucide="shopping-cart"></i> Your Cart</h3>
+    <button class="drawer-close" id="cartCloseBtn" aria-label="Close cart"><i data-lucide="x"></i></button>
+  </div>
+  <div class="drawer-mode-note" id="drawerModeNote">
+    <i data-lucide="badge-percent"></i> Wholesale pricing applied to this order.
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-footer">
+    <div class="drawer-summary-row"><span>Subtotal</span><span id="cartSubtotal">₦0</span></div>
+    <div class="drawer-summary-row"><span>Estimated Shipping</span><span id="cartShipping">₦0</span></div>
+    <div class="drawer-summary-row total"><span>Total</span><span id="cartTotal">₦0</span></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn" style="margin-top:14px;"><i data-lucide="lock"></i> Checkout</button>
+  </div>
+</aside>
+
+<!-- ============ NOTIFY ME MODAL ============ -->
+<div class="overlay" id="modalOverlay"></div>
+<div class="modal" id="notifyModal">
+  <button class="modal-close-x" id="notifyCloseBtn"><i data-lucide="x"></i></button>
+  <span class="modal-icon"><i data-lucide="bell-ring"></i></span>
+  <h3>Notify me when back in stock</h3>
+  <p id="notifyProductName">We'll email you the moment this part is available again.</p>
+  <input type="email" id="notifyEmailInput" placeholder="you@email.com" />
+  <div class="modal-actions">
+    <button class="btn btn-outline" id="notifyCancelBtn">Cancel</button>
+    <button class="btn btn-primary" id="notifyConfirmBtn"><i data-lucide="bell"></i> Notify Me</button>
+  </div>
+</div>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
